@@ -1,0 +1,31 @@
+DELETE {
+  GRAPH <${graph}> {
+   <${triple.subject}> <${triple.predicate}> ?o
+  }
+}
+<#if triple.language?has_content>
+  INSERT {
+    GRAPH <${graph}> {
+      <${triple.subject}> <${triple.predicate}>  "${triple.object}"@${triple.language}
+
+    }
+  }
+<#elseif triple.datatype?has_content>
+  INSERT {
+    GRAPH <${graph}> {
+      <${triple.subject}> <${triple.predicate}>  "${triple.object}"^^<${triple.datatype}>
+    }
+  }
+<#else>
+  INSERT {
+    GRAPH <${graph}> {
+      <${triple.subject}> <${triple.predicate}>  "${triple.object}"
+    }
+  }
+</#if>
+WHERE  {
+    GRAPH <${graph}> {
+      <${triple.subject}> <${triple.predicate}> ?o
+    }
+
+}

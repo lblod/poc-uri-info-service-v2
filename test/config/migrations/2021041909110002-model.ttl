@@ -1,0 +1,284 @@
+@prefix persoon:     <http://data.vlaanderen.be/ns/persoon#> .
+@prefix generiek:    <http://data.vlaanderen.be/ns/generiek#> .
+@prefix organisatie: <http://data.vlaanderen.be/ns/organisatie#> .
+@prefix org:         <http://www.w3.org/ns/org#> .
+@prefix mandaat:     <http://data.vlaanderen.be/ns/mandaat#> .
+@prefix foaf:        <http://xmlns.com/foaf/0.1/> .
+@prefix locn:        <http://www.w3.org/ns/locn#> .
+@prefix skos:        <http://www.w3.org/2004/02/skos/core#> .
+@prefix schema:      <http://schema.org/> .
+@prefix regorg:      <http://www.w3.org/ns/regorg#> .
+@prefix adres:       <http://data.vlaanderen.be/ns/adres#> .
+@prefix xsd:         <http://www.w3.org/2001/XMLSchema#> .
+@prefix person:      <http://www.w3.org/ns/person#> .
+
+<http://data.lblod.info/id/gestructureerdeIdentificator/7d20f796ee69cc07e073239154cf0760>
+  a                            generiek:GestructureerdeIdentificator ;
+  generiek:lokaleIdentificator "04222222222"^^xsd:string .
+
+<http://data.lblod.info/id/adresvoorstelling/57e6aa86bbcc443f0da458dffb2db091>
+  a                locn:Address ;
+  locn:fullAddress "Kerkstraat 2,  9090 Melle"@nl .
+
+<http://data.lblod.info/id/adresvoorstelling/7d20f796ee69cc07e073239154cf0760>
+  a                                  locn:Address ;
+  adres:Adresvoorstelling.huisnummer "1"^^xsd:string ;
+  adres:gemeenttenaam                "Melle"^^xsd:string ;
+  adres:land                         "België"@nl ;
+  locn:adminUnitL2                   "Oost-Vlaanderen"@nl ;
+  locn:postCode                      "9090"^^xsd:string ;
+  locn:thoroughfare                  "Kerkstraat"@nl .
+
+<http://data.lblod.info/id/adresvoorstelling/9f1e720c24c251f8ba16670b28b640b4>
+  a                locn:Address ;
+  locn:fullAddress "Kerkstraat 12, 9090 Melle"@nl .
+
+<http://data.lblod.info/id/adresvoorstelling/c53a82f8b0c4c7e3df5f8a39634d2910>
+  a                locn:Address ;
+  locn:fullAddress "Kerkstraat 120,  9090 Melle"@nl .
+
+<http://data.lblod.info/id/contactinfo/919a9aa3b564c248c7fcfe610a85fce5>
+  a                schema:ContactPoint ;
+  schema:email     "john.doe@example.com"@nl ;
+  schema:telephone "0488111111"@nl .
+
+<http://data.lblod.info/id/contactpunt/c1508e3363a33d6c1dfd0ecc9dd0f945>
+  a            schema:ContactPoint ;
+  schema:email "Jane.roe@example.com"@nl .
+
+<http://data.lblod.info/id/contactpunt/fd195a19d605c4d0b299a27881fb3fb9>
+  a                schema:ContactPoint ;
+  schema:email     "jan.jansen@example.com"^^xsd:string ;
+  foaf:page        "http://www.GEENWEBSITE.be"^^xsd:anyURI ;
+  schema:telephone "0494111111"^^xsd:string .
+
+<http://data.lblod.info/id/mandaat/35cb1b4cc69bec0c5a72efe83812911f>
+  a          mandaat:Mandaat ;
+  org:heldBy <http://data.lblod.info/id/mandataris/fa0a2302be44cd9bbded84586373e21c> ;
+  org:postIn <http://data.lblod.info/id/bestuursorgaan/9cc4f87292514c96bb883f796ce00239> ;
+  org:role   <http://data.vlaanderen.be/id/concept/BestuursfunctieCode/ac31868f5f3913b3cd34b2bd3f99fbac> .
+
+<http://data.lblod.info/id/mandaat/c0fa72c3985ecc4d2925241d1b3bc467>
+  a          mandaat:Mandaat ;
+  org:heldBy <http://data.lblod.info/id/mandataris/6cd252f138cceff405f02bea2afb8920> ;
+  org:postIn <http://data.lblod.info/id/bestuursorgaan/9cc4f87292514c96bb883f796ce00239> ;
+  org:role   <http://data.vlaanderen.be/id/concept/BestuursfunctieCode/ac31868f5f3913b3cd34b2bd3f99fbac> .
+
+<http://data.lblod.info/id/organisatie/7d20f796ee69cc07e073239154cf0760>
+  a                  org:Organization ;
+  skos:prefLabel     "Kerkfabriek van het Vliegend Spaghettimonster Melle"@nl ;
+  org:classification
+                     <http://data.vlaanderen.be/id/concept/BestuurseenheidClassificatieCode/66ec74fd-8cfc-4e16-99c6-350b35012e86> ;
+  org:hasPrimarySite <http://data.lblod.info/id/vestiging/7d20f796ee69cc07e073239154cf0760> ;
+  regorg:legalName   "Kerkfabriek van het Vliegend Spaghettimonster Melle"@nl ;
+  regorg:orgStatus   <http://data.vlaanderen.be/id/concept/OrganisatieStatus/30af26c4dad048e19870e27f48ea0ef2> .
+
+<http://data.lblod.info/id/persoon/1e218214d6994742c9d543f8fbb5ee10>
+  a                         person:Person ;
+  mandaat:isAangesteldAls   <http://data.lblod.info/id/mandataris/6cd252f138cceff405f02bea2afb8920> ;
+  persoon:gebruikteVoornaam "Jane"@nl ;
+  foaf:familyName           "Doe"@nl .
+
+<http://data.lblod.info/id/persoon/5a616d80d0c2908573bd27bdb5aefee7>
+  a                         person:Person ;
+  mandaat:isAangesteldAls   <http://data.lblod.info/id/mandataris/c02f6f31e51893fb97b4d04c5c81e913>,
+                            <http://data.lblod.info/id/mandataris/20df48f08b6f038d65f5a15890bf2a7d> ;
+  persoon:gebruikteVoornaam "Jan"@nl ;
+  org:basedAt               <http://data.lblod.info/id/vestiging/57e6aa86bbcc443f0da458dffb2db091> ;
+  persoon:aanHef            "Dhr"@nl ;
+  foaf:familyName           "Jansen"@nl .
+
+<http://data.lblod.info/id/persoon/76ade33c361780a620f611b9f8e17419>
+  a                         person:Person ;
+  mandaat:isAangesteldAls   <http://data.lblod.info/id/mandataris/fa0a2302be44cd9bbded84586373e21c> ;
+  persoon:gebruikteVoornaam "Joe"@nl ;
+  foaf:familyName           "Shmoe"@nl .
+
+<http://data.lblod.info/id/persoon/9fd9f63e0d6487537569075da85a0c7f>
+  a                         person:Person ;
+  mandaat:isAangesteldAls   <http://data.lblod.info/id/mandataris/98b88169dada91403a24d510ad8a9012> ;
+  persoon:gebruikteVoornaam "John"@nl ;
+  org:basedAt               <http://data.lblod.info/id/vestiging/9f1e720c24c251f8ba16670b28b640b4> ;
+  foaf:familyName           "Doe"@nl .
+
+<http://data.lblod.info/id/persoon/b4a4725400870722d0f858ae2785a5dc>
+  a                         person:Person ;
+  mandaat:isAangesteldAls   <http://data.lblod.info/id/mandataris/718d37a51f6756a51fcf5d0ce2a7375e> ;
+  persoon:gebruikteVoornaam "Jane"@nl ;
+  org:basedAt               <http://data.lblod.info/id/vestiging/c53a82f8b0c4c7e3df5f8a39634d2910> ;
+  foaf:familyName           "Roe"@nl .
+
+<http://data.lblod.info/id/vestiging/57e6aa86bbcc443f0da458dffb2db091>
+  a                      org:Site ;
+  organisatie:bestaatUit <http://data.lblod.info/id/adresvoorstelling/57e6aa86bbcc443f0da458dffb2db091> ;
+  org:siteAddress        <http://data.lblod.info/id/contactpunt/fd195a19d605c4d0b299a27881fb3fb9> .
+
+<http://data.lblod.info/id/vestiging/7d20f796ee69cc07e073239154cf0760>
+  a                      org:Site ;
+  organisatie:bestaatUit <http://data.lblod.info/id/adresvoorstelling/7d20f796ee69cc07e073239154cf0760> .
+
+<http://data.lblod.info/id/vestiging/9f1e720c24c251f8ba16670b28b640b4>
+  a                      org:Site ;
+  organisatie:bestaatUit <http://data.lblod.info/id/adresvoorstelling/9f1e720c24c251f8ba16670b28b640b4> ;
+  org:siteAddress        <http://data.lblod.info/id/contactinfo/919a9aa3b564c248c7fcfe610a85fce5> .
+
+<http://data.lblod.info/id/vestiging/c53a82f8b0c4c7e3df5f8a39634d2910>
+  a                      org:Site ;
+  organisatie:bestaatUit <http://data.lblod.info/id/adresvoorstelling/c53a82f8b0c4c7e3df5f8a39634d2910> ;
+  org:siteAddress        <http://data.lblod.info/id/contactpunt/c1508e3363a33d6c1dfd0ecc9dd0f945> .
+
+<http://data.vlaanderen.be/id/concept/OrganisatieStatus/30af26c4dad048e19870e27f48ea0ef2>
+  a              skos:Concept ;
+  skos:broader   <http://data.vlaanderen.be/id/concept/OrganisatieStatus/actief> ;
+  skos:prefLabel "Operationeel"@nl .
+
+<http://data.lblod.info/id/mandaat/57e6aa86bbcc443f0da458dffb2db091>
+  a          mandaat:Mandaat ;
+  org:heldBy <http://data.lblod.info/id/mandataris/c02f6f31e51893fb97b4d04c5c81e913> ;
+  org:postIn <http://data.lblod.info/id/bestuursorgaan/9cc4f87292514c96bb883f796ce00239> ;
+  org:role   <http://data.vlaanderen.be/id/concept/BestuursfunctieCode/f960d7b1488d049a982b23251025d9f6> .
+
+<http://data.lblod.info/id/mandaat/c53a82f8b0c4c7e3df5f8a39634d2910>
+  a          mandaat:Mandaat ;
+  org:heldBy <http://data.lblod.info/id/mandataris/718d37a51f6756a51fcf5d0ce2a7375e> ;
+  org:postIn <http://data.lblod.info/id/bestuursorgaan/9cc4f87292514c96bb883f796ce00239> ;
+  org:role   <http://data.vlaanderen.be/id/concept/BestuursfunctieCode/a38959ecec530654de15ab06c5b1f276> .
+
+<http://data.lblod.info/id/mandataris/6cd252f138cceff405f02bea2afb8920>
+  a                              mandaat:Mandataris ;
+  mandaat:isBestuurlijkeAliasVan <http://data.lblod.info/id/persoon/1e218214d6994742c9d543f8fbb5ee10> ;
+  mandaat:start                  "2010-01-19T16:00:00Z"^^xsd:dateTime ;
+  org:holds                      <http://data.lblod.info/id/mandaat/9f1e720c24c251f8ba16670b28b640b4> .
+
+<http://data.lblod.info/id/mandataris/718d37a51f6756a51fcf5d0ce2a7375e>
+  a                              mandaat:Mandataris ;
+  mandaat:isBestuurlijkeAliasVan <http://data.lblod.info/id/persoon/b4a4725400870722d0f858ae2785a5dc> ;
+  org:holds                      <http://data.lblod.info/id/mandaat/c53a82f8b0c4c7e3df5f8a39634d2910> .
+
+<http://data.lblod.info/id/mandataris/98b88169dada91403a24d510ad8a9012>
+  a                              mandaat:Mandataris ;
+  mandaat:isBestuurlijkeAliasVan <http://data.lblod.info/id/persoon/9fd9f63e0d6487537569075da85a0c7f> ;
+  mandaat:start                  "2010-01-19T16:00:00Z"^^xsd:dateTime ;
+  org:holds                      <http://data.lblod.info/id/mandaat/9f1e720c24c251f8ba16670b28b640b4> .
+
+<http://data.lblod.info/id/mandataris/c02f6f31e51893fb97b4d04c5c81e913>
+  a                              mandaat:Mandataris ;
+  mandaat:isBestuurlijkeAliasVan <http://data.lblod.info/id/persoon/5a616d80d0c2908573bd27bdb5aefee7> ;
+  mandaat:start                  "2010-01-19T16:00:00Z"^^xsd:dateTime ;
+  org:holds                      <http://data.lblod.info/id/mandaat/57e6aa86bbcc443f0da458dffb2db091> .
+
+<http://data.lblod.info/id/mandataris/fa0a2302be44cd9bbded84586373e21c>
+  a                              mandaat:Mandataris ;
+  mandaat:isBestuurlijkeAliasVan <http://data.lblod.info/id/persoon/76ade33c361780a620f611b9f8e17419> ;
+  mandaat:start                  "2010-01-19T16:00:00Z"^^xsd:dateTime ;
+  org:holds                      <http://data.lblod.info/id/mandaat/9f1e720c24c251f8ba16670b28b640b4> .
+
+<http://data.lblod.info/id/mandaat/9f1e720c24c251f8ba16670b28b640b4>
+  a          mandaat:Mandaat ;
+  org:heldBy <http://data.lblod.info/id/mandataris/98b88169dada91403a24d510ad8a9012> ;
+  org:postIn <http://data.lblod.info/id/bestuursorgaan/9cc4f87292514c96bb883f796ce00239> ;
+  org:role   <http://data.vlaanderen.be/id/concept/BestuursFunctieCode/c456aedca0643d3e71919f16ac181da8> .
+
+<http://data.lblod.info/id/bestuursorgaan/9cc4f87292514c96bb883f796ce00239>
+  a                               <http://data.vlaanderen.be/ns/besluit#Bestuursorgaan> ;
+  generiek:isTijdspecialisatieVan <http://data.lblod.info/id/organisatie/7d20f796ee69cc07e073239154cf0760> ;
+  org:hasPost                     <http://data.lblod.info/id/mandaat/35cb1b4cc69bec0c5a72efe83812911f>,
+                                  <http://data.lblod.info/id/mandaat/57e6aa86bbcc443f0da458dffb2db091>,
+                                  <http://data.lblod.info/id/mandaat/9f1e720c24c251f8ba16670b28b640b4>,
+                                  <http://data.lblod.info/id/mandaat/c0fa72c3985ecc4d2925241d1b3bc467>,
+                                  <http://data.lblod.info/id/mandaat/c53a82f8b0c4c7e3df5f8a39634d2910> .
+
+<http://data.lblod.info/id/gestructureerdeIdentificator/4d0f5d3f78bcec506468d45034aa6bc3>
+  a                            generiek:GestructureerdeIdentificator ;
+  generiek:lokaleIdentificator "0411111111"^^xsd:string .
+
+<http://data.lblod.info/id/gestructureerdeIdentificator/53b5af15b9ae0ab919e7197217e87ee9>
+  a                            generiek:GestructureerdeIdentificator ;
+  generiek:lokaleIdentificator "CKB_MELLE_O"^^xsd:string .
+
+<http://data.vlaanderen.be/id/concept/BestuursfunctieCode/a38959ecec530654de15ab06c5b1f276>
+  a              skos:Concept ;
+  skos:inScheme  <http://data.vlaanderen.be/id/conceptscheme/BestuursfunctieCode> ;
+  skos:prefLabel "Voorzitter"@nl .
+
+<http://data.vlaanderen.be/id/concept/BestuursfunctieCode/f960d7b1488d049a982b23251025d9f6>
+  a              skos:Concept ;
+  skos:inScheme  <http://data.vlaanderen.be/id/conceptscheme/BestuursfunctieCode> ;
+  skos:prefLabel "Secretaris"@nl .
+
+<http://data.lblod.info/id/adresvoorstelling/4d0f5d3f78bcec506468d45034aa6bc3>
+  a                                  locn:Address ;
+  adres:Adresvoorstelling.huisnummer "1"^^xsd:string ;
+  adres:gemeentenaam                 "Melle"@nl ;
+  adres:land                         "België"@nl ;
+  locn:adminUnitL2                   "Oost-Vlaanderen"@nl ;
+  locn:postCode                      "9090"^^xsd:string ;
+  locn:thoroughfare                  "Kerkstraat"@nl .
+
+<http://data.lblod.info/id/contactinfo/e27ed209392b0d8e83c4e5bc3acd5b36>
+  a                schema:ContactPoint ;
+  schema:telephone "0485222222"^^xsd:string .
+
+<http://data.lblod.info/id/contactpunt/d9beada5ddda82dd1a7687f816de9f4a>
+  a                schema:ContactPoint ;
+  schema:email     "jan.jansen@example.com"@nl ;
+  schema:telephone "0485111111"^^xsd:string .
+
+<http://data.lblod.info/id/mandataris/20df48f08b6f038d65f5a15890bf2a7d>
+  a                              mandaat:Mandataris ;
+  mandaat:isBestuurlijkeAliasVan <http://data.lblod.info/id/persoon/5a616d80d0c2908573bd27bdb5aefee7> ;
+  mandaat:start                  "2010-01-19T16:00:00Z"^^xsd:dateTime ;
+  org:holds                      <http://data.lblod.info/id/mandaat/c53a82f8b0c4c7e3df5f8a39634d2910> .
+
+<http://data.lblod.info/id/mandataris/42a88256c78ce8a65ba24c8cb14f8dad>
+  a                              mandaat:Mandataris ;
+  mandaat:isBestuurlijkeAliasVan <http://data.lblod.info/id/persoon/4701e26889b50f18e2c24a971c4d6a58> ;
+  org:holds                      <http://data.lblod.info/id/mandaat/fe2d035e6ae172110d9e71b9cc55a67a> .
+
+<http://data.lblod.info/id/organisatie/4d0f5d3f78bcec506468d45034aa6bc3>
+  a                  org:Organization ;
+  skos:prefLabel     "FSM Melle"@nl ;
+  org:classification
+                     <http://data.vlaanderen.be/id/concept/BestuurseenheidClassificatieCode/f9cac08a-13c1-49da-9bcb-f650b0604054> ;
+  org:hasPrimarySite <http://data.lblod.info/id/vestiging/4d0f5d3f78bcec506468d45034aa6bc3> ;
+  regorg:legalName   "FSM Melle"@nl ;
+  regorg:orgStatus   <http://data.vlaanderen.be/id/concept/OrganisatieStatus/30af26c4dad048e19870e27f48ea0ef2> .
+
+<http://data.lblod.info/id/persoon/4701e26889b50f18e2c24a971c4d6a58>
+  a                         person:Person ;
+  mandaat:isAangesteldAls   <http://data.lblod.info/id/mandataris/42a88256c78ce8a65ba24c8cb14f8dad> ;
+  persoon:gebruikteVoornaam "Peter"@nl ;
+  org:basedAt               <http://data.lblod.info/id/vestiging/e27ed209392b0d8e83c4e5bc3acd5b36> ;
+  foaf:familyName           "Peters"@nl .
+
+<http://data.lblod.info/id/persoon/xa616d80d0c2908573bd27bdb5aefee7>
+  a                         person:Person ;
+  mandaat:isAangesteldAls   <http://data.lblod.info/id/mandataris/20df48f08b6f038d65f5a15890bf2a7d> ;
+  persoon:gebruikteVoornaam "Jan"@nl ;
+  org:basedAt               <http://data.lblod.info/id/vestiging/7c97c78980d2710d0a15b43886d1d37c> ;
+  foaf:familyName           "Jansen"@nl .
+
+<http://data.lblod.info/id/vestiging/4d0f5d3f78bcec506468d45034aa6bc3>
+  a                      org:Site ;
+  organisatie:bestaatUit <http://data.lblod.info/id/adresvoorstelling/4d0f5d3f78bcec506468d45034aa6bc3> .
+
+<http://data.lblod.info/id/vestiging/7c97c78980d2710d0a15b43886d1d37c>
+  a                 org:Site ;
+  schema:siteAdress <http://data.lblod.info/id/contactpunt/d9beada5ddda82dd1a7687f816de9f4a> .
+
+<http://data.lblod.info/id/vestiging/e27ed209392b0d8e83c4e5bc3acd5b36>
+  a                 org:Site ;
+  schema:siteAdress <http://data.lblod.info/id/contactinfo/e27ed209392b0d8e83c4e5bc3acd5b36> .
+
+<http://data.vlaanderen.be/id/concept/OrganisatieStatus/30af26c4dad048e19870e27f48ea0ef2>
+  a              skos:Concept ;
+  skos:broader   <http://data.vlaanderen.be/id/concept/OrganisatieStatus/actief> ;
+  skos:prefLabel "Operationeel"@nl .
+
+<http://data.lblod.info/id/bestuursorgaan/755be1c4a38329b87f47ad55c2f82c50>
+  a                               <http://data.vlaanderen.be/ns/besluit#Bestuursorgaan> ;
+  generiek:isTijdspecialisatieVan <http://data.lblod.info/id/organisatie/4d0f5d3f78bcec506468d45034aa6bc3> ;
+  org:hasPost                     <http://data.lblod.info/id/mandaat/13578571f190e792dccb8daa388b7304>,
+                                  <http://data.lblod.info/id/mandaat/fe2d035e6ae172110d9e71b9cc55a67a> .
+
+

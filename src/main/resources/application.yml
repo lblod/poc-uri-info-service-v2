@@ -1,0 +1,15 @@
+server:
+  port: ${SERVER_PORT:8080}
+
+sparql:
+  endpoint: ${SPARQL_ENDPOINT:http://localhost:8890/sparql}
+  defaultGraphUri: ${TARGET_GRAPH:http://mu.semte.ch/application}
+
+spring:
+  servlet:
+    multipart:
+      max-request-size: ${MAX_REQUEST_SIZE:512MB}
+      max-file-size: ${MAX_FILE_SIZE:512MB}
+logging:
+  level:
+    root: ${LOGGING_LEVEL:DEBUG}
