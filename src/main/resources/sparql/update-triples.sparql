@@ -5,35 +5,23 @@ DELETE {
   </#list>
   }
 }
-<#if triple.language?has_content>
   INSERT {
     GRAPH <${graph}> {
 
   <#list triples as triple>
+    <#if triple.language?has_content>
+
       <${triple.subject}> <${triple.predicate}>  "${triple.object}"@${triple.language}.
-  </#list>
-
-    }
-  }
-<#elseif triple.datatype?has_content>
-  INSERT {
-    GRAPH <${graph}> {
-
-  <#list triples as triple>
+      <#elseif triple.datatype?has_content>
       <${triple.subject}> <${triple.predicate}>  "${triple.object}"^^<${triple.datatype}>.
-  </#list>
-    }
-  }
-<#else>
-  INSERT {
-    GRAPH <${graph}> {
-
-  <#list triples as triple>
+        <#else>
       <${triple.subject}> <${triple.predicate}>  "${triple.object}".
+      </#if>
+
   </#list>
+
     }
   }
-</#if>
 WHERE  {
     GRAPH <${graph}> {
 

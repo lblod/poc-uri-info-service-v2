@@ -24,7 +24,7 @@ public class CrudTripleService {
   }
 
   public List<FrontendStmt> updateTriples(List<FrontendStmt> triples) {
-    String query = queryStore.getQueryWithParameters("updateTriple", Map.of("triples", triples, "graph", defaultGraphUri));
+    String query = queryStore.getQueryWithParameters("updateTriples", Map.of("triples", triples, "graph", defaultGraphUri));
     log.debug(query);
     client.executeUpdateQuery(query);
     return triples;
