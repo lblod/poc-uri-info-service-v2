@@ -15,4 +15,5 @@ public class FrontendStmt {
   private String object;
   private String datatype;
   private String language;
+  private String predicateLabel;
 }

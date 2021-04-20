@@ -1,249 +1,265 @@
 package mu.semte.ch.uriinfo.v2.app.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.slugify.Slugify;
 import lombok.extern.slf4j.Slf4j;
-import mu.semte.ch.uriinfo.v2.app.dto.FrontendElement;
-import mu.semte.ch.uriinfo.v2.app.dto.FrontendField;
-import mu.semte.ch.uriinfo.v2.app.dto.FrontendPage;
-import mu.semte.ch.uriinfo.v2.app.dto.FrontendRow;
-import mu.semte.ch.uriinfo.v2.app.dto.FrontendSidePanel;
-import mu.semte.ch.uriinfo.v2.app.dto.FrontendStmt;
-import mu.semte.ch.uriinfo.v2.app.dto.FrontendUI;
+import mu.semte.ch.uriinfo.v2.app.dto.*;
+import mu.semte.ch.uriinfo.v2.lib.dto.JsonApiData;
+import mu.semte.ch.uriinfo.v2.lib.dto.JsonApiResponse;
 import mu.semte.ch.uriinfo.v2.lib.utils.ModelUtils;
+import org.apache.http.client.utils.URIUtils;
+import org.apache.http.client.utils.URLEncodedUtils;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.RDFNode;
 import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.rdf.model.Statement;
 import org.apache.jena.riot.Lang;
 import org.apache.jena.vocabulary.RDF;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
 import static java.util.Optional.ofNullable;
-import static mu.semte.ch.uriinfo.v2.app.FrontendVoc.C_FIELD;
-import static mu.semte.ch.uriinfo.v2.app.FrontendVoc.C_MULTI_LEVEL_FIELD;
-import static mu.semte.ch.uriinfo.v2.app.FrontendVoc.P_DETAIL_PANEL;
-import static mu.semte.ch.uriinfo.v2.app.FrontendVoc.P_EDITABLE;
-import static mu.semte.ch.uriinfo.v2.app.FrontendVoc.P_ELEMENTS;
-import static mu.semte.ch.uriinfo.v2.app.FrontendVoc.P_FIELDS;
-import static mu.semte.ch.uriinfo.v2.app.FrontendVoc.P_FIELD_TYPE;
-import static mu.semte.ch.uriinfo.v2.app.FrontendVoc.P_LABEL;
-import static mu.semte.ch.uriinfo.v2.app.FrontendVoc.P_META_FIELD;
-import static mu.semte.ch.uriinfo.v2.app.FrontendVoc.P_ORDERING;
-import static mu.semte.ch.uriinfo.v2.app.FrontendVoc.P_PAGES;
-import static mu.semte.ch.uriinfo.v2.app.FrontendVoc.P_SEPARATOR;
-import static mu.semte.ch.uriinfo.v2.app.FrontendVoc.P_SIDE_PANEL_TITLE;
-import static mu.semte.ch.uriinfo.v2.app.FrontendVoc.P_SOURCE;
-import static mu.semte.ch.uriinfo.v2.app.FrontendVoc.P_SUBJECTS;
-import static mu.semte.ch.uriinfo.v2.app.FrontendVoc.P_TITLE;
-import static mu.semte.ch.uriinfo.v2.app.FrontendVoc.P_TYPE;
+import static mu.semte.ch.uriinfo.v2.app.FrontendVoc.*;
 import static org.apache.jena.rdf.model.ResourceFactory.createProperty;
 import static org.apache.jena.rdf.model.ResourceFactory.createResource;
 
 @Service
 @Slf4j
 public class UIBuilderService {
-  private final UriInfoService uriInfoService;
-  private final Slugify slugify;
+    private final UriInfoService uriInfoService;
+    private final Slugify slugify;
 
-  public UIBuilderService(UriInfoService uriInfoService, Slugify slugify) {
-    this.uriInfoService = uriInfoService;
-    this.slugify = slugify;
-  }
+    @Value("${resource-labels.endpoint}")
+    private String resourceLabelsEndpoint;
+    @Value("${resource-labels.enabled}")
+    private boolean resourceLabelsEnabled;
 
-  public FrontendUI build(String uri) {
-    var metaModel = uriInfoService.fetchPage(uri);
-    var model = uriInfoService.fetchSubject(uri);
-    var pages = metaModel.listObjectsOfProperty(P_PAGES).toList().stream()
-                         .map(RDFNode::asResource)
-                         .map(page -> this.buildPage(uri, model, metaModel, page))
-                         .collect(Collectors.toList());
-
-
-    var ui = new FrontendUI();
-    ui.setUri(uri);
-    ui.setPages(pages);
-    return ui;
-  }
-
-
-  private FrontendPage buildPage(String uri, Model model, Model metaModel, Resource page) {
-    FrontendPage fp = new FrontendPage();
-    String title = metaModel.getProperty(page, P_TITLE).getString();
-    fp.setTitle(title);
-    fp.setSlug(slugify.slugify(title));
-    fp.setOrdering(metaModel.getProperty(page, P_ORDERING).getInt());
-    fp.setElements(metaModel.listObjectsOfProperty(page, P_ELEMENTS).toList().stream()
-                            .map(RDFNode::asResource)
-                            .map(element -> this.buildElement(createResource(uri), model, metaModel, element))
-                            .sorted()
-                            .collect(Collectors.toList()));
-    return fp;
-  }
-
-  private FrontendElement buildElement(Resource uri, Model model, Model metaModel, Resource element) {
-    FrontendElement el = new FrontendElement();
-    el.setTitle(ofNullable(metaModel.getProperty(element, P_TITLE)).map(Statement::getString).orElse(null));
-    el.setOrdering(metaModel.getProperty(element, P_ORDERING).getInt());
-    el.setType(FrontendElement.evaluateType(metaModel.getProperty(element, P_TYPE).getObject().asResource()));
-    el.setEditable(metaModel.getProperty(element, P_EDITABLE).getBoolean());
-    List<Resource> fields = metaModel.listObjectsOfProperty(element, P_FIELDS).toList().stream()
-                                     .map(RDFNode::asResource)
-                                     .collect(Collectors.toList());
-
-    el.setMetaFields(fields.stream().map(f-> this.buildSkeletonField(metaModel, f)).sorted().collect(Collectors.toList()));
-
-    if (FrontendElement.ElementType.TABLE.equals(el.getType())) {
-      var rows = model.listObjectsOfProperty(uri, createProperty(metaModel.getProperty(element, P_SOURCE)
-                                                                          .getResource()
-                                                                          .getURI())).toList()
-                      .stream().map(RDFNode::asResource)
-                      .map(iri -> this.buildRow(iri, model, metaModel, element, fields))
-                      .collect(Collectors.toList());
-      el.setRows(rows);
+    public UIBuilderService(UriInfoService uriInfoService, Slugify slugify) {
+        this.uriInfoService = uriInfoService;
+        this.slugify = slugify;
     }
-    else if (FrontendElement.ElementType.PANEL.equals(el.getType())) {
-      el.setFields(fields.stream().map(f -> this.buildField(uri, model, metaModel, f)).sorted().collect(Collectors.toList()));
+
+    public FrontendUI build(String uri) {
+        var metaModel = uriInfoService.fetchPage(uri);
+        var model = uriInfoService.fetchSubject(uri);
+        var pages = metaModel.listObjectsOfProperty(P_PAGES).toList().stream()
+                .map(RDFNode::asResource)
+                .map(page -> this.buildPage(uri, model, metaModel, page))
+                .collect(Collectors.toList());
+
+
+        var ui = new FrontendUI();
+        ui.setUri(uri);
+        ui.setPages(pages);
+        return ui;
     }
 
 
-    return el;
-  }
-
-  private FrontendRow buildRow(Resource uri, Model model, Model metaModel, Resource element, List<Resource> fields) {
-    FrontendRow row = new FrontendRow();
-    row.setFields(fields.stream().map(f -> this.buildField(uri, model, metaModel, f)).sorted().collect(Collectors.toList()));
-    ofNullable(metaModel.getProperty(element, P_DETAIL_PANEL)).ifPresent(dp -> {
-      FrontendSidePanel detailPanel = new FrontendSidePanel();
-      Resource detailPanelSubject = dp.getResource();
-      detailPanel.setElements(metaModel.listObjectsOfProperty(detailPanelSubject, P_ELEMENTS).toList().stream()
-                                       .map(RDFNode::asResource)
-                                       .map(el -> this.buildElement(uri, model, metaModel, el))
-                                       .sorted()
-                                       .collect(Collectors.toList()));
-      detailPanel.setLabel(ofNullable(metaModel.getProperty(detailPanelSubject, P_LABEL)).map(Statement::getString)
-                                                                                         .orElse("Missing Label"));
-      detailPanel.setTitle(ofNullable(metaModel.getProperty(detailPanelSubject, P_SIDE_PANEL_TITLE))
-                                   .map(Statement::getResource)
-                                   .flatMap(titleSubject -> ofNullable(metaModel.getProperty(titleSubject, P_META_FIELD)))
-                                   .map(Statement::getResource)
-                                   .map(metaField -> this.buildField(uri, model, metaModel, metaField))
-                                   .map(FrontendField::getValue)
-                                   .orElse(detailPanel.getLabel()));
-
-      row.setDetailPanel(detailPanel);
-    });
-
-    return row;
-  }
-
-  private FrontendField buildField(Resource rootResource, Model model, Model metaModel, Resource field) {
-    FrontendField f = buildSkeletonField(metaModel, field);
-    var fields = metaModel.listObjectsOfProperty(field, P_FIELDS).toList().stream()
-            .map(RDFNode::asResource).collect(Collectors.toList());
-    f.setLabelUris(fields.stream().map(Resource::getURI).collect(Collectors.toList()));
-
-    String separator = ofNullable(metaModel.getProperty(field, P_SEPARATOR)).map(Statement::getString).orElse(" ");
-    Resource nsType = metaModel.getProperty(field, RDF.type).getObject().asResource();
-
-    if (C_FIELD.equals(nsType)) {
-      String value = fields.stream()
-                           .map(fieldPropertyUri -> model.getProperty(rootResource, createProperty(fieldPropertyUri.getURI()))
-                                                         .getString())
-                           .collect(Collectors.joining(separator));
-      f.setValue(value);
-      f.setTriples(this.buildTriples(model, rootResource, fields));
+    private FrontendPage buildPage(String uri, Model model, Model metaModel, Resource page) {
+        FrontendPage fp = new FrontendPage();
+        String title = metaModel.getProperty(page, P_TITLE).getString();
+        fp.setTitle(title);
+        fp.setSlug(slugify.slugify(title));
+        fp.setOrdering(metaModel.getProperty(page, P_ORDERING).getInt());
+        fp.setElements(metaModel.listObjectsOfProperty(page, P_ELEMENTS).toList().stream()
+                .map(RDFNode::asResource)
+                .map(element -> this.buildElement(createResource(uri), model, metaModel, element))
+                .sorted()
+                .collect(Collectors.toList()));
+        return fp;
     }
-    else if (C_MULTI_LEVEL_FIELD.equals(nsType)) {
-      var source = model.getProperty(rootResource, createProperty(metaModel.getProperty(field, P_SOURCE)
-                                                                           .getResource()
-                                                                           .getURI())).getObject().asResource();
-      buildMultiLevelField(f, model, metaModel, source, field, separator, fields);
+
+    private FrontendElement buildElement(Resource uri, Model model, Model metaModel, Resource element) {
+        FrontendElement el = new FrontendElement();
+        el.setTitle(ofNullable(metaModel.getProperty(element, P_TITLE)).map(Statement::getString).orElse(null));
+        el.setOrdering(metaModel.getProperty(element, P_ORDERING).getInt());
+        el.setType(FrontendElement.evaluateType(metaModel.getProperty(element, P_TYPE).getObject().asResource()));
+        el.setEditable(metaModel.getProperty(element, P_EDITABLE).getBoolean());
+        List<Resource> fields = metaModel.listObjectsOfProperty(element, P_FIELDS).toList().stream()
+                .map(RDFNode::asResource)
+                .collect(Collectors.toList());
+
+        el.setMetaFields(fields.stream().map(f -> this.buildSkeletonField(metaModel, f)).sorted().collect(Collectors.toList()));
+
+        if (FrontendElement.ElementType.TABLE.equals(el.getType())) {
+            var rows = model.listObjectsOfProperty(uri, createProperty(metaModel.getProperty(element, P_SOURCE)
+                    .getResource()
+                    .getURI())).toList()
+                    .stream().map(RDFNode::asResource)
+                    .map(iri -> this.buildRow(iri, model, metaModel, element, fields))
+                    .collect(Collectors.toList());
+            el.setRows(rows);
+        } else if (FrontendElement.ElementType.PANEL.equals(el.getType())) {
+            el.setFields(fields.stream().map(f -> this.buildField(uri, model, metaModel, f)).sorted().collect(Collectors.toList()));
+        }
+
+
+        return el;
     }
-    return f;
-  }
 
-  private FrontendField buildSkeletonField(Model metaModel, Resource field){
-    FrontendField f = new FrontendField();
-    f.setLabel(ofNullable(metaModel.getProperty(field, P_LABEL)).map(Statement::getString).orElse(null));
-    f.setOrdering(ofNullable(metaModel.getProperty(field, P_ORDERING)).map(Statement::getInt).orElse(0));
-    f.setType(ofNullable(metaModel.getProperty(field, P_FIELD_TYPE)).map(Statement::getString).orElse(null));
-    return f;
-  }
+    private FrontendRow buildRow(Resource uri, Model model, Model metaModel, Resource element, List<Resource> fields) {
+        FrontendRow row = new FrontendRow();
+        row.setFields(fields.stream().map(f -> this.buildField(uri, model, metaModel, f)).sorted().collect(Collectors.toList()));
+        ofNullable(metaModel.getProperty(element, P_DETAIL_PANEL)).ifPresent(dp -> {
+            FrontendSidePanel detailPanel = new FrontendSidePanel();
+            Resource detailPanelSubject = dp.getResource();
+            detailPanel.setElements(metaModel.listObjectsOfProperty(detailPanelSubject, P_ELEMENTS).toList().stream()
+                    .map(RDFNode::asResource)
+                    .map(el -> this.buildElement(uri, model, metaModel, el))
+                    .sorted()
+                    .collect(Collectors.toList()));
+            detailPanel.setLabel(ofNullable(metaModel.getProperty(detailPanelSubject, P_LABEL)).map(Statement::getString)
+                    .orElse("Missing Label"));
+            detailPanel.setTitle(ofNullable(metaModel.getProperty(detailPanelSubject, P_SIDE_PANEL_TITLE))
+                    .map(Statement::getResource)
+                    .flatMap(titleSubject -> ofNullable(metaModel.getProperty(titleSubject, P_META_FIELD)))
+                    .map(Statement::getResource)
+                    .map(metaField -> this.buildField(uri, model, metaModel, metaField))
+                    .map(FrontendField::getValue)
+                    .orElse(detailPanel.getLabel()));
 
-  private List<FrontendStmt> buildTriples(Model model, Resource rootResource, List<Resource> fields) {
-    return fields.stream().map(fieldPropertyUri -> {
-      Statement property = model.getProperty(rootResource, createProperty(fieldPropertyUri.getURI()));
-      return FrontendStmt.builder()
-                         .subject(property.getSubject().getURI())
-                         .predicate(fieldPropertyUri.getURI())
-                         .object(property.getLiteral().getString())
-                         .datatype(property.getLiteral().getDatatypeURI())
-                         .language(property.getLiteral().getLanguage())
-                         .build();
-    }).collect(Collectors.toList());
-  }
+            row.setDetailPanel(detailPanel);
+        });
 
-  private void buildMultiLevelField(FrontendField frontendField,
-                                    Model model,
-                                    Model metaModel,
-                                    Resource source,
-                                    Resource field,
-                                    String separator,
-                                    List<Resource> fields) {
-    List<Resource> predicates = metaModel.listObjectsOfProperty(field, P_SUBJECTS)
-                                         .toList()
-                                         .stream()
-                                         .map(RDFNode::asResource)
-                                         .collect(Collectors.toList());
-    String value;
-    List<FrontendStmt> triples = null;
-    if (predicates.size() >= 1) {
-      var lastDepth = findDepth(model, source, predicates);
-      value = fields.stream()
+        return row;
+    }
+
+    private FrontendField buildField(Resource rootResource, Model model, Model metaModel, Resource field) {
+        FrontendField f = buildSkeletonField(metaModel, field);
+        var fields = metaModel.listObjectsOfProperty(field, P_FIELDS).toList().stream()
+                .map(RDFNode::asResource).collect(Collectors.toList());
+        f.setLabelUris(fields.stream().map(Resource::getURI).collect(Collectors.toList()));
+
+        String separator = ofNullable(metaModel.getProperty(field, P_SEPARATOR)).map(Statement::getString).orElse(" ");
+        Resource nsType = metaModel.getProperty(field, RDF.type).getObject().asResource();
+
+        if (C_FIELD.equals(nsType)) {
+            String value = fields.stream()
+                    .map(fieldPropertyUri -> model.getProperty(rootResource, createProperty(fieldPropertyUri.getURI()))
+                            .getString())
+                    .collect(Collectors.joining(separator));
+            f.setValue(value);
+            f.setTriples(this.buildTriples(model, rootResource, fields));
+        } else if (C_MULTI_LEVEL_FIELD.equals(nsType)) {
+            var source = model.getProperty(rootResource, createProperty(metaModel.getProperty(field, P_SOURCE)
+                    .getResource()
+                    .getURI())).getObject().asResource();
+            buildMultiLevelField(f, model, metaModel, source, field, separator, fields);
+        }
+        return f;
+    }
+
+    private FrontendField buildSkeletonField(Model metaModel, Resource field) {
+        FrontendField f = new FrontendField();
+        f.setLabel(ofNullable(metaModel.getProperty(field, P_LABEL)).map(Statement::getString).orElse(null));
+        f.setOrdering(ofNullable(metaModel.getProperty(field, P_ORDERING)).map(Statement::getInt).orElse(0));
+        f.setType(ofNullable(metaModel.getProperty(field, P_FIELD_TYPE)).map(Statement::getString).orElse(null));
+        return f;
+    }
+
+    private List<FrontendStmt> buildTriples(Model model, Resource rootResource, List<Resource> fields) {
+        return fields.stream().map(fieldPropertyUri -> {
+            Statement property = model.getProperty(rootResource, createProperty(fieldPropertyUri.getURI()));
+
+            return FrontendStmt.builder()
+                    .subject(property.getSubject().getURI())
+                    .predicate(fieldPropertyUri.getURI())
+                    .object(property.getLiteral().getString())
+                    .datatype(property.getLiteral().getDatatypeURI())
+                    .predicateLabel(this.fetchLabelFromResourceLabelsService(fieldPropertyUri.getURI()))
+                    .language(property.getLiteral().getLanguage())
+
+                    .build();
+        }).collect(Collectors.toList());
+    }
+
+    private String fetchLabelFromResourceLabelsService(String uri) {
+        if (resourceLabelsEnabled) {
+            try{
+                String endpoint = "%s/info?term=%s".formatted(resourceLabelsEndpoint, URLEncoder.encode(uri, StandardCharsets.UTF_8));
+                URL url = new URL(endpoint);
+                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                connection.setRequestProperty("accept", "application/vnd.api+json");
+                InputStream responseStream = connection.getInputStream();
+                ObjectMapper mapper = new ObjectMapper();
+                var body = mapper.readValue(responseStream, JsonApiResponse.class);
+                return ofNullable(body).map(JsonApiResponse::getData).map(JsonApiData::getAttributes).map(attributes -> attributes.getOrDefault("label", uri)).orElse(uri);
+            }catch (Exception e){
+                log.debug("error while calling resource labels service", e);
+            }
+
+        }
+        return uri;
+    }
+
+    private void buildMultiLevelField(FrontendField frontendField,
+                                      Model model,
+                                      Model metaModel,
+                                      Resource source,
+                                      Resource field,
+                                      String separator,
+                                      List<Resource> fields) {
+        List<Resource> predicates = metaModel.listObjectsOfProperty(field, P_SUBJECTS)
+                .toList()
+                .stream()
+                .map(RDFNode::asResource)
+                .collect(Collectors.toList());
+        String value;
+        List<FrontendStmt> triples = null;
+        if (predicates.size() >= 1) {
+            var lastDepth = findDepth(model, source, predicates);
+            value = fields.stream()
                     .map(fieldPropertyUri -> lastDepth.getProperty(null, createProperty(fieldPropertyUri.getURI())))
                     .filter(Objects::nonNull)
                     .map(Statement::getString)
                     .collect(Collectors.joining(separator));
-      triples = this.buildTriples(lastDepth, null, fields);
+            triples = this.buildTriples(lastDepth, null, fields);
 
-    }
-    else {
-      value = fields.stream()
+        } else {
+            value = fields.stream()
                     .map(fieldPropertyUri -> model.getProperty(source, createProperty(fieldPropertyUri.getURI())))
                     .filter(Objects::nonNull)
                     .map(Statement::getString)
                     .collect(Collectors.joining(separator));
-      triples = this.buildTriples(model, source, fields);
+            triples = this.buildTriples(model, source, fields);
+        }
+        frontendField.setValue(value);
+        frontendField.setTriples(triples);
     }
-    frontendField.setValue(value);
-    frontendField.setTriples(triples);
-  }
 
-  private Model findDepth(Model model, Resource subject, List<Resource> predicates) {
-    var root = model.listStatements(subject, null, (RDFNode) null);
-    if (predicates.isEmpty()) {
-      return root.toModel();
+    private Model findDepth(Model model, Resource subject, List<Resource> predicates) {
+        var root = model.listStatements(subject, null, (RDFNode) null);
+        if (predicates.isEmpty()) {
+            return root.toModel();
+        }
+        var rootSource = root.toList();
+        Resource rootPredicate = predicates.stream()
+                .filter(s -> rootSource.stream().anyMatch(rs -> rs.getPredicate().asResource().equals(s)))
+                .findFirst()
+                .orElseThrow(() -> new RuntimeException("could not find predicate. rootSource:\n%s\nsubject:\n%s\npredicates:\n%s\n"
+                        .formatted(ModelUtils.toString(root.toModel(), Lang.TURTLE), subject.getURI(), predicates.stream().map(Resource::getURI).collect(Collectors.toList())))
+                );
+        var newSubject = rootSource.stream()
+                .filter(rs -> rs.getPredicate().equals(rootPredicate))
+                .map(Statement::getObject)
+                .findFirst()
+                .orElseThrow(() -> new RuntimeException("could not find subject. rootSource:\n%s\nrootPredicate:\n%s\npredicates:\n%s\n"
+                        .formatted(ModelUtils.toString(root.toModel(), Lang.TURTLE), rootPredicate.getURI(), predicates.stream().map(Resource::getURI).collect(Collectors.toList())))
+                )
+                .asResource();
+        return findDepth(model, newSubject, predicates.stream().filter(p -> !p.equals(rootPredicate)).collect(Collectors.toList()));
     }
-    var rootSource = root.toList();
-    Resource rootPredicate = predicates.stream()
-                                       .filter(s -> rootSource.stream().anyMatch(rs -> rs.getPredicate().asResource().equals(s)))
-                                       .findFirst()
-                                       .orElseThrow(()-> new RuntimeException("could not find predicate. rootSource:\n%s\nsubject:\n%s\npredicates:\n%s\n"
-                                               .formatted(ModelUtils.toString(root.toModel(), Lang.TURTLE), subject.getURI(), predicates.stream().map(Resource::getURI).collect(Collectors.toList())))
-                                       );
-    var newSubject = rootSource.stream()
-                               .filter(rs -> rs.getPredicate().equals(rootPredicate))
-                               .map(Statement::getObject)
-                               .findFirst()
-                                .orElseThrow(()-> new RuntimeException("could not find subject. rootSource:\n%s\nrootPredicate:\n%s\npredicates:\n%s\n"
-                                      .formatted(ModelUtils.toString(root.toModel(), Lang.TURTLE), rootPredicate.getURI(), predicates.stream().map(Resource::getURI).collect(Collectors.toList())))
-                                )
-                               .asResource();
-    return findDepth(model, newSubject, predicates.stream().filter(p -> !p.equals(rootPredicate)).collect(Collectors.toList()));
-  }
 
 }

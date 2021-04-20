@@ -20,8 +20,15 @@ defmodule Dispatcher do
   ###############
   # SPARQL
   ###############
-  match "/sparql", %{ layer: :sparql, accept: %{ sparql: true } } do
+  match "/sparql", %{ layer: :sparql, accept: %{ any: true } } do
     forward conn, [], "http://triplestore:8890/sparql"
+  end
+
+  ###############
+  # Resource labels
+  ###############
+  match "/resource-labels/*path", %{ layer: :api_services, accept: %{ json: true } } do
+    forward conn, path, "http://resource-labels/"
   end
 
   ###############
@@ -39,7 +46,6 @@ defmodule Dispatcher do
   match "/update/*path", %{ layer: :api_services, accept: %{ json: true } } do
     forward conn, path, "http://uri-info-service-v2/update"
   end
-
   #################
   # NOT FOUND
   #################
