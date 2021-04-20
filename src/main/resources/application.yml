@@ -2,7 +2,7 @@ server:
   port: ${SERVER_PORT:8080}
 
 sparql:
-  endpoint: ${SPARQL_ENDPOINT:http://localhost:8890/sparql}
+  endpoint: ${SPARQL_ENDPOINT:http://localhost/sparql}
   defaultGraphUri: ${TARGET_GRAPH:http://mu.semte.ch/application}
 
 spring:

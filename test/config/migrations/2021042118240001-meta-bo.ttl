@@ -1,0 +1,111 @@
+@prefix persoon:     <http://data.vlaanderen.be/ns/persoon#> .
+@prefix generiek:    <http://data.vlaanderen.be/ns/generiek#> .
+@prefix organisatie: <http://data.vlaanderen.be/ns/organisatie#> .
+@prefix org:         <http://www.w3.org/ns/org#> .
+@prefix mandaat:     <http://data.vlaanderen.be/ns/mandaat#> .
+@prefix besluit:     <http://data.vlaanderen.be/ns/besluit#> .
+@prefix foaf:        <http://xmlns.com/foaf/0.1/> .
+@prefix locn:        <http://www.w3.org/ns/locn#> .
+@prefix skos:        <http://www.w3.org/2004/02/skos/core#> .
+@prefix schema:      <http://schema.org/> .
+@prefix regorg:      <http://www.w3.org/ns/regorg#> .
+@prefix adres:       <http://data.vlaanderen.be/ns/adres#> .
+@prefix xsd:         <http://www.w3.org/2001/XMLSchema#> .
+@prefix person:      <http://www.w3.org/ns/person#> .
+@prefix ext:         <http://mu.semte.ch/vocabularies/ext/> .
+@prefix frontend:    <http://lblod.data.gift/vocabularies/frontend/> .
+
+
+## http://data.lblod.info/id/bestuursorgaan/9cc4f87292514c96bb883f796ce00239
+
+
+ext:page-bestuursorgaan
+  a                    frontend:UI ;
+  frontend:contentType besluit:Bestuursorgaan ;
+  frontend:pages       ext:bestuursorgaan .
+
+################################################################################################### bestuursorgaan
+
+ext:bestuursorgaan
+  a                 frontend:Page ;
+  frontend:ordering "0"^^xsd:integer ;
+  frontend:title    "Bestuursorgaan" ;
+  frontend:elements ext:bestuursorgaan_gegevens, ext:contact_gegevens2, ext:contact_personen .
+
+ext:bestuursorgaan_gegevens
+  a                 frontend:Element ;
+  frontend:type     frontend:Panel ;
+  frontend:ordering "0"^^xsd:integer ;
+  frontend:title    "Bestuursorgaan gegevens" ;
+  frontend:fields   ext:naam_bestuurs, ext:startDatum ;
+  frontend:editable "false"^^xsd:boolean .
+
+
+ext:contact_gegevens2
+  a                 frontend:Element ;
+  frontend:type     frontend:Panel ;
+  frontend:ordering "1"^^xsd:integer ;
+  frontend:title    "Contact gegevens" ;
+  frontend:fields   ext:tel2, ext:adres2 ;
+  frontend:editable "true"^^xsd:boolean .
+
+ext:contact_personen
+  a                 frontend:Element ;
+  frontend:type     frontend:Panel ;
+  frontend:ordering "2"^^xsd:integer ;
+  frontend:title    "Contact personen" ;
+  frontend:fields   ext:role, ext:person_role ;
+  frontend:editable "true"^^xsd:boolean .
+
+ext:naam_bestuurs
+  a                   frontend:MultiLevelField ;
+  frontend:ordering   "0"^^xsd:integer ;
+  frontend:fieldType  "string" ;
+  frontend:source     generiek:isTijdspecialisatieVan ;
+  frontend:fields     regorg:legalName ;
+  frontend:label      "Naam" .
+
+ext:startDatum
+  a                   frontend:MultiLevelField ;
+  frontend:ordering   "1"^^xsd:integer ;
+  frontend:fieldType  "date" ;
+  frontend:source     mandaat:isSamenSamengesteld ;
+  frontend:fields     mandaat:datum ;
+  frontend:label      "Start datum" .
+
+ext:tel2
+  a                  frontend:MultiLevelField ;
+  frontend:ordering  "0"^^xsd:integer ;
+  frontend:fieldType "string" ;
+  frontend:source    generiek:isTijdspecialisatieVan ;
+  frontend:subjects  org:hasPrimarySite, org:siteAddress ;
+  frontend:fields    schema:telephone ;
+  frontend:label     "Tel" .
+
+ext:adres2
+  a                  frontend:MultiLevelField ;
+  frontend:ordering  "1"^^xsd:integer ;
+  frontend:fieldType "string" ;
+  frontend:source    generiek:isTijdspecialisatieVan ;
+  frontend:subjects  org:hasPrimarySite, organisatie:bestaatUit ;
+  frontend:fields    locn:thoroughfare, adres:Adresvoorstelling.huisnummer, locn:postCode, adres:gemeentenaam ;
+  frontend:label     "Adres" .
+
+
+ext:role
+  a                  frontend:MultiLevelField ;
+  frontend:ordering  "0"^^xsd:integer ;
+  frontend:fieldType "string" ;
+  frontend:source    org:hasPost ;
+  frontend:subjects  org:role ;
+  frontend:fields    skos:prefLabel ;
+  frontend:label     "Rol" .
+
+ext:person_role
+  a                  frontend:MultiLevelField ;
+  frontend:ordering  "1"^^xsd:integer ;
+  frontend:fieldType "string" ;
+  frontend:source    org:hasPost ;
+  frontend:subjects  org:heldBy, mandaat:isBestuurlijkeAliasVan ;
+  frontend:fields    persoon:gebruikteVoornaam, foaf:familyName ;
+  frontend:label     "Rol" .

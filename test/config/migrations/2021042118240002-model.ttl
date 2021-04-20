@@ -3,6 +3,7 @@
 @prefix organisatie: <http://data.vlaanderen.be/ns/organisatie#> .
 @prefix org:         <http://www.w3.org/ns/org#> .
 @prefix mandaat:     <http://data.vlaanderen.be/ns/mandaat#> .
+@prefix besluit:     <http://data.vlaanderen.be/ns/besluit#> .
 @prefix foaf:        <http://xmlns.com/foaf/0.1/> .
 @prefix locn:        <http://www.w3.org/ns/locn#> .
 @prefix skos:        <http://www.w3.org/2004/02/skos/core#> .
@@ -23,7 +24,7 @@
 <http://data.lblod.info/id/adresvoorstelling/7d20f796ee69cc07e073239154cf0760>
   a                                  locn:Address ;
   adres:Adresvoorstelling.huisnummer "1"^^xsd:string ;
-  adres:gemeenttenaam                "Melle"^^xsd:string ;
+  adres:gemeentenaam                 "Melle"^^xsd:string ;
   adres:land                         "België"@nl ;
   locn:adminUnitL2                   "Oost-Vlaanderen"@nl ;
   locn:postCode                      "9090"^^xsd:string ;
@@ -115,7 +116,9 @@
 
 <http://data.lblod.info/id/vestiging/7d20f796ee69cc07e073239154cf0760>
   a                      org:Site ;
-  organisatie:bestaatUit <http://data.lblod.info/id/adresvoorstelling/7d20f796ee69cc07e073239154cf0760> .
+  organisatie:bestaatUit <http://data.lblod.info/id/adresvoorstelling/7d20f796ee69cc07e073239154cf0760> ;
+    org:siteAddress        <http://data.lblod.info/id/contactinfo/919a9aa3b564c248c7fcfe610a85fce5> .
+
 
 <http://data.lblod.info/id/vestiging/9f1e720c24c251f8ba16670b28b640b4>
   a                      org:Site ;
@@ -147,7 +150,7 @@
 <http://data.lblod.info/id/mandataris/6cd252f138cceff405f02bea2afb8920>
   a                              mandaat:Mandataris ;
   mandaat:isBestuurlijkeAliasVan <http://data.lblod.info/id/persoon/1e218214d6994742c9d543f8fbb5ee10> ;
-  mandaat:start                  "2010-01-19T16:00:00Z"^^xsd:dateTime ;
+  mandaat:start                  "2020-01-19T16:00:00Z"^^xsd:dateTime ;
   org:holds                      <http://data.lblod.info/id/mandaat/9f1e720c24c251f8ba16670b28b640b4> .
 
 <http://data.lblod.info/id/mandataris/718d37a51f6756a51fcf5d0ce2a7375e>
@@ -158,19 +161,19 @@
 <http://data.lblod.info/id/mandataris/98b88169dada91403a24d510ad8a9012>
   a                              mandaat:Mandataris ;
   mandaat:isBestuurlijkeAliasVan <http://data.lblod.info/id/persoon/9fd9f63e0d6487537569075da85a0c7f> ;
-  mandaat:start                  "2010-01-19T16:00:00Z"^^xsd:dateTime ;
+  mandaat:start                  "2020-01-19T16:00:00Z"^^xsd:dateTime ;
   org:holds                      <http://data.lblod.info/id/mandaat/9f1e720c24c251f8ba16670b28b640b4> .
 
 <http://data.lblod.info/id/mandataris/c02f6f31e51893fb97b4d04c5c81e913>
   a                              mandaat:Mandataris ;
   mandaat:isBestuurlijkeAliasVan <http://data.lblod.info/id/persoon/5a616d80d0c2908573bd27bdb5aefee7> ;
-  mandaat:start                  "2010-01-19T16:00:00Z"^^xsd:dateTime ;
+  mandaat:start                  "2020-01-19T16:00:00Z"^^xsd:dateTime ;
   org:holds                      <http://data.lblod.info/id/mandaat/57e6aa86bbcc443f0da458dffb2db091> .
 
 <http://data.lblod.info/id/mandataris/fa0a2302be44cd9bbded84586373e21c>
   a                              mandaat:Mandataris ;
   mandaat:isBestuurlijkeAliasVan <http://data.lblod.info/id/persoon/76ade33c361780a620f611b9f8e17419> ;
-  mandaat:start                  "2010-01-19T16:00:00Z"^^xsd:dateTime ;
+  mandaat:start                  "2020-01-19T16:00:00Z"^^xsd:dateTime ;
   org:holds                      <http://data.lblod.info/id/mandaat/9f1e720c24c251f8ba16670b28b640b4> .
 
 <http://data.lblod.info/id/mandaat/9f1e720c24c251f8ba16670b28b640b4>
@@ -180,13 +183,19 @@
   org:role   <http://data.vlaanderen.be/id/concept/BestuursFunctieCode/c456aedca0643d3e71919f16ac181da8> .
 
 <http://data.lblod.info/id/bestuursorgaan/9cc4f87292514c96bb883f796ce00239>
-  a                               <http://data.vlaanderen.be/ns/besluit#Bestuursorgaan> ;
+  a                               besluit:Bestuursorgaan ;
+  mandaat:isSamenSamengesteld     <http://data.lblod.info/id/rechtstreekseVerkiezing/4d065uci73f78bec506468d45034aac3> ;
   generiek:isTijdspecialisatieVan <http://data.lblod.info/id/organisatie/7d20f796ee69cc07e073239154cf0760> ;
   org:hasPost                     <http://data.lblod.info/id/mandaat/35cb1b4cc69bec0c5a72efe83812911f>,
                                   <http://data.lblod.info/id/mandaat/57e6aa86bbcc443f0da458dffb2db091>,
                                   <http://data.lblod.info/id/mandaat/9f1e720c24c251f8ba16670b28b640b4>,
                                   <http://data.lblod.info/id/mandaat/c0fa72c3985ecc4d2925241d1b3bc467>,
                                   <http://data.lblod.info/id/mandaat/c53a82f8b0c4c7e3df5f8a39634d2910> .
+
+<http://data.lblod.info/id/rechtstreekseVerkiezing/4d065uci73f78bec506468d45034aac3>
+  a                   mandaat:RechtstreekseVerkiezing ;
+  mandaat:datum       "2020-01-01"^^xsd:date ;
+  mandaat:steltSamen  <http://data.lblod.info/id/bestuursorgaan/9cc4f87292514c96bb883f796ce00239> .
 
 <http://data.lblod.info/id/gestructureerdeIdentificator/4d0f5d3f78bcec506468d45034aa6bc3>
   a                            generiek:GestructureerdeIdentificator ;
@@ -205,6 +214,16 @@
   a              skos:Concept ;
   skos:inScheme  <http://data.vlaanderen.be/id/conceptscheme/BestuursfunctieCode> ;
   skos:prefLabel "Secretaris"@nl .
+
+<http://data.vlaanderen.be/id/concept/BestuursfunctieCode/ac31868f5f3913b3cd34b2bd3f99fbac>
+  a               skos:Concept ;
+  skos:inScheme   <http://data.vlaanderen.be/id/conceptscheme/BestuursfunctieCode> ;
+  skos:prefLabel  "Lid"@nl .
+
+<http://data.vlaanderen.be/id/concept/BestuursfunctieCode/c456aedca0643d3e71919f16ac181da8>
+  a               skos:Concept ;
+  skos:inScheme   <http://data.vlaanderen.be/id/conceptscheme/BestuursfunctieCode> ;
+  skos:prefLabel  "Penningmeester"@nl .
 
 <http://data.lblod.info/id/adresvoorstelling/4d0f5d3f78bcec506468d45034aa6bc3>
   a                                  locn:Address ;
@@ -227,12 +246,13 @@
 <http://data.lblod.info/id/mandataris/20df48f08b6f038d65f5a15890bf2a7d>
   a                              mandaat:Mandataris ;
   mandaat:isBestuurlijkeAliasVan <http://data.lblod.info/id/persoon/5a616d80d0c2908573bd27bdb5aefee7> ;
-  mandaat:start                  "2010-01-19T16:00:00Z"^^xsd:dateTime ;
+  mandaat:start                  "2020-01-19T16:00:00Z"^^xsd:dateTime ;
   org:holds                      <http://data.lblod.info/id/mandaat/c53a82f8b0c4c7e3df5f8a39634d2910> .
 
 <http://data.lblod.info/id/mandataris/42a88256c78ce8a65ba24c8cb14f8dad>
   a                              mandaat:Mandataris ;
   mandaat:isBestuurlijkeAliasVan <http://data.lblod.info/id/persoon/4701e26889b50f18e2c24a971c4d6a58> ;
+  mandaat:start                  "2020-01-19T00:00:00Z"^^xsd:dateTime ;
   org:holds                      <http://data.lblod.info/id/mandaat/fe2d035e6ae172110d9e71b9cc55a67a> .
 
 <http://data.lblod.info/id/organisatie/4d0f5d3f78bcec506468d45034aa6bc3>
@@ -276,9 +296,25 @@
   skos:prefLabel "Operationeel"@nl .
 
 <http://data.lblod.info/id/bestuursorgaan/755be1c4a38329b87f47ad55c2f82c50>
-  a                               <http://data.vlaanderen.be/ns/besluit#Bestuursorgaan> ;
+  a                               besluit:Bestuursorgaan ;
+  mandaat:isSamenSamengesteld     <http://data.lblod.info/id/rechtstreekseVerkiezing/4d065uci73f78b76tflk39d45034aac3> ;
   generiek:isTijdspecialisatieVan <http://data.lblod.info/id/organisatie/4d0f5d3f78bcec506468d45034aa6bc3> ;
   org:hasPost                     <http://data.lblod.info/id/mandaat/13578571f190e792dccb8daa388b7304>,
                                   <http://data.lblod.info/id/mandaat/fe2d035e6ae172110d9e71b9cc55a67a> .
 
+<http://data.lblod.info/id/mandaat/13578571f190e792dccb8daa388b7304>
+  a           mandaat:Mandaat ;
+  org:postIn  <http://data.lblod.info/id/bestuursorgaan/755be1c4a38329b87f47ad55c2f82c50> ;
+  org:helBy   <http://data.lblod.info/id/persoon/xa616d80d0c2908573bd27bdb5aefee7> ;
+  org:role    <http://data.vlaanderen.be/id/concept/BestuursfunctieCode/a38959ecec530654de15ab06c5b1f276> .
 
+<http://data.lblod.info/id/mandaat/fe2d035e6ae172110d9e71b9cc55a67a>
+  a           mandaat:Mandaat ;
+  org:postIn  <http://data.lblod.info/id/bestuursorgaan/755be1c4a38329b87f47ad55c2f82c50> ;
+  org:heldBy  <http://data.lblod.info/id/persoon/4701e26889b50f18e2c24a971c4d6a58> ;
+  org:role    <http://data.vlaanderen.be/id/concept/BestuursFunctieCode/f960d7b1488d049a982b23251025d9f6> .
+
+<http://data.lblod.info/id/rechtstreekseVerkiezing/4d065uci73f78b76tflk39d45034aac3>
+  a                   mandaat:RechtstreekseVerkiezing ;
+  mandaat:datum       "2020-01-01"^^xsd:date ;
+  mandaat:steltSamen  <http://data.lblod.info/id/bestuursorgaan/755be1c4a38329b87f47ad55c2f82c50> .  

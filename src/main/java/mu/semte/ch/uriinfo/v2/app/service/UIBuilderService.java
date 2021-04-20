@@ -9,14 +9,17 @@ import mu.semte.ch.uriinfo.v2.app.dto.FrontendRow;
 import mu.semte.ch.uriinfo.v2.app.dto.FrontendSidePanel;
 import mu.semte.ch.uriinfo.v2.app.dto.FrontendStmt;
 import mu.semte.ch.uriinfo.v2.app.dto.FrontendUI;
+import mu.semte.ch.uriinfo.v2.lib.utils.ModelUtils;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.RDFNode;
 import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.rdf.model.Statement;
+import org.apache.jena.riot.Lang;
 import org.apache.jena.vocabulary.RDF;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import static java.util.Optional.ofNullable;
@@ -201,14 +204,18 @@ public class UIBuilderService {
     if (predicates.size() >= 1) {
       var lastDepth = findDepth(model, source, predicates);
       value = fields.stream()
-                    .map(fieldPropertyUri -> lastDepth.getProperty(null, createProperty(fieldPropertyUri.getURI())).getString())
+                    .map(fieldPropertyUri -> lastDepth.getProperty(null, createProperty(fieldPropertyUri.getURI())))
+                    .filter(Objects::nonNull)
+                    .map(Statement::getString)
                     .collect(Collectors.joining(separator));
       triples = this.buildTriples(lastDepth, null, fields);
 
     }
     else {
       value = fields.stream()
-                    .map(fieldPropertyUri -> model.getProperty(source, createProperty(fieldPropertyUri.getURI())).getString())
+                    .map(fieldPropertyUri -> model.getProperty(source, createProperty(fieldPropertyUri.getURI())))
+                    .filter(Objects::nonNull)
+                    .map(Statement::getString)
                     .collect(Collectors.joining(separator));
       triples = this.buildTriples(model, source, fields);
     }
@@ -225,12 +232,16 @@ public class UIBuilderService {
     Resource rootPredicate = predicates.stream()
                                        .filter(s -> rootSource.stream().anyMatch(rs -> rs.getPredicate().asResource().equals(s)))
                                        .findFirst()
-                                       .get();
+                                       .orElseThrow(()-> new RuntimeException("could not find predicate. rootSource:\n%s\nsubject:\n%s\npredicates:\n%s\n"
+                                               .formatted(ModelUtils.toString(root.toModel(), Lang.TURTLE), subject.getURI(), predicates.stream().map(Resource::getURI).collect(Collectors.toList())))
+                                       );
     var newSubject = rootSource.stream()
                                .filter(rs -> rs.getPredicate().equals(rootPredicate))
+                               .map(Statement::getObject)
                                .findFirst()
-                               .get()
-                               .getObject()
+                                .orElseThrow(()-> new RuntimeException("could not find subject. rootSource:\n%s\nrootPredicate:\n%s\npredicates:\n%s\n"
+                                      .formatted(ModelUtils.toString(root.toModel(), Lang.TURTLE), rootPredicate.getURI(), predicates.stream().map(Resource::getURI).collect(Collectors.toList())))
+                                )
                                .asResource();
     return findDepth(model, newSubject, predicates.stream().filter(p -> !p.equals(rootPredicate)).collect(Collectors.toList()));
   }
