@@ -4,7 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import mu.semte.ch.uriinfo.v2.app.dto.FrontendStmt;
 import mu.semte.ch.uriinfo.v2.app.dto.FrontendUI;
 import mu.semte.ch.uriinfo.v2.app.service.UIBuilderService;
-import mu.semte.ch.uriinfo.v2.app.service.UpdateTripleService;
+import mu.semte.ch.uriinfo.v2.app.service.CrudTripleService;
 import mu.semte.ch.uriinfo.v2.app.service.UriInfoService;
 import mu.semte.ch.uriinfo.v2.lib.utils.ModelUtils;
 import org.apache.jena.rdf.model.Model;
@@ -17,20 +17,21 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @RestController
 @Slf4j
 public class AppController {
   private final UriInfoService uriInfoService;
   private final UIBuilderService uiBuilderService;
-  private final UpdateTripleService updateTripleService;
+  private final CrudTripleService crudTripleService;
 
   public AppController(UriInfoService uriInfoService,
                        UIBuilderService uiBuilderService,
-                       UpdateTripleService updateTripleService) {
+                       CrudTripleService crudTripleService) {
     this.uriInfoService = uriInfoService;
     this.uiBuilderService = uiBuilderService;
-    this.updateTripleService = updateTripleService;
+    this.crudTripleService = crudTripleService;
   }
 
   @GetMapping(value = "/model",
@@ -55,7 +56,7 @@ public class AppController {
   }
 
   @PostMapping("/update")
-  public ResponseEntity<FrontendStmt> updateTriple(@RequestBody FrontendStmt triple) {
-    return ResponseEntity.ok(updateTripleService.update(triple));
+  public ResponseEntity<List<FrontendStmt>> updateTriples(@RequestBody List<FrontendStmt> triples, HttpServletRequest request) {
+    return ResponseEntity.ok(crudTripleService.updateTriples(triples));
   }
 }

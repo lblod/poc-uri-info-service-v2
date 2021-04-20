@@ -91,6 +91,8 @@ public class UIBuilderService {
                                      .map(RDFNode::asResource)
                                      .collect(Collectors.toList());
 
+    el.setMetaFields(fields.stream().map(f-> this.buildSkeletonField(metaModel, f)).sorted().collect(Collectors.toList()));
+
     if (FrontendElement.ElementType.TABLE.equals(el.getType())) {
       var rows = model.listObjectsOfProperty(uri, createProperty(metaModel.getProperty(element, P_SOURCE)
                                                                           .getResource()
@@ -136,15 +138,14 @@ public class UIBuilderService {
   }
 
   private FrontendField buildField(Resource rootResource, Model model, Model metaModel, Resource field) {
-    FrontendField f = new FrontendField();
+    FrontendField f = buildSkeletonField(metaModel, field);
+    var fields = metaModel.listObjectsOfProperty(field, P_FIELDS).toList().stream()
+            .map(RDFNode::asResource).collect(Collectors.toList());
+    f.setLabelUris(fields.stream().map(Resource::getURI).collect(Collectors.toList()));
+
     String separator = ofNullable(metaModel.getProperty(field, P_SEPARATOR)).map(Statement::getString).orElse(" ");
     Resource nsType = metaModel.getProperty(field, RDF.type).getObject().asResource();
-    var fields = metaModel.listObjectsOfProperty(field, P_FIELDS).toList().stream()
-                          .map(RDFNode::asResource).collect(Collectors.toList());
-    f.setLabel(ofNullable(metaModel.getProperty(field, P_LABEL)).map(Statement::getString).orElse(null));
-    f.setOrdering(ofNullable(metaModel.getProperty(field, P_ORDERING)).map(Statement::getInt).orElse(0));
-    f.setType(ofNullable(metaModel.getProperty(field, P_FIELD_TYPE)).map(Statement::getString).orElse(null));
-    f.setLabelUris(fields.stream().map(Resource::getURI).collect(Collectors.toList()));
+
     if (C_FIELD.equals(nsType)) {
       String value = fields.stream()
                            .map(fieldPropertyUri -> model.getProperty(rootResource, createProperty(fieldPropertyUri.getURI()))
@@ -159,6 +160,14 @@ public class UIBuilderService {
                                                                            .getURI())).getObject().asResource();
       buildMultiLevelField(f, model, metaModel, source, field, separator, fields);
     }
+    return f;
+  }
+
+  private FrontendField buildSkeletonField(Model metaModel, Resource field){
+    FrontendField f = new FrontendField();
+    f.setLabel(ofNullable(metaModel.getProperty(field, P_LABEL)).map(Statement::getString).orElse(null));
+    f.setOrdering(ofNullable(metaModel.getProperty(field, P_ORDERING)).map(Statement::getInt).orElse(0));
+    f.setType(ofNullable(metaModel.getProperty(field, P_FIELD_TYPE)).map(Statement::getString).orElse(null));
     return f;
   }
 
@@ -214,8 +223,7 @@ public class UIBuilderService {
     }
     var rootSource = root.toList();
     Resource rootPredicate = predicates.stream()
-                                       .filter(s -> rootSource.stream()
-                                                              .anyMatch(rs -> rs.getPredicate().asResource().equals(s)))
+                                       .filter(s -> rootSource.stream().anyMatch(rs -> rs.getPredicate().asResource().equals(s)))
                                        .findFirst()
                                        .get();
     var newSubject = rootSource.stream()

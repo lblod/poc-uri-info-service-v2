@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.apache.jena.rdf.model.Resource;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static mu.semte.ch.uriinfo.v2.app.FrontendVoc.C_PANEL;
@@ -31,6 +32,7 @@ public class FrontendElement implements Comparable<FrontendElement> {
   private int ordering;
   private List<FrontendField> fields;
   private List<FrontendRow> rows;
+  private List<FrontendField> metaFields = new ArrayList<>(); // skeleton of the element
 
   public static ElementType evaluateType(Resource resource) {
     if (C_TABLE.equals(resource)) {

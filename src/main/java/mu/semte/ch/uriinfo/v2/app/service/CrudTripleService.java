@@ -7,25 +7,33 @@ import mu.semte.ch.uriinfo.v2.lib.utils.SparqlQueryStore;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Map;
 
 @Service
 @Slf4j
-public class UpdateTripleService {
+public class CrudTripleService {
   private final SparqlQueryStore queryStore;
   private final SparqlClient client;
   @Value("${sparql.defaultGraphUri}")
   private String defaultGraphUri;
 
-  public UpdateTripleService(SparqlQueryStore queryStore, SparqlClient client) {
+  public CrudTripleService(SparqlQueryStore queryStore, SparqlClient client) {
     this.queryStore = queryStore;
     this.client = client;
   }
 
-  public FrontendStmt update(FrontendStmt triple) {
-    String query = queryStore.getQueryWithParameters("updateTriple", Map.of("triple", triple, "graph", defaultGraphUri));
+  public List<FrontendStmt> updateTriples(List<FrontendStmt> triples) {
+    String query = queryStore.getQueryWithParameters("updateTriple", Map.of("triples", triples, "graph", defaultGraphUri));
     log.debug(query);
     client.executeUpdateQuery(query);
-    return triple;
+    return triples;
+  }
+
+  public List<FrontendStmt> insertTriples(List<FrontendStmt> triples) {
+    String query = queryStore.getQueryWithParameters("insertTriples", Map.of("triples", triples, "graph", defaultGraphUri));
+    log.debug(query);
+    client.executeUpdateQuery(query);
+    return triples;
   }
 }
