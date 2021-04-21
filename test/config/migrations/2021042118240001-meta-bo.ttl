@@ -108,4 +108,11 @@ ext:person_role
   frontend:source    org:hasPost ;
   frontend:subjects  org:heldBy, mandaat:isBestuurlijkeAliasVan ;
   frontend:fields    persoon:gebruikteVoornaam, foaf:familyName ;
+  frontend:hasLink   ext:person_role-link1 ;
+
   frontend:label     "" .
+
+
+ext:person_role-link1 a frontend:Link;
+                    frontend:source org:hasPost;
+                    frontend:subjects org:heldBy, mandaat:isBestuurlijkeAliasVan .

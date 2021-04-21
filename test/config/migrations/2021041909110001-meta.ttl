@@ -127,8 +127,12 @@ ext:eredienst1
   frontend:source    org:holds ;
   frontend:subjects  org:postIn, generiek:isTijdspecialisatieVan ;
   frontend:fields    regorg:legalName ;
+  frontend:hasLink   ext:eredienst-link1 ;
   frontend:label     "Eredienst" .
 
+ext:eredienst-link1 a frontend:Link;
+        frontend:source org:holds;
+        frontend:subjects  org:postIn.
 
 ext:start-datum1
   a                  frontend:Field ;

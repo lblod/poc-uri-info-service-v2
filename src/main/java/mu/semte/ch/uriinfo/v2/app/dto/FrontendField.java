@@ -18,6 +18,7 @@ public class FrontendField implements Comparable<FrontendField> {
   private String label;
   private String value;
   private List<FrontendStmt> triples;
+  private String link;
 
   @Override
   public int compareTo(FrontendField o) {

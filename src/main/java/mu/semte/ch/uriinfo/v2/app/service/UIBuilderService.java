@@ -138,6 +138,7 @@ public class UIBuilderService {
 
     private FrontendField buildField(Resource rootResource, Model model, Model metaModel, Resource field) {
         FrontendField f = buildSkeletonField(metaModel, field);
+        f.setLink(this.buildLink(rootResource,model, metaModel, field));
         var fields = metaModel.listObjectsOfProperty(field, P_FIELDS).toList().stream()
                 .map(RDFNode::asResource).collect(Collectors.toList());
         f.setLabelUris(fields.stream().map(Resource::getURI).collect(Collectors.toList()));
@@ -159,6 +160,25 @@ public class UIBuilderService {
             buildMultiLevelField(f, model, metaModel, source, field, separator, fields);
         }
         return f;
+    }
+
+    private String buildLink(Resource rootResource, Model model, Model metaModel, Resource field) {
+        Resource hasLink = ofNullable(metaModel.getProperty(field, P_HAS_LINK)).map(Statement::getResource).orElse(null);
+        if(hasLink !=null){
+            var source = model.getProperty(rootResource, createProperty(metaModel.getProperty(field, P_SOURCE)
+                    .getResource()
+                    .getURI())).getObject().asResource();
+            List<Resource> predicates = metaModel.listObjectsOfProperty(hasLink, P_SUBJECTS)
+                    .toList()
+                    .stream()
+                    .map(RDFNode::asResource)
+                    .collect(Collectors.toList());
+            Model lastDepth = this.findDepth(model, source, predicates);
+            if(!lastDepth.isEmpty()){
+                return lastDepth.listStatements().nextStatement().getSubject().getURI();
+            }
+        }
+        return null;
     }
 
     private FrontendField buildSkeletonField(Model metaModel, Resource field) {
