@@ -9,10 +9,7 @@ import mu.semte.ch.uriinfo.v2.lib.dto.JsonApiResponse;
 import mu.semte.ch.uriinfo.v2.lib.utils.ModelUtils;
 import org.apache.http.client.utils.URIUtils;
 import org.apache.http.client.utils.URLEncodedUtils;
-import org.apache.jena.rdf.model.Model;
-import org.apache.jena.rdf.model.RDFNode;
-import org.apache.jena.rdf.model.Resource;
-import org.apache.jena.rdf.model.Statement;
+import org.apache.jena.rdf.model.*;
 import org.apache.jena.riot.Lang;
 import org.apache.jena.vocabulary.RDF;
 import org.springframework.beans.factory.annotation.Value;
@@ -148,16 +145,19 @@ public class UIBuilderService {
 
         if (C_FIELD.equals(nsType)) {
             String value = fields.stream()
-                    .map(fieldPropertyUri -> model.getProperty(rootResource, createProperty(fieldPropertyUri.getURI()))
-                            .getString())
+                    .map(fieldPropertyUri -> ofNullable(model.getProperty(rootResource, createProperty(fieldPropertyUri.getURI()))).map(Statement::getString).orElse(null))
+                    .filter(Objects::nonNull)
                     .collect(Collectors.joining(separator));
             f.setValue(value);
             f.setTriples(this.buildTriples(model, rootResource, fields));
         } else if (C_MULTI_LEVEL_FIELD.equals(nsType)) {
-            var source = model.getProperty(rootResource, createProperty(metaModel.getProperty(field, P_SOURCE)
-                    .getResource()
-                    .getURI())).getObject().asResource();
-            buildMultiLevelField(f, model, metaModel, source, field, separator, fields);
+            var optionalSource = ofNullable(metaModel.getProperty(field, P_SOURCE))
+                    .map(Statement::getResource)
+                    .map(Resource::getURI)
+                    .map(ResourceFactory::createProperty)
+                    .flatMap(property -> ofNullable(model.getProperty(rootResource, property)))
+                    .map(Statement::getResource);
+            optionalSource.ifPresent(resource -> buildMultiLevelField(f, model, metaModel, resource, field, separator, fields));
         }
         return f;
     }
@@ -194,12 +194,12 @@ public class UIBuilderService {
             Statement property = model.getProperty(rootResource, createProperty(fieldPropertyUri.getURI()));
 
             return FrontendStmt.builder()
-                    .subject(property.getSubject().getURI())
+                    .subject(ofNullable(property).map(Statement::getSubject).map(Resource::getURI).orElse(null))
                     .predicate(fieldPropertyUri.getURI())
-                    .object(property.getLiteral().getString())
-                    .datatype(property.getLiteral().getDatatypeURI())
+                    .object(ofNullable(property).map(Statement::getLiteral).map(Literal::getString).orElse(null))
+                    .datatype(ofNullable(property).map(Statement::getLiteral).map(Literal::getDatatypeURI).orElse(null))
                     .predicateLabel(this.fetchLabelFromResourceLabelsService(fieldPropertyUri.getURI()))
-                    .language(property.getLiteral().getLanguage())
+                    .language(ofNullable(property).map(Statement::getLiteral).map(Literal::getLanguage).orElse(null))
 
                     .build();
         }).collect(Collectors.toList());
