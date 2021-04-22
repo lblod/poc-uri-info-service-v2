@@ -1,265 +1,332 @@
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 
-<http://data.europa.eu/m8g/endTime> a <http://www.w3.org/2002/07/owl#DatatypeProperty> ;
-    rdfs:label "einde"@nl ;
+<http://data.europa.eu/m8g/endTime>
+    a            <http://www.w3.org/2002/07/owl#DatatypeProperty> ;
+    rdfs:label   "einde"@nl ;
     rdfs:comment "Einddatum"@nl .
 
-<http://data.europa.eu/m8g/startTime> a <http://www.w3.org/2002/07/owl#DatatypeProperty> ;
-    rdfs:label "begin"@nl ;
+<http://data.europa.eu/m8g/startTime>
+    a            <http://www.w3.org/2002/07/owl#DatatypeProperty> ;
+    rdfs:label   "begin"@nl ;
     rdfs:comment "Begindatum"@nl .
 
-<http://data.vlaanderen.be/ns/besluit#Bestuursorgaan> a <http://www.w3.org/2002/07/owl#Class> ;
+<http://data.vlaanderen.be/ns/besluit#Bestuursorgaan>
+    a          <http://www.w3.org/2002/07/owl#Class> ;
     rdfs:label "Bestuursorgaan"@nl .
 
-<http://data.vlaanderen.be/ns/besluit#bestuurt> a <http://www.w3.org/2002/07/owl#ObjectProperty> ;
-    rdfs:label "bestuurt"@nl ;
+<http://data.vlaanderen.be/ns/besluit#bestuurt>
+    a            <http://www.w3.org/2002/07/owl#ObjectProperty> ;
+    rdfs:label   "bestuurt"@nl ;
     rdfs:comment "De bestuurseenheid die door het orgaan bestuurd wordt."@nl .
 
-<http://data.vlaanderen.be/ns/mandaat#Mandataris> a <http://www.w3.org/2002/07/owl#Class> ;
+<http://data.vlaanderen.be/ns/mandaat#Mandataris>
+    a          <http://www.w3.org/2002/07/owl#Class> ;
     rdfs:label "Mandataris"@nl .
 
-<http://data.vlaanderen.be/ns/mandaat#aantalHouders> a <http://www.w3.org/2002/07/owl#DatatypeProperty> ;
-    rdfs:label "aantalHouders"@nl ;
+<http://data.vlaanderen.be/ns/mandaat#aantalHouders>
+    a            <http://www.w3.org/2002/07/owl#DatatypeProperty> ;
+    rdfs:label   "aantalHouders"@nl ;
     rdfs:comment "Maximale aantal mandatarissen dat tegelijk dit mandaat kan opnemen."@nl .
 
-<http://data.vlaanderen.be/ns/mandaat#einde> a <http://www.w3.org/2002/07/owl#DatatypeProperty> ;
-    rdfs:label "einde"@nl ;
+<http://data.vlaanderen.be/ns/mandaat#einde>
+    a            <http://www.w3.org/2002/07/owl#DatatypeProperty> ;
+    rdfs:label   "einde"@nl ;
     rdfs:comment "Tijdstip vanaf wanneer de mandataris het mandaat niet langer opneemt."@nl .
 
-<http://data.vlaanderen.be/ns/mandaat#isAangesteldAls> a <http://www.w3.org/2002/07/owl#ObjectProperty> ;
-    rdfs:label "is aangesteld als"@nl ;
+<http://data.vlaanderen.be/ns/mandaat#isAangesteldAls>
+    a            <http://www.w3.org/2002/07/owl#ObjectProperty> ;
+    rdfs:label   "is aangesteld als"@nl ;
     rdfs:comment "Een mandatarisrol die eigen is aan de persoon."@nl .
 
-<http://data.vlaanderen.be/ns/mandaat#isBestuurlijkeAliasVan> a <http://www.w3.org/2002/07/owl#ObjectProperty> ;
-    rdfs:label "is bestuurlijke alias van"@nl ;
+<http://data.vlaanderen.be/ns/mandaat#isBestuurlijkeAliasVan>
+    a            <http://www.w3.org/2002/07/owl#ObjectProperty> ;
+    rdfs:label   "is bestuurlijke alias van"@nl ;
     rdfs:comment "De persoon die de mandatarisrol vervult."@nl .
 
-<http://data.vlaanderen.be/ns/mandaat#isTijdelijkVervangenDoor> a <http://www.w3.org/2002/07/owl#ObjectProperty> ;
-    rdfs:label "is tijdelijk vervangen door"@nl ;
+<http://data.vlaanderen.be/ns/mandaat#isTijdelijkVervangenDoor>
+    a            <http://www.w3.org/2002/07/owl#ObjectProperty> ;
+    rdfs:label   "is tijdelijk vervangen door"@nl ;
     rdfs:comment "Duidt een mandataris aan die tijdelijk de uitvoering van het mandaat heeft overgenomen."@nl .
 
-<http://data.vlaanderen.be/ns/mandaat#start> a <http://www.w3.org/2002/07/owl#DatatypeProperty> ;
-    rdfs:label "start"@nl ;
+<http://data.vlaanderen.be/ns/mandaat#start>
+    a            <http://www.w3.org/2002/07/owl#DatatypeProperty> ;
+    rdfs:label   "start"@nl ;
     rdfs:comment "Tijdstip vanaf wanneer de mandataris het mandaat opneemt."@nl .
 
-<http://data.vlaanderen.be/ns/mandaat#status> a <http://www.w3.org/2002/07/owl#ObjectProperty> ;
-    rdfs:label "status"@nl ;
+<http://data.vlaanderen.be/ns/mandaat#status>
+    a            <http://www.w3.org/2002/07/owl#ObjectProperty> ;
+    rdfs:label   "status"@nl ;
     rdfs:comment "De gesteldheid van de mandataris."@nl .
 
-<http://purl.org/dc/terms/date> a <http://www.w3.org/2002/07/owl#DatatypeProperty> ;
-    rdfs:label "datum"@nl ;
+<http://purl.org/dc/terms/date>
+    a            <http://www.w3.org/2002/07/owl#DatatypeProperty> ;
+    rdfs:label   "datum"@nl ;
     rdfs:comment "Datum waarop de gebeurtenis plaatsvond."@nl .
 
-<http://purl.org/dc/terms/description> a <http://www.w3.org/2002/07/owl#DatatypeProperty> ;
-    rdfs:label "beschrijving"@nl ;
+<http://purl.org/dc/terms/description>
+    a            <http://www.w3.org/2002/07/owl#DatatypeProperty> ;
+    rdfs:label   "beschrijving"@nl ;
     rdfs:comment "Beschrijving van de organisatie."@nl .
 
-<http://schema.org/ContactPoint> a <http://www.w3.org/2002/07/owl#Class> ;
+<http://schema.org/ContactPoint>
+    a          <http://www.w3.org/2002/07/owl#Class> ;
     rdfs:label "Contact Info"@nl .
 
-<http://schema.org/email> a <http://www.w3.org/2002/07/owl#DatatypeProperty> ;
-    rdfs:label "email"@nl ;
+<http://schema.org/email>
+    a            <http://www.w3.org/2002/07/owl#DatatypeProperty> ;
+    rdfs:label   "email"@nl ;
     rdfs:comment "Email-adres waarnaar men kan mailen."@nl .
 
-<http://schema.org/faxNumber> a <http://www.w3.org/2002/07/owl#DatatypeProperty> ;
-    rdfs:label "fax"@nl ;
+<http://schema.org/faxNumber>
+    a            <http://www.w3.org/2002/07/owl#DatatypeProperty> ;
+    rdfs:label   "fax"@nl ;
     rdfs:comment "Faxnummer waarnaar men kan faxen."@nl .
 
-<http://schema.org/telephone> a <http://www.w3.org/2002/07/owl#DatatypeProperty> ;
-    rdfs:label "telefoon"@nl ;
+<http://schema.org/telephone>
+    a            <http://www.w3.org/2002/07/owl#DatatypeProperty> ;
+    rdfs:label   "telefoon"@nl ;
     rdfs:comment "Telefoonnummer waarop men kan bellen."@nl .
 
-<http://www.w3.org/2004/02/skos/core#altLabel> a <http://www.w3.org/2002/07/owl#DatatypeProperty> ;
-    rdfs:label "alternatieve naam"@nl ;
+<http://www.w3.org/2004/02/skos/core#altLabel>
+    a            <http://www.w3.org/2002/07/owl#DatatypeProperty> ;
+    rdfs:label   "alternatieve naam"@nl ;
     rdfs:comment "Andere naam waaronder de organisatie bekend is."@nl .
 
-<http://www.w3.org/2004/02/skos/core#notation> a <http://www.w3.org/2002/07/owl#ObjectProperty> ;
-    rdfs:label "identificator"@nl ;
+<http://www.w3.org/2004/02/skos/core#notation>
+    a            <http://www.w3.org/2002/07/owl#ObjectProperty> ;
+    rdfs:label   "identificator"@nl ;
     rdfs:comment "String gebruikt om het object uniek te identificeren."@nl .
 
-<http://www.w3.org/2004/02/skos/core#prefLabel> a <http://www.w3.org/2002/07/owl#DatatypeProperty> ;
-    rdfs:label "voorkeursnaam"@nl ;
+<http://www.w3.org/2004/02/skos/core#prefLabel>
+    a            <http://www.w3.org/2002/07/owl#DatatypeProperty> ;
+    rdfs:label   "voorkeursnaam"@nl ;
     rdfs:comment "Naam waarmee de organisatie bij voorkeur wordt aangeduid."@nl .
 
-<http://www.w3.org/2006/vcard/ns#honorific-prefix> a <http://www.w3.org/2002/07/owl#ObjectProperty> ;
-    rdfs:label "aanschrijfvorm"@nl ;
+<http://www.w3.org/2006/vcard/ns#honorific-prefix>
+    a            <http://www.w3.org/2002/07/owl#ObjectProperty> ;
+    rdfs:label   "aanschrijfvorm"@nl ;
     rdfs:comment "Titel waarmee iemand wordt aangeschreven of aangesproken of waarmee naar iemand wordt verwezen."@nl .
 
-<http://www.w3.org/ns/locn#Address> a <http://www.w3.org/2002/07/owl#Class> ;
+<http://www.w3.org/ns/locn#Address>
+    a          <http://www.w3.org/2002/07/owl#Class> ;
     rdfs:label "Adresvoorstelling"@nl .
 
-<http://www.w3.org/ns/locn#address> a <http://www.w3.org/2002/07/owl#ObjectProperty> ;
-    rdfs:label "adres"@nl ;
+<http://www.w3.org/ns/locn#address>
+    a            <http://www.w3.org/2002/07/owl#ObjectProperty> ;
+    rdfs:label   "adres"@nl ;
     rdfs:comment "Adres dat men kan aanschrijven of bezoeken."@nl .
 
-<http://www.w3.org/ns/locn#adminUnitL2> a <http://www.w3.org/2002/07/owl#DatatypeProperty> ;
+<http://www.w3.org/ns/locn#adminUnitL2>
+    a          <http://www.w3.org/2002/07/owl#DatatypeProperty> ;
     rdfs:label "administratieve eenheid niveau 2"@nl ;
-    rdfs:comment "De regio vh adres, doorgaans een provincie of deelstaat of gelijkaardig gebied dat typisch meerdere plaatsen omvat."@nl .
+    rdfs:comment
+               "De regio vh adres, doorgaans een provincie of deelstaat of gelijkaardig gebied dat typisch meerdere plaatsen omvat."@nl .
 
-<http://www.w3.org/ns/locn#fullAddress> a <http://www.w3.org/2002/07/owl#DatatypeProperty> ;
-    rdfs:label "volledigAdres"@nl ;
+<http://www.w3.org/ns/locn#fullAddress>
+    a            <http://www.w3.org/2002/07/owl#DatatypeProperty> ;
+    rdfs:label   "volledigAdres"@nl ;
     rdfs:comment "Het complete adres in één string, al dan niet geformatteerd."@nl .
 
-<http://www.w3.org/ns/locn#postCode> a <http://www.w3.org/2002/07/owl#DatatypeProperty> ;
+<http://www.w3.org/ns/locn#postCode>
+    a          <http://www.w3.org/2002/07/owl#DatatypeProperty> ;
     rdfs:label "postcode"@nl ;
-    rdfs:comment "Code waarmee het geografisch gebied dat adressen voor postale doeleinden groepeert wordt aangeduid."@nl .
+    rdfs:comment
+               "Code waarmee het geografisch gebied dat adressen voor postale doeleinden groepeert wordt aangeduid."@nl .
 
-<http://www.w3.org/ns/locn#thoroughfare> a <http://www.w3.org/2002/07/owl#DatatypeProperty> ;
-    rdfs:label "straatnaam"@nl ;
+<http://www.w3.org/ns/locn#thoroughfare>
+    a            <http://www.w3.org/2002/07/owl#DatatypeProperty> ;
+    rdfs:label   "straatnaam"@nl ;
     rdfs:comment "Straatnaam vh adres."@nl .
 
-<http://www.w3.org/ns/org#Organization> a <http://www.w3.org/2002/07/owl#Class> ;
+<http://www.w3.org/ns/org#Organization>
+    a          <http://www.w3.org/2002/07/owl#Class> ;
     rdfs:label "Organisatie"@nl .
 
-<http://www.w3.org/ns/org#Role> a <http://www.w3.org/2002/07/owl#Class> ;
+<http://www.w3.org/ns/org#Role>
+    a          <http://www.w3.org/2002/07/owl#Class> ;
     rdfs:label "Rol"@nl .
 
-<http://www.w3.org/ns/org#Site> a <http://www.w3.org/2002/07/owl#Class> ;
+<http://www.w3.org/ns/org#Site>
+    a          <http://www.w3.org/2002/07/owl#Class> ;
     rdfs:label "Vestiging"@nl .
 
-<http://www.w3.org/ns/org#basedAt> a <http://www.w3.org/2002/07/owl#ObjectProperty> ;
-    rdfs:label "heeft standplaats"@nl ;
+<http://www.w3.org/ns/org#basedAt>
+    a            <http://www.w3.org/2002/07/owl#ObjectProperty> ;
+    rdfs:label   "heeft standplaats"@nl ;
     rdfs:comment "Verwijzing naar een vestiging waar een persoon gestationeerd is."@nl .
 
-<http://www.w3.org/ns/org#changedBy> a <http://www.w3.org/2002/07/owl#ObjectProperty> ;
-    rdfs:label "is veranderd door"@nl ;
+<http://www.w3.org/ns/org#changedBy>
+    a            <http://www.w3.org/2002/07/owl#ObjectProperty> ;
+    rdfs:label   "is veranderd door"@nl ;
     rdfs:comment "Verwijst naar het veranderingsmoment dat deze organisatie heeft veranderd."@nl .
 
-<http://www.w3.org/ns/org#classification> a <http://www.w3.org/2002/07/owl#ObjectProperty> ;
-    rdfs:label "classificatie"@nl ;
-    rdfs:comment "Classificatie van de bestuurseenheid."@nl,
-        "Het type bestuursorgaan."@nl,
-        "Rangschikking van de organisatie in een classificatiesysteem."@nl .
+<http://www.w3.org/ns/org#classification>
+    a            <http://www.w3.org/2002/07/owl#ObjectProperty> ;
+    rdfs:label   "classificatie"@nl ;
+    rdfs:comment "Classificatie van de bestuurseenheid."@nl, "Het type bestuursorgaan."@nl,
+                 "Rangschikking van de organisatie in een classificatiesysteem."@nl .
 
-<http://www.w3.org/ns/org#hasPost> a <http://www.w3.org/2002/07/owl#ObjectProperty>,
-        <http://www.w3.org/2002/07/owl#nan> ;
-    rdfs:label "bevat"@nl,
-        "heeft"@nl ;
-    rdfs:comment "Een mandaat binnen het orgaan."@nl,
-        "Verwijst naar een positie in de organisatie."@nl .
+<http://www.w3.org/ns/org#hasPost>
+    a            <http://www.w3.org/2002/07/owl#ObjectProperty>, <http://www.w3.org/2002/07/owl#nan> ;
+    rdfs:label   "bevat"@nl, "heeft"@nl ;
+    rdfs:comment "Een mandaat binnen het orgaan."@nl, "Verwijst naar een positie in de organisatie."@nl .
 
-<http://www.w3.org/ns/org#hasPrimarySite> a <http://www.w3.org/2002/07/owl#ObjectProperty> ;
+<http://www.w3.org/ns/org#hasPrimarySite>
+    a          <http://www.w3.org/2002/07/owl#ObjectProperty> ;
     rdfs:label "heeft primaire vestiging"@nl ;
-    rdfs:comment "Verwijst naar de belangrijkste vestiging van de organisatie, niet noodzakelijk het formele hoofdkwartier maar wel de vestiging waarop de organisatie standaard kan worden gecontacteerd."@nl .
+    rdfs:comment
+               "Verwijst naar de belangrijkste vestiging van de organisatie, niet noodzakelijk het formele hoofdkwartier maar wel de vestiging waarop de organisatie standaard kan worden gecontacteerd."@nl .
 
-<http://www.w3.org/ns/org#hasSite> a <http://www.w3.org/2002/07/owl#ObjectProperty> ;
+<http://www.w3.org/ns/org#hasSite>
+    a          <http://www.w3.org/2002/07/owl#ObjectProperty> ;
     rdfs:label "heeft vestiging"@nl ;
-    rdfs:comment "Verwijst naar een plek waar de organisatie op een of andere manier, desnoods indirect, aanwezig is."@nl .
+    rdfs:comment
+               "Verwijst naar een plek waar de organisatie op een of andere manier, desnoods indirect, aanwezig is."@nl .
 
-<http://www.w3.org/ns/org#heldBy> a <http://www.w3.org/2002/07/owl#ObjectProperty> ;
+<http://www.w3.org/ns/org#heldBy>
+    a          <http://www.w3.org/2002/07/owl#ObjectProperty> ;
     rdfs:label "wordt ingevuld door"@nl ;
-    rdfs:comment "Geeft aan welke agent een positie heeft (typisch bij de organisatie waar de positie is gedefinieerd)."@nl .
+    rdfs:comment
+               "Geeft aan welke agent een positie heeft (typisch bij de organisatie waar de positie is gedefinieerd)."@nl .
 
-<http://www.w3.org/ns/org#holds> a <http://www.w3.org/2002/07/owl#ObjectProperty> ;
-    rdfs:label "bekleedt"@nl,
-        "houdt"@nl ;
+<http://www.w3.org/ns/org#holds>
+    a            <http://www.w3.org/2002/07/owl#ObjectProperty> ;
+    rdfs:label   "bekleedt"@nl, "houdt"@nl ;
     rdfs:comment "De bestuursfunctie die deze functionaris bekleedt."@nl,
-        "Geeft aan welke positie een agent heeft (typisch bij de organisatie waar de positie is gedefinieerd)."@nl,
-        "Het mandaat dat deze mandataris bekleedt."@nl .
+                 "Geeft aan welke positie een agent heeft (typisch bij de organisatie waar de positie is gedefinieerd)."@nl,
+                 "Het mandaat dat deze mandataris bekleedt."@nl .
 
-<http://www.w3.org/ns/org#linkedTo> a <http://www.w3.org/2002/07/owl#ObjectProperty> ;
-    rdfs:label "is geassocieerd met"@nl ;
+<http://www.w3.org/ns/org#linkedTo>
+    a            <http://www.w3.org/2002/07/owl#ObjectProperty> ;
+    rdfs:label   "is geassocieerd met"@nl ;
     rdfs:comment "Niet nader bepaalde relatie met een andere organisatie."@nl .
 
-<http://www.w3.org/ns/org#originalOrganization> a <http://www.w3.org/2002/07/owl#ObjectProperty> ;
-    rdfs:label "heeft oorspronkelijke organisatie"@nl ;
+<http://www.w3.org/ns/org#originalOrganization>
+    a            <http://www.w3.org/2002/07/owl#ObjectProperty> ;
+    rdfs:label   "heeft oorspronkelijke organisatie"@nl ;
     rdfs:comment "Organisatie voor deze de verandering onderging."@nl .
 
-<http://www.w3.org/ns/org#postIn> a <http://www.w3.org/2002/07/owl#ObjectProperty> ;
-    rdfs:label "is positie in"@nl ;
+<http://www.w3.org/ns/org#postIn>
+    a            <http://www.w3.org/2002/07/owl#ObjectProperty> ;
+    rdfs:label   "is positie in"@nl ;
     rdfs:comment "Organisatie waar de positie bestaat."@nl .
 
-<http://www.w3.org/ns/org#resultedFrom> a <http://www.w3.org/2002/07/owl#ObjectProperty> ;
-    rdfs:label "is het resultaat van"@nl ;
+<http://www.w3.org/ns/org#resultedFrom>
+    a            <http://www.w3.org/2002/07/owl#ObjectProperty> ;
+    rdfs:label   "is het resultaat van"@nl ;
     rdfs:comment "Verwijst naar het veranderingsmoment dat tot de huidige organisatie heeft geleid."@nl .
 
-<http://www.w3.org/ns/org#resultingOrganization> a <http://www.w3.org/2002/07/owl#ObjectProperty> ;
-    rdfs:label "heeft resulterende organisatie"@nl ;
+<http://www.w3.org/ns/org#resultingOrganization>
+    a            <http://www.w3.org/2002/07/owl#ObjectProperty> ;
+    rdfs:label   "heeft resulterende organisatie"@nl ;
     rdfs:comment "Organisatie die uit de verandering voortkwam."@nl .
 
-<http://www.w3.org/ns/org#role> a <http://www.w3.org/2002/07/owl#ObjectProperty> ;
-    rdfs:label "bestuursfunctie"@nl,
-        "rol"@nl ;
-    rdfs:comment "Een code die de functie van het mandaat aangeeft."@nl,
-        "Geeft de aard weer van de functie."@nl .
+<http://www.w3.org/ns/org#role>
+    a            <http://www.w3.org/2002/07/owl#ObjectProperty> ;
+    rdfs:label   "bestuursfunctie"@nl, "rol"@nl ;
+    rdfs:comment "Een code die de functie van het mandaat aangeeft."@nl, "Geeft de aard weer van de functie."@nl .
 
-<http://www.w3.org/ns/person#Person> a <http://www.w3.org/2002/07/owl#Class> ;
+<http://www.w3.org/ns/person#Person>
+    a          <http://www.w3.org/2002/07/owl#Class> ;
     rdfs:label "Persoon"@nl .
 
-<http://www.w3.org/ns/regorg#legalName> a <http://www.w3.org/2002/07/owl#DatatypeProperty> ;
-    rdfs:label "wettelijkeNaam"@nl ;
+<http://www.w3.org/ns/regorg#legalName>
+    a            <http://www.w3.org/2002/07/owl#DatatypeProperty> ;
+    rdfs:label   "wettelijkeNaam"@nl ;
     rdfs:comment "Wettelijk geregistreerde naam vd organisatie."@nl .
 
-<http://www.w3.org/ns/regorg#orgStatus> a <http://www.w3.org/2002/07/owl#ObjectProperty> ;
-    rdfs:label "status"@nl ;
+<http://www.w3.org/ns/regorg#orgStatus>
+    a            <http://www.w3.org/2002/07/owl#ObjectProperty> ;
+    rdfs:label   "status"@nl ;
     rdfs:comment "Toestand vd organisatie."@nl .
 
-<http://www.w3.org/ns/regorg#registration> a <http://www.w3.org/2002/07/owl#ObjectProperty> ;
-    rdfs:label "registratie"@nl ;
+<http://www.w3.org/ns/regorg#registration>
+    a            <http://www.w3.org/2002/07/owl#ObjectProperty> ;
+    rdfs:label   "registratie"@nl ;
     rdfs:comment "Identificator dat de organisatie verkreeg bij registratie."@nl .
 
-<http://xmlns.com/foaf/0.1/familyName> a <http://www.w3.org/2002/07/owl#DatatypeProperty> ;
-    rdfs:label "achternaam"@nl ;
+<http://xmlns.com/foaf/0.1/familyName>
+    a            <http://www.w3.org/2002/07/owl#DatatypeProperty> ;
+    rdfs:label   "achternaam"@nl ;
     rdfs:comment "Gedeelte van de volledige naam vd persoon ontvangen van de vorige generatie."@nl .
 
-<http://xmlns.com/foaf/0.1/givenName> a <http://www.w3.org/2002/07/owl#DatatypeProperty> ;
-    rdfs:label "voornaam"@nl ;
+<http://xmlns.com/foaf/0.1/givenName>
+    a            <http://www.w3.org/2002/07/owl#DatatypeProperty> ;
+    rdfs:label   "voornaam"@nl ;
     rdfs:comment "Naam die een persoon bij geboorte wordt gegeven."@nl .
 
-<http://xmlns.com/foaf/0.1/name> a <http://www.w3.org/2002/07/owl#DatatypeProperty> ;
-    rdfs:label "contactnaam"@nl ;
+<http://xmlns.com/foaf/0.1/name>
+    a            <http://www.w3.org/2002/07/owl#DatatypeProperty> ;
+    rdfs:label   "contactnaam"@nl ;
     rdfs:comment "Naam van bvb de persoon die men kan contacteren."@nl .
 
-<http://xmlns.com/foaf/0.1/page> a <http://www.w3.org/2002/07/owl#DatatypeProperty> ;
-    rdfs:label "website"@nl ;
+<http://xmlns.com/foaf/0.1/page>
+    a            <http://www.w3.org/2002/07/owl#DatatypeProperty> ;
+    rdfs:label   "website"@nl ;
     rdfs:comment "Website waarnaar men kan surfen."@nl .
 
-<https://data.vlaanderen.be/ns/adres#Adresvoorstelling.busnummer> a <http://www.w3.org/2002/07/owl#DatatypeProperty> ;
+<https://data.vlaanderen.be/ns/adres#Adresvoorstelling.busnummer>
+    a          <http://www.w3.org/2002/07/owl#DatatypeProperty> ;
     rdfs:label "busnummer"@nl ;
-    rdfs:comment "Officieel toegekende alfanumerieke code die wordt toegevoegd aan het huisnummer om meerdere gebouweenheden, standplaatsen, ligplaatsen of percelen te onderscheiden die eenzelfde huisnummer hebben."@nl .
+    rdfs:comment
+               "Officieel toegekende alfanumerieke code die wordt toegevoegd aan het huisnummer om meerdere gebouweenheden, standplaatsen, ligplaatsen of percelen te onderscheiden die eenzelfde huisnummer hebben."@nl .
 
-<https://data.vlaanderen.be/ns/adres#Adresvoorstelling.huisnummer> a <http://www.w3.org/2002/07/owl#DatatypeProperty> ;
-    rdfs:label "huisnummer"@nl ;
-    rdfs:comment "Alfanumerieke code officieel toegekend aan gebouweenheden, ligplaatsen, standplaatsen of percelen."@nl .
+<https://data.vlaanderen.be/ns/adres#Adresvoorstelling.huisnummer>
+    a            <http://www.w3.org/2002/07/owl#DatatypeProperty> ;
+    rdfs:label   "huisnummer"@nl ;
+    rdfs:comment
+                 "Alfanumerieke code officieel toegekend aan gebouweenheden, ligplaatsen, standplaatsen of percelen."@nl .
 
-<https://data.vlaanderen.be/ns/adres#gemeentenaam> a <http://www.w3.org/2002/07/owl#DatatypeProperty> ;
-    rdfs:label "gemeentenaam"@nl ;
+<https://data.vlaanderen.be/ns/adres#gemeentenaam>
+    a            <http://www.w3.org/2002/07/owl#DatatypeProperty> ;
+    rdfs:label   "gemeentenaam"@nl ;
     rdfs:comment "Gemeentenaam vh adres."@nl .
 
-<https://data.vlaanderen.be/ns/adres#land> a <http://www.w3.org/2002/07/owl#DatatypeProperty> ;
-    rdfs:label "land"@nl ;
+<https://data.vlaanderen.be/ns/adres#land>
+    a            <http://www.w3.org/2002/07/owl#DatatypeProperty> ;
+    rdfs:label   "land"@nl ;
     rdfs:comment "Land waarin het adres gelegen is."@nl .
 
-<https://data.vlaanderen.be/ns/generiek#GestructureerdeIdentificator> a <http://www.w3.org/2002/07/owl#Class> ;
+<https://data.vlaanderen.be/ns/generiek#GestructureerdeIdentificator>
+    a          <http://www.w3.org/2002/07/owl#Class> ;
     rdfs:label "GestructureerdeIdentificator"@nl .
 
-<https://data.vlaanderen.be/ns/generiek#gestructureerdeIdentificator> a <http://www.w3.org/2002/07/owl#ObjectProperty> ;
-    rdfs:label "ID"@nl ;
+<https://data.vlaanderen.be/ns/generiek#gestructureerdeIdentificator>
+    a            <http://www.w3.org/2002/07/owl#ObjectProperty> ;
+    rdfs:label   "ID"@nl ;
     rdfs:comment "Identificator van een object opgesplitst in zijn onderdelen."@nl .
 
-<https://data.vlaanderen.be/ns/generiek#isTijdspecialisatieVan> a <http://www.w3.org/2002/07/owl#ObjectProperty> ;
+<https://data.vlaanderen.be/ns/generiek#isTijdspecialisatieVan>
+    a          <http://www.w3.org/2002/07/owl#ObjectProperty> ;
     rdfs:label "is tijdspecialisatie van"@nl ;
-    rdfs:comment "Duidt de bronentiteit aan waarvan deze entiteit een tijdsgebonden specialisatie is. De specialisatie stelt de bron voor gedurende een bepaalde periode."@nl .
+    rdfs:comment
+               "Duidt de bronentiteit aan waarvan deze entiteit een tijdsgebonden specialisatie is. De specialisatie stelt de bron voor gedurende een bepaalde periode."@nl .
 
-<https://data.vlaanderen.be/ns/organisatie#Hoedanigheid> a <http://www.w3.org/2002/07/owl#Class> ;
+<https://data.vlaanderen.be/ns/organisatie#Hoedanigheid>
+    a          <http://www.w3.org/2002/07/owl#Class> ;
     rdfs:label "Hoedanigheid"@nl .
 
-<https://data.vlaanderen.be/ns/organisatie#Oprichting> a <http://www.w3.org/2002/07/owl#Class> ;
+<https://data.vlaanderen.be/ns/organisatie#Oprichting>
+    a          <http://www.w3.org/2002/07/owl#Class> ;
     rdfs:label "Oprichting"@nl .
 
-<https://data.vlaanderen.be/ns/organisatie#Stopzetting> a <http://www.w3.org/2002/07/owl#Class> ;
+<https://data.vlaanderen.be/ns/organisatie#Stopzetting>
+    a          <http://www.w3.org/2002/07/owl#Class> ;
     rdfs:label "Stopzetting"@nl .
 
-<https://data.vlaanderen.be/ns/organisatie#contactinfo> a <http://www.w3.org/2002/07/owl#ObjectProperty> ;
-    rdfs:label "contactinfo"@nl ;
+<https://data.vlaanderen.be/ns/organisatie#contactinfo>
+    a            <http://www.w3.org/2002/07/owl#ObjectProperty> ;
+    rdfs:label   "contactinfo"@nl ;
     rdfs:comment "Contactgegevens van een persoon in een specifieke  hoedanigheid"@nl,
-        "Contactgegevens voor de bestuursfunctie."@nl .
+                 "Contactgegevens voor de bestuursfunctie."@nl .
 
-<https://data.vlaanderen.be/ns/organisatie#rechtsvorm> a <http://www.w3.org/2002/07/owl#ObjectProperty> ;
-    rdfs:label "rechtsvorm"@nl ;
+<https://data.vlaanderen.be/ns/organisatie#rechtsvorm>
+    a            <http://www.w3.org/2002/07/owl#ObjectProperty> ;
+    rdfs:label   "rechtsvorm"@nl ;
     rdfs:comment "Juridisch statuut van de geregistreerde organisatie."@nl .
 
-<https://data.vlaanderen.be/ns/persoon#gebruikteVoornaam> a <http://www.w3.org/2002/07/owl#DatatypeProperty> ;
-    rdfs:label "gebruikte voornaam"@nl ;
+<https://data.vlaanderen.be/ns/persoon#gebruikteVoornaam>
+    a            <http://www.w3.org/2002/07/owl#DatatypeProperty> ;
+    rdfs:label   "gebruikte voornaam"@nl ;
     rdfs:comment "Belangrijkste van de voornamen van een persoon."@nl .
 

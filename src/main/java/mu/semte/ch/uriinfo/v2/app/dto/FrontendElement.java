@@ -19,29 +19,28 @@ import static mu.semte.ch.uriinfo.v2.app.FrontendVoc.C_TABLE;
 @Data
 public class FrontendElement implements Comparable<FrontendElement> {
 
-  @Override
-  public int compareTo(FrontendElement o) {
-    return Integer.compare(this.ordering, o.ordering);
-  }
-
-  public enum ElementType {TABLE, PANEL}
-
-  private String title;
-  private ElementType type;
-  private boolean editable;
-  private int ordering;
-  private List<FrontendField> fields;
-  private List<FrontendRow> rows;
-  private List<FrontendField> metaFields = new ArrayList<>(); // skeleton of the element
-
-  public static ElementType evaluateType(Resource resource) {
-    if (C_TABLE.equals(resource)) {
-      return ElementType.TABLE;
+    @Override
+    public int compareTo(FrontendElement o) {
+        return Integer.compare(this.ordering, o.ordering);
     }
-    else if (C_PANEL.equals(resource)) {
-      return ElementType.PANEL;
+
+    public enum ElementType {TABLE, PANEL}
+
+    private String title;
+    private ElementType type;
+    private boolean editable;
+    private int ordering;
+    private List<FrontendField> fields;
+    private List<FrontendRow> rows;
+    private List<FrontendField> metaFields = new ArrayList<>(); // skeleton of the element
+
+    public static ElementType evaluateType(Resource resource) {
+        if (C_TABLE.equals(resource)) {
+            return ElementType.TABLE;
+        } else if (C_PANEL.equals(resource)) {
+            return ElementType.PANEL;
+        }
+        return null;
     }
-    return null;
-  }
 
 }

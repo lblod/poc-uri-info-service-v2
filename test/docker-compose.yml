@@ -22,6 +22,10 @@ services:
       - ./data/db:/data
       - ./config/db/virtuoso.ini:/data/virtuoso.ini
     restart: always
+  uri-info:
+    image: redpencil/mu-uri-info-service:0.2.0
+    links:
+      - triplestore:database
   resource-labels:
     image: lblod/resource-label-service:0.3.1
     links:

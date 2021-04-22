@@ -12,7 +12,7 @@ import java.util.List;
 @Builder(toBuilder = true)
 @Data
 public class FrontendSidePanel {
-  private String label;
-  private String title;
-  private List<FrontendElement> elements;
+    private String label;
+    private String title;
+    private List<FrontendElement> elements;
 }

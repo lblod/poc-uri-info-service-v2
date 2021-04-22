@@ -19,76 +19,76 @@
 
 
 ext:page-person
-  a                    frontend:UI ;
-  frontend:contentType person:Person ;
-  frontend:pages       ext:personlijke-gegevens, ext:functies .
+    a                    frontend:UI ;
+    frontend:contentType person:Person ;
+    frontend:pages       ext:personlijke-gegevens, ext:functies .
 
 ################################################################################################### personlijke gegevens
 
 ext:personlijke-gegevens
-  a                 frontend:Page ;
-  frontend:ordering "0"^^xsd:integer ;
-  frontend:title    "Persoonlijke gegevens" ;
-  frontend:elements ext:contact-gegevens .
+    a                 frontend:Page ;
+    frontend:ordering "0"^^xsd:integer ;
+    frontend:title    "Persoonlijke gegevens" ;
+    frontend:elements ext:contact-gegevens .
 
 
 ext:contact-gegevens
-  a                 frontend:Element ;
-  frontend:type     frontend:Panel ;
-  frontend:ordering "0"^^xsd:integer ;
-  frontend:title    "Contact Gegevens" ;
-  frontend:fields   ext:aanhef1, ext:naam1, ext:email1, ext:tel1, ext:website1, ext:adres1 ;
-  frontend:editable "true"^^xsd:boolean .
+    a                 frontend:Element ;
+    frontend:type     frontend:Panel ;
+    frontend:ordering "0"^^xsd:integer ;
+    frontend:title    "Contact Gegevens" ;
+    frontend:fields   ext:aanhef1, ext:naam1, ext:email1, ext:tel1, ext:website1, ext:adres1 ;
+    frontend:editable "true"^^xsd:boolean .
 
 ext:aanhef1
-  a                  frontend:Field ;
-  frontend:ordering  "0"^^xsd:integer ;
-  frontend:fieldType "string" ;
-  frontend:fields    persoon:aanHef ;
-  frontend:label     "Aanhef." .
+    a                  frontend:Field ;
+    frontend:ordering  "0"^^xsd:integer ;
+    frontend:fieldType "string" ;
+    frontend:fields    persoon:aanHef ;
+    frontend:label     "Aanhef." .
 
 ext:naam1
-  a                  frontend:Field ;
-  frontend:ordering  "1"^^xsd:integer ;
-  frontend:fieldType "string" ;
-  frontend:fields    persoon:gebruikteVoornaam, foaf:familyName ;
-  frontend:label     "Naam" .
+    a                  frontend:Field ;
+    frontend:ordering  "1"^^xsd:integer ;
+    frontend:fieldType "string" ;
+    frontend:fields    persoon:gebruikteVoornaam, foaf:familyName ;
+    frontend:label     "Naam" .
 
 ext:email1
-  a                  frontend:MultiLevelField ;
-  frontend:ordering  "2"^^xsd:integer ;
-  frontend:fieldType "string" ;
-  frontend:source    org:basedAt ;
-  frontend:subjects  org:siteAddress ;
-  frontend:fields    schema:email ;
-  frontend:label     "Email" .
+    a                  frontend:MultiLevelField ;
+    frontend:ordering  "2"^^xsd:integer ;
+    frontend:fieldType "string" ;
+    frontend:source    org:basedAt ;
+    frontend:subjects  org:siteAddress ;
+    frontend:fields    schema:email ;
+    frontend:label     "Email" .
 
 ext:tel1
-  a                  frontend:MultiLevelField ;
-  frontend:ordering  "3"^^xsd:integer ;
-  frontend:fieldType "string" ;
-  frontend:source    org:basedAt ;
-  frontend:subjects  org:siteAddress ;
-  frontend:fields    schema:telephone ;
-  frontend:label     "Tel" .
+    a                  frontend:MultiLevelField ;
+    frontend:ordering  "3"^^xsd:integer ;
+    frontend:fieldType "string" ;
+    frontend:source    org:basedAt ;
+    frontend:subjects  org:siteAddress ;
+    frontend:fields    schema:telephone ;
+    frontend:label     "Tel" .
 
 ext:website1
-  a                  frontend:MultiLevelField ;
-  frontend:ordering  "4"^^xsd:integer ;
-  frontend:fieldType "url" ;
-  frontend:source    org:basedAt ;
-  frontend:subjects  org:siteAddress ;
-  frontend:fields    foaf:page ;
-  frontend:label     "Website" .
+    a                  frontend:MultiLevelField ;
+    frontend:ordering  "4"^^xsd:integer ;
+    frontend:fieldType "url" ;
+    frontend:source    org:basedAt ;
+    frontend:subjects  org:siteAddress ;
+    frontend:fields    foaf:page ;
+    frontend:label     "Website" .
 
 ext:adres1
-  a                  frontend:MultiLevelField ;
-  frontend:ordering  "5"^^xsd:integer ;
-  frontend:fieldType "string" ;
-  frontend:source    org:basedAt ;
-  frontend:subjects  organisatie:bestaatUit ;
-  frontend:fields    locn:fullAddress ;
-  frontend:label     "Adres" .
+    a                  frontend:MultiLevelField ;
+    frontend:ordering  "5"^^xsd:integer ;
+    frontend:fieldType "string" ;
+    frontend:source    org:basedAt ;
+    frontend:subjects  organisatie:bestaatUit ;
+    frontend:fields    locn:fullAddress ;
+    frontend:label     "Adres" .
 
 
 ################################################################################################### personlijke gegevens
@@ -96,82 +96,83 @@ ext:adres1
 ################################################################################################### functies
 
 ext:functies
-  a                 frontend:Page ;
-  frontend:ordering "1"^^xsd:integer ;
-  frontend:title    "Functies" ;
-  frontend:elements ext:functie-table .
+    a                 frontend:Page ;
+    frontend:ordering "1"^^xsd:integer ;
+    frontend:title    "Functies" ;
+    frontend:elements ext:functie-table .
 
 
 ext:functie-table
-  a                    frontend:Element ;
-  frontend:ordering    "0"^^xsd:integer ;
-  frontend:type        frontend:Table ;
-  frontend:detailPanel ext:side-panel1 ;
-  frontend:source      mandaat:isAangesteldAls ;
-  frontend:fields      ext:functie1, ext:eredienst1 ;
-  frontend:editable    "false"^^xsd:boolean .
+    a                    frontend:Element ;
+    frontend:ordering    "0"^^xsd:integer ;
+    frontend:type        frontend:Table ;
+    frontend:detailPanel ext:side-panel1 ;
+    frontend:source      mandaat:isAangesteldAls ;
+    frontend:fields      ext:functie1, ext:eredienst1 ;
+    frontend:editable    "false"^^xsd:boolean .
 
 ext:functie1
-  a                  frontend:MultiLevelField ;
-  frontend:ordering  "0"^^xsd:integer ;
-  frontend:fieldType "string" ;
-  frontend:source    org:holds ;
-  frontend:subjects  org:role ;
-  frontend:fields    skos:prefLabel ;
-  frontend:label     "Functie" .
+    a                  frontend:MultiLevelField ;
+    frontend:ordering  "0"^^xsd:integer ;
+    frontend:fieldType "string" ;
+    frontend:source    org:holds ;
+    frontend:subjects  org:role ;
+    frontend:fields    skos:prefLabel ;
+    frontend:label     "Functie" .
 
 ext:eredienst1
-  a                  frontend:MultiLevelField ;
-  frontend:ordering  "1"^^xsd:integer ;
-  frontend:fieldType "string" ;
-  frontend:source    org:holds ;
-  frontend:subjects  org:postIn, generiek:isTijdspecialisatieVan ;
-  frontend:fields    regorg:legalName ;
-  frontend:hasLink   ext:eredienst-link1 ;
-  frontend:label     "Eredienst" .
+    a                  frontend:MultiLevelField ;
+    frontend:ordering  "1"^^xsd:integer ;
+    frontend:fieldType "string" ;
+    frontend:source    org:holds ;
+    frontend:subjects  org:postIn, generiek:isTijdspecialisatieVan ;
+    frontend:fields    regorg:legalName ;
+    frontend:hasLink   ext:eredienst-link1 ;
+    frontend:label     "Eredienst" .
 
-ext:eredienst-link1 a frontend:Link;
-        frontend:source org:holds;
-        frontend:subjects  org:postIn.
+ext:eredienst-link1
+    a                 frontend:Link ;
+    frontend:source   org:holds ;
+    frontend:subjects org:postIn .
 
 ext:start-datum1
-  a                  frontend:Field ;
-  frontend:ordering  "2"^^xsd:integer ;
-  frontend:fieldType "date" ;
-  frontend:fields    mandaat:start ;
-  frontend:label     "Startdatum" .
+    a                  frontend:Field ;
+    frontend:ordering  "2"^^xsd:integer ;
+    frontend:fieldType "date" ;
+    frontend:fields    mandaat:start ;
+    frontend:label     "Startdatum" .
 
 ext:side-panel-title1
-  a                  frontend:SidePanelTitle ;
-  frontend:metaField ext:naam2 .
+    a                  frontend:SidePanelTitle ;
+    frontend:metaField ext:naam2 .
 
 ext:naam2
-  a                  frontend:MultiLevelField ;
-  frontend:ordering  "0"^^xsd:integer ;
-  frontend:fieldType "string" ;
-  frontend:source    mandaat:isBestuurlijkeAliasVan ;
-  frontend:fields    persoon:gebruikteVoornaam, foaf:familyName .
+    a                  frontend:MultiLevelField ;
+    frontend:ordering  "0"^^xsd:integer ;
+    frontend:fieldType "string" ;
+    frontend:source    mandaat:isBestuurlijkeAliasVan ;
+    frontend:fields    persoon:gebruikteVoornaam, foaf:familyName .
 
 ext:side-panel1
-  a                       frontend:SidePanel ;
-  frontend:sidePanelTitle ext:side-panel-title1 ;
-  frontend:label          "Bekijk" ;
-  frontend:elements       ext:mandaat1, ext:aanstelling1 .
+    a                       frontend:SidePanel ;
+    frontend:sidePanelTitle ext:side-panel-title1 ;
+    frontend:label          "Bekijk" ;
+    frontend:elements       ext:mandaat1, ext:aanstelling1 .
 
 ext:mandaat1
-  a                 frontend:Element ;
-  frontend:ordering "0"^^xsd:integer ;
-  frontend:type     frontend:Panel ;
-  frontend:title    "Mandaat" ;
-  frontend:fields   ext:functie1, ext:eredienst1 ;
-  frontend:editable "true"^^xsd:boolean .
+    a                 frontend:Element ;
+    frontend:ordering "0"^^xsd:integer ;
+    frontend:type     frontend:Panel ;
+    frontend:title    "Mandaat" ;
+    frontend:fields   ext:functie1, ext:eredienst1 ;
+    frontend:editable "true"^^xsd:boolean .
 
 ext:aanstelling1
-  a                 frontend:Element ;
-  frontend:ordering "1"^^xsd:integer ;
-  frontend:type     frontend:Panel ;
-  frontend:title    "Aanstelling" ;
-  frontend:fields   ext:start-datum1 ;
-  frontend:editable "true"^^xsd:boolean .
+    a                 frontend:Element ;
+    frontend:ordering "1"^^xsd:integer ;
+    frontend:type     frontend:Panel ;
+    frontend:title    "Aanstelling" ;
+    frontend:fields   ext:start-datum1 ;
+    frontend:editable "true"^^xsd:boolean .
 ################################################################################################### functies
 

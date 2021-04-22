@@ -20,99 +20,99 @@
 
 
 ext:page-bestuursorgaan
-  a                    frontend:UI ;
-  frontend:contentType besluit:Bestuursorgaan ;
-  frontend:pages       ext:bestuursorgaan .
+    a                    frontend:UI ;
+    frontend:contentType besluit:Bestuursorgaan ;
+    frontend:pages       ext:bestuursorgaan .
 
 ################################################################################################### bestuursorgaan
 
 ext:bestuursorgaan
-  a                 frontend:Page ;
-  frontend:ordering "0"^^xsd:integer ;
-  frontend:title    "Bestuursorgaan" ;
-  frontend:elements ext:bestuursorgaan_gegevens, ext:contact_gegevens2, ext:contact_personen .
+    a                 frontend:Page ;
+    frontend:ordering "0"^^xsd:integer ;
+    frontend:title    "Bestuursorgaan" ;
+    frontend:elements ext:bestuursorgaan_gegevens, ext:contact_gegevens2, ext:contact_personen .
 
 ext:bestuursorgaan_gegevens
-  a                 frontend:Element ;
-  frontend:type     frontend:Panel ;
-  frontend:ordering "0"^^xsd:integer ;
-  frontend:title    "" ;
-  frontend:fields   ext:naam_bestuurs, ext:startDatum ;
-  frontend:editable "false"^^xsd:boolean .
+    a                 frontend:Element ;
+    frontend:type     frontend:Panel ;
+    frontend:ordering "0"^^xsd:integer ;
+    frontend:title    "" ;
+    frontend:fields   ext:naam_bestuurs, ext:startDatum ;
+    frontend:editable "false"^^xsd:boolean .
 
 
 ext:contact_gegevens2
-  a                 frontend:Element ;
-  frontend:type     frontend:Panel ;
-  frontend:ordering "1"^^xsd:integer ;
-  frontend:title    "Contact gegevens" ;
-  frontend:fields   ext:tel2, ext:adres2 ;
-  frontend:editable "true"^^xsd:boolean .
+    a                 frontend:Element ;
+    frontend:type     frontend:Panel ;
+    frontend:ordering "1"^^xsd:integer ;
+    frontend:title    "Contact gegevens" ;
+    frontend:fields   ext:tel2, ext:adres2 ;
+    frontend:editable "true"^^xsd:boolean .
 
 ext:contact_personen
-  a                 frontend:Element ;
-  frontend:type     frontend:Panel ;
-  frontend:ordering "2"^^xsd:integer ;
-  frontend:title    "Contact personen" ;
-  frontend:fields   ext:role, ext:person_role ;
-  frontend:editable "true"^^xsd:boolean .
+    a                 frontend:Element ;
+    frontend:type     frontend:Panel ;
+    frontend:ordering "2"^^xsd:integer ;
+    frontend:title    "Contact personen" ;
+    frontend:fields   ext:role, ext:person_role ;
+    frontend:editable "true"^^xsd:boolean .
 
 ext:naam_bestuurs
-  a                   frontend:MultiLevelField ;
-  frontend:ordering   "0"^^xsd:integer ;
-  frontend:fieldType  "string" ;
-  frontend:source     generiek:isTijdspecialisatieVan ;
-  frontend:fields     regorg:legalName ;
-  frontend:label      "Naam" .
+    a                  frontend:MultiLevelField ;
+    frontend:ordering  "0"^^xsd:integer ;
+    frontend:fieldType "string" ;
+    frontend:source    generiek:isTijdspecialisatieVan ;
+    frontend:fields    regorg:legalName ;
+    frontend:label     "Naam" .
 
 ext:startDatum
-  a                   frontend:MultiLevelField ;
-  frontend:ordering   "1"^^xsd:integer ;
-  frontend:fieldType  "date" ;
-  frontend:source     mandaat:isSamenSamengesteld ;
-  frontend:fields     mandaat:datum ;
-  frontend:label      "Start datum" .
+    a                  frontend:MultiLevelField ;
+    frontend:ordering  "1"^^xsd:integer ;
+    frontend:fieldType "date" ;
+    frontend:source    mandaat:isSamenSamengesteld ;
+    frontend:fields    mandaat:datum ;
+    frontend:label     "Start datum" .
 
 ext:tel2
-  a                  frontend:MultiLevelField ;
-  frontend:ordering  "0"^^xsd:integer ;
-  frontend:fieldType "string" ;
-  frontend:source    generiek:isTijdspecialisatieVan ;
-  frontend:subjects  org:hasPrimarySite, org:siteAddress ;
-  frontend:fields    schema:telephone ;
-  frontend:label     "Tel" .
+    a                  frontend:MultiLevelField ;
+    frontend:ordering  "0"^^xsd:integer ;
+    frontend:fieldType "string" ;
+    frontend:source    generiek:isTijdspecialisatieVan ;
+    frontend:subjects  org:hasPrimarySite, org:siteAddress ;
+    frontend:fields    schema:telephone ;
+    frontend:label     "Tel" .
 
 ext:adres2
-  a                  frontend:MultiLevelField ;
-  frontend:ordering  "1"^^xsd:integer ;
-  frontend:fieldType "string" ;
-  frontend:source    generiek:isTijdspecialisatieVan ;
-  frontend:subjects  org:hasPrimarySite, organisatie:bestaatUit ;
-  frontend:fields    locn:thoroughfare, adres:Adresvoorstelling.huisnummer, locn:postCode, adres:gemeentenaam ;
-  frontend:label     "Adres" .
+    a                  frontend:MultiLevelField ;
+    frontend:ordering  "1"^^xsd:integer ;
+    frontend:fieldType "string" ;
+    frontend:source    generiek:isTijdspecialisatieVan ;
+    frontend:subjects  org:hasPrimarySite, organisatie:bestaatUit ;
+    frontend:fields    locn:thoroughfare, adres:Adresvoorstelling.huisnummer, locn:postCode, adres:gemeentenaam ;
+    frontend:label     "Adres" .
 
 
 ext:role
-  a                  frontend:MultiLevelField ;
-  frontend:ordering  "0"^^xsd:integer ;
-  frontend:fieldType "string" ;
-  frontend:source    org:hasPost ;
-  frontend:subjects  org:role ;
-  frontend:fields    skos:prefLabel ;
-  frontend:label     "Rol" .
+    a                  frontend:MultiLevelField ;
+    frontend:ordering  "0"^^xsd:integer ;
+    frontend:fieldType "string" ;
+    frontend:source    org:hasPost ;
+    frontend:subjects  org:role ;
+    frontend:fields    skos:prefLabel ;
+    frontend:label     "Rol" .
 
 ext:person_role
-  a                  frontend:MultiLevelField ;
-  frontend:ordering  "1"^^xsd:integer ;
-  frontend:fieldType "string" ;
-  frontend:source    org:hasPost ;
-  frontend:subjects  org:heldBy, mandaat:isBestuurlijkeAliasVan ;
-  frontend:fields    persoon:gebruikteVoornaam, foaf:familyName ;
-  frontend:hasLink   ext:person_role-link1 ;
+    a                  frontend:MultiLevelField ;
+    frontend:ordering  "1"^^xsd:integer ;
+    frontend:fieldType "string" ;
+    frontend:source    org:hasPost ;
+    frontend:subjects  org:heldBy, mandaat:isBestuurlijkeAliasVan ;
+    frontend:fields    persoon:gebruikteVoornaam, foaf:familyName ;
+    frontend:hasLink   ext:person_role-link1 ;
+    frontend:label     "" .
 
-  frontend:label     "" .
 
-
-ext:person_role-link1 a frontend:Link;
-                    frontend:source org:hasPost;
-                    frontend:subjects org:heldBy, mandaat:isBestuurlijkeAliasVan .
+ext:person_role-link1
+    a                 frontend:Link ;
+    frontend:source   org:hasPost ;
+    frontend:subjects org:heldBy, mandaat:isBestuurlijkeAliasVan .

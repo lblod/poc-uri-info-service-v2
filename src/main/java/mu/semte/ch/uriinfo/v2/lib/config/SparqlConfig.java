@@ -29,46 +29,45 @@ import static org.apache.commons.text.CaseUtils.toCamelCase;
 @Slf4j
 public class SparqlConfig {
 
-  @Value("classpath:sparql/*.sparql")
-  private Resource[] queries;
+    @Value("classpath:sparql/*.sparql")
+    private Resource[] queries;
 
-  @Value("${sparql.endpoint}")
-  private String sparqlUrl;
+    @Value("${sparql.endpoint}")
+    private String sparqlUrl;
 
-  @Bean
-  public SparqlQueryStore sparqlQueryLoader() {
-    log.info("Adding {} queries to the store", queries.length);
+    @Bean
+    public SparqlQueryStore sparqlQueryLoader() {
+        log.info("Adding {} queries to the store", queries.length);
 
-    var queriesMap = Arrays.stream(queries)
-                           .map(r -> {
-                             try {
-                               var key = toCamelCase(removeExtension(r.getFilename()), false, '-');
-                               return immutableEntry(key, IOUtils.toString(r.getInputStream(), UTF_8));
-                             }
-                             catch (IOException e) {
-                               throw new RuntimeException(e);
-                             }
-                           })
-                           .peek(e -> log.info("query {} added to the store", e.getKey()))
-                           .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
-    return queriesMap::get;
-  }
+        var queriesMap = Arrays.stream(queries)
+                .map(r -> {
+                    try {
+                        var key = toCamelCase(removeExtension(r.getFilename()), false, '-');
+                        return immutableEntry(key, IOUtils.toString(r.getInputStream(), UTF_8));
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                })
+                .peek(e -> log.info("query {} added to the store", e.getKey()))
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+        return queriesMap::get;
+    }
 
-  @Bean
-  @Autowired
-  public SparqlClient defaultSudoSparqlClient(CloseableHttpClient closeableHttpClient) {
-    return SparqlClient.builder()
-                       .url(sparqlUrl)
-                       .httpClient(closeableHttpClient)
-                       .build();
-  }
+    @Bean
+    @Autowired
+    public SparqlClient defaultSudoSparqlClient(CloseableHttpClient closeableHttpClient) {
+        return SparqlClient.builder()
+                .url(sparqlUrl)
+                .httpClient(closeableHttpClient)
+                .build();
+    }
 
-  @Bean(destroyMethod = "close")
-  public CloseableHttpClient buildHttpClient() {
-    return HttpClients.custom()
-                      .setDefaultHeaders(List.of(new BasicHeader(Constants.HEADER_MU_AUTH_SUDO, "true")))
-                      .build();
+    @Bean(destroyMethod = "close")
+    public CloseableHttpClient buildHttpClient() {
+        return HttpClients.custom()
+                .setDefaultHeaders(List.of(new BasicHeader(Constants.HEADER_MU_AUTH_SUDO, "true")))
+                .build();
 
-  }
+    }
 
 }

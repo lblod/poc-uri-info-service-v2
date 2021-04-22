@@ -7,15 +7,11 @@ import mu.semte.ch.uriinfo.v2.app.dto.*;
 import mu.semte.ch.uriinfo.v2.lib.dto.JsonApiData;
 import mu.semte.ch.uriinfo.v2.lib.dto.JsonApiResponse;
 import mu.semte.ch.uriinfo.v2.lib.utils.ModelUtils;
-import org.apache.http.client.utils.URIUtils;
-import org.apache.http.client.utils.URLEncodedUtils;
 import org.apache.jena.rdf.model.*;
 import org.apache.jena.riot.Lang;
 import org.apache.jena.vocabulary.RDF;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -23,7 +19,6 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
@@ -135,7 +130,7 @@ public class UIBuilderService {
 
     private FrontendField buildField(Resource rootResource, Model model, Model metaModel, Resource field) {
         FrontendField f = buildSkeletonField(metaModel, field);
-        f.setLink(this.buildLink(rootResource,model, metaModel, field));
+        f.setLink(this.buildLink(rootResource, model, metaModel, field));
         var fields = metaModel.listObjectsOfProperty(field, P_FIELDS).toList().stream()
                 .map(RDFNode::asResource).collect(Collectors.toList());
         f.setLabelUris(fields.stream().map(Resource::getURI).collect(Collectors.toList()));
@@ -164,7 +159,7 @@ public class UIBuilderService {
 
     private String buildLink(Resource rootResource, Model model, Model metaModel, Resource field) {
         Resource hasLink = ofNullable(metaModel.getProperty(field, P_HAS_LINK)).map(Statement::getResource).orElse(null);
-        if(hasLink !=null){
+        if (hasLink != null) {
             var source = model.getProperty(rootResource, createProperty(metaModel.getProperty(field, P_SOURCE)
                     .getResource()
                     .getURI())).getObject().asResource();
@@ -174,7 +169,7 @@ public class UIBuilderService {
                     .map(RDFNode::asResource)
                     .collect(Collectors.toList());
             Model lastDepth = this.findDepth(model, source, predicates);
-            if(!lastDepth.isEmpty()){
+            if (!lastDepth.isEmpty()) {
                 return lastDepth.listStatements().nextStatement().getSubject().getURI();
             }
         }
@@ -207,7 +202,7 @@ public class UIBuilderService {
 
     private String fetchLabelFromResourceLabelsService(String uri) {
         if (resourceLabelsEnabled) {
-            try{
+            try {
                 String endpoint = "%s/info?term=%s".formatted(resourceLabelsEndpoint, URLEncoder.encode(uri, StandardCharsets.UTF_8));
                 URL url = new URL(endpoint);
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -216,7 +211,7 @@ public class UIBuilderService {
                 ObjectMapper mapper = new ObjectMapper();
                 var body = mapper.readValue(responseStream, JsonApiResponse.class);
                 return ofNullable(body).map(JsonApiResponse::getData).map(JsonApiData::getAttributes).map(attributes -> attributes.getOrDefault("label", uri)).orElse(uri);
-            }catch (Exception e){
+            } catch (Exception e) {
                 log.debug("error while calling resource labels service", e);
             }
 

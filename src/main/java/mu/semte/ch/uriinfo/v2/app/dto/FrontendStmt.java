@@ -10,10 +10,10 @@ import lombok.NoArgsConstructor;
 @Builder(toBuilder = true)
 @Data
 public class FrontendStmt {
-  private String subject;
-  private String predicate;
-  private String object;
-  private String datatype;
-  private String language;
-  private String predicateLabel;
+    private String subject;
+    private String predicate;
+    private String object;
+    private String datatype;
+    private String language;
+    private String predicateLabel;
 }

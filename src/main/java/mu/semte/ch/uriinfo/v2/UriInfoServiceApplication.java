@@ -8,8 +8,8 @@ import org.springframework.scheduling.annotation.EnableAsync;
 @EnableAsync
 public class UriInfoServiceApplication {
 
-  public static void main(String[] args) {
-    SpringApplication.run(UriInfoServiceApplication.class, args);
-  }
+    public static void main(String[] args) {
+        SpringApplication.run(UriInfoServiceApplication.class, args);
+    }
 
 }

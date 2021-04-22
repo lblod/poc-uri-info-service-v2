@@ -12,6 +12,6 @@ import java.util.List;
 @Builder(toBuilder = true)
 @Data
 public class FrontendRow {
-  private FrontendSidePanel detailPanel;
-  private List<FrontendField> fields;
+    private FrontendSidePanel detailPanel;
+    private List<FrontendField> fields;
 }
