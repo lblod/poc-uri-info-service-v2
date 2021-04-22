@@ -17,7 +17,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Collection;
 import java.util.List;
+import java.util.function.Predicate;
+
+import static java.util.Optional.ofNullable;
 
 @RestController
 @Slf4j
@@ -52,7 +56,17 @@ public class AppController {
 
   @GetMapping("/page")
   public ResponseEntity<FrontendUI> page(@RequestParam("uri") String uri, HttpServletRequest request) {
-    return ResponseEntity.ok(uiBuilderService.build(uri));
+    try{
+      FrontendUI ui = uiBuilderService.build(uri);
+      if(ofNullable(ui).map(FrontendUI::getPages).orElseGet(List::of).isEmpty()){
+        log.info("No content for uri {}", uri);
+        return ResponseEntity.noContent().build();
+      }
+      return ResponseEntity.ok(ui);
+    }catch(Throwable throwable) {
+      log.error("An error occurred", throwable);
+      return ResponseEntity.noContent().build();
+    }
   }
 
   @PostMapping("/update")
