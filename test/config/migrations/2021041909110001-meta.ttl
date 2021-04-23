@@ -15,7 +15,7 @@
 @prefix frontend:    <http://lblod.data.gift/vocabularies/frontend/> .
 
 
-## http://data.lblod.info/id/persoon/5a616d80d0c2908573bd27bdb5aefee7
+## http://localhost:4200/id/persoon/5a616d80d0c2908573bd27bdb5aefee7
 
 
 ext:page-person
@@ -90,10 +90,7 @@ ext:adres1
     frontend:fields    locn:fullAddress ;
     frontend:label     "Adres" .
 
-
-################################################################################################### personlijke gegevens
-
-################################################################################################### functies
+############################################################################################################### functies
 
 ext:functies
     a                 frontend:Page ;
@@ -174,5 +171,4 @@ ext:aanstelling1
     frontend:title    "Aanstelling" ;
     frontend:fields   ext:start-datum1 ;
     frontend:editable "true"^^xsd:boolean .
-################################################################################################### functies
 

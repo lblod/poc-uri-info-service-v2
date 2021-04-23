@@ -23,7 +23,9 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 import static java.util.Optional.ofNullable;
+import static java.util.stream.Collectors.joining;
 import static mu.semte.ch.uriinfo.v2.app.FrontendVoc.*;
+import static org.apache.jena.rdf.model.ModelFactory.createDefaultModel;
 import static org.apache.jena.rdf.model.ResourceFactory.createProperty;
 import static org.apache.jena.rdf.model.ResourceFactory.createResource;
 
@@ -142,7 +144,7 @@ public class UIBuilderService {
             String value = fields.stream()
                     .map(fieldPropertyUri -> ofNullable(model.getProperty(rootResource, createProperty(fieldPropertyUri.getURI()))).map(Statement::getString).orElse(null))
                     .filter(Objects::nonNull)
-                    .collect(Collectors.joining(separator));
+                    .collect(joining(separator));
             f.setValue(value);
             f.setTriples(this.buildTriples(model, rootResource, fields));
         } else if (C_MULTI_LEVEL_FIELD.equals(nsType)) {
@@ -231,23 +233,25 @@ public class UIBuilderService {
                 .stream()
                 .map(RDFNode::asResource)
                 .collect(Collectors.toList());
-        String value;
+        String value = null;
         List<FrontendStmt> triples = null;
         if (predicates.size() >= 1) {
             var lastDepth = findDepth(model, source, predicates);
-            value = fields.stream()
-                    .map(fieldPropertyUri -> lastDepth.getProperty(null, createProperty(fieldPropertyUri.getURI())))
-                    .filter(Objects::nonNull)
-                    .map(Statement::getString)
-                    .collect(Collectors.joining(separator));
-            triples = this.buildTriples(lastDepth, null, fields);
+            if(!lastDepth.isEmpty()){
+                value = fields.stream()
+                        .map(fieldPropertyUri -> lastDepth.getProperty(null, createProperty(fieldPropertyUri.getURI())))
+                        .filter(Objects::nonNull)
+                        .map(Statement::getString)
+                        .collect(joining(separator));
+                triples = this.buildTriples(lastDepth, null, fields);
+            }
 
         } else {
             value = fields.stream()
                     .map(fieldPropertyUri -> model.getProperty(source, createProperty(fieldPropertyUri.getURI())))
                     .filter(Objects::nonNull)
                     .map(Statement::getString)
-                    .collect(Collectors.joining(separator));
+                    .collect(joining(separator));
             triples = this.buildTriples(model, source, fields);
         }
         frontendField.setValue(value);
@@ -255,25 +259,41 @@ public class UIBuilderService {
     }
 
     private Model findDepth(Model model, Resource subject, List<Resource> predicates) {
+
+        if(model.isEmpty()) {
+            log.error("model is empty");
+            return model;
+        }
+
         var root = model.listStatements(subject, null, (RDFNode) null);
+
         if (predicates.isEmpty()) {
             return root.toModel();
         }
         var rootSource = root.toList();
         Resource rootPredicate = predicates.stream()
                 .filter(s -> rootSource.stream().anyMatch(rs -> rs.getPredicate().asResource().equals(s)))
-                .findFirst()
-                .orElseThrow(() -> new RuntimeException("could not find predicate. rootSource:\n%s\nsubject:\n%s\npredicates:\n%s\n"
-                        .formatted(ModelUtils.toString(root.toModel(), Lang.TURTLE), subject.getURI(), predicates.stream().map(Resource::getURI).collect(Collectors.toList())))
-                );
+                .findFirst().orElse(null);
+
+        if(rootPredicate == null) {
+            log.error("could not find predicate. rootSource:\n%s\nsubject:\n%s\npredicates:\n%s\n"
+                    .formatted(ModelUtils.toString(root.toModel(), Lang.TURTLE), subject.getURI(), predicates.stream().map(Resource::getURI).collect(joining(","))));
+            return createDefaultModel();
+        }
+
         var newSubject = rootSource.stream()
                 .filter(rs -> rs.getPredicate().equals(rootPredicate))
                 .map(Statement::getObject)
                 .findFirst()
-                .orElseThrow(() -> new RuntimeException("could not find subject. rootSource:\n%s\nrootPredicate:\n%s\npredicates:\n%s\n"
-                        .formatted(ModelUtils.toString(root.toModel(), Lang.TURTLE), rootPredicate.getURI(), predicates.stream().map(Resource::getURI).collect(Collectors.toList())))
-                )
-                .asResource();
+                .map(RDFNode::asResource)
+                .orElse(null);
+
+        if(newSubject == null) {
+            log.error("could not find subject. rootSource:\n%s\nrootPredicate:\n%s\npredicates:\n%s\n"
+                    .formatted(ModelUtils.toString(root.toModel(), Lang.TURTLE), rootPredicate.getURI(), predicates.stream().map(Resource::getURI).collect(joining(","))));
+            return createDefaultModel();
+        }
+
         return findDepth(model, newSubject, predicates.stream().filter(p -> !p.equals(rootPredicate)).collect(Collectors.toList()));
     }
 

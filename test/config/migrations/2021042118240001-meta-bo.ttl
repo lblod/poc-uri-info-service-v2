@@ -16,7 +16,7 @@
 @prefix frontend:    <http://lblod.data.gift/vocabularies/frontend/> .
 
 
-## http://data.lblod.info/id/bestuursorgaan/9cc4f87292514c96bb883f796ce00239
+## http://localhost:4200/id/bestuursorgaan/9cc4f87292514c96bb883f796ce00239
 
 
 ext:page-bestuursorgaan
