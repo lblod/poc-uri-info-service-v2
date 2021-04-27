@@ -6,7 +6,7 @@ import mu.semte.ch.uriinfo.v2.app.dto.FrontendUI;
 import mu.semte.ch.uriinfo.v2.app.service.CrudTripleService;
 import mu.semte.ch.uriinfo.v2.app.service.UIBuilderService;
 import mu.semte.ch.uriinfo.v2.app.service.UriInfoService;
-import mu.semte.ch.uriinfo.v2.lib.utils.ModelUtils;
+import mu.semte.ch.lib.utils.ModelUtils;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.riot.Lang;
 import org.springframework.http.ResponseEntity;

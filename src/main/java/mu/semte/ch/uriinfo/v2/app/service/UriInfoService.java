@@ -1,8 +1,8 @@
 package mu.semte.ch.uriinfo.v2.app.service;
 
 import lombok.extern.slf4j.Slf4j;
-import mu.semte.ch.uriinfo.v2.lib.utils.SparqlClient;
-import mu.semte.ch.uriinfo.v2.lib.utils.SparqlQueryStore;
+import mu.semte.ch.lib.utils.SparqlClient;
+import mu.semte.ch.lib.utils.SparqlQueryStore;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.ModelFactory;
