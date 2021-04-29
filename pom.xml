@@ -40,8 +40,8 @@
     </scm>
     <repositories>
         <repository>
-            <id>github</id>
-            <url>https://maven.pkg.github.com/lblod/*</url>
+            <id>github-public</id>
+            <url>https://public:&#103;hp_6thlNa1btFpUo7SUEa1a5ypPpwkHOf25qgcG@maven.pkg.github.com/lblod/*</url>
             <snapshots>
                 <enabled>true</enabled>
             </snapshots>
