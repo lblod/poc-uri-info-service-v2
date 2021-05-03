@@ -3,6 +3,10 @@ LABEL maintainer="info@redpencil.io"
 
 WORKDIR /app
 
+COPY .mvn .mvn
+
+COPY settings.xml settings.xml
+
 COPY pom.xml .
 
 RUN mvn -B dependency:resolve-plugins dependency:resolve
