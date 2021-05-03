@@ -14,11 +14,12 @@ import java.util.List;
 public class FrontendField implements Comparable<FrontendField> {
     private int ordering;
     private List<String> labelUris;
-    private String type;
     private String label;
     private String value;
     private List<FrontendStmt> triples;
     private String link;
+    private String typeUri;
+    private boolean list; // if it must be treated as a list box when editing it
 
     @Override
     public int compareTo(FrontendField o) {

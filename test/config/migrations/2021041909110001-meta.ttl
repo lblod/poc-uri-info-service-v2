@@ -13,6 +13,7 @@
 @prefix person:      <http://www.w3.org/ns/person#> .
 @prefix ext:         <http://mu.semte.ch/vocabularies/ext/> .
 @prefix frontend:    <http://lblod.data.gift/vocabularies/frontend/> .
+@prefix rdfs:       <http://www.w3.org/2000/01/rdf-schema#> .
 
 
 ## http://localhost:4200/id/persoon/5a616d80d0c2908573bd27bdb5aefee7
@@ -43,21 +44,21 @@ ext:contact-gegevens
 ext:aanhef1
     a                  frontend:Field ;
     frontend:ordering  "0"^^xsd:integer ;
-    frontend:fieldType "string" ;
+    frontend:fieldType xsd:string ;
     frontend:fields    persoon:aanHef ;
     frontend:label     "Aanhef." .
 
 ext:naam1
     a                  frontend:Field ;
     frontend:ordering  "1"^^xsd:integer ;
-    frontend:fieldType "string" ;
+    frontend:fieldType xsd:string ;
     frontend:fields    persoon:gebruikteVoornaam, foaf:familyName ;
     frontend:label     "Naam" .
 
 ext:email1
     a                  frontend:MultiLevelField ;
     frontend:ordering  "2"^^xsd:integer ;
-    frontend:fieldType "string" ;
+    frontend:fieldType xsd:string ;
     frontend:source    org:basedAt ;
     frontend:subjects  org:siteAddress ;
     frontend:fields    schema:email ;
@@ -66,7 +67,7 @@ ext:email1
 ext:tel1
     a                  frontend:MultiLevelField ;
     frontend:ordering  "3"^^xsd:integer ;
-    frontend:fieldType "string" ;
+    frontend:fieldType xsd:string ;
     frontend:source    org:basedAt ;
     frontend:subjects  org:siteAddress ;
     frontend:fields    schema:telephone ;
@@ -75,7 +76,7 @@ ext:tel1
 ext:website1
     a                  frontend:MultiLevelField ;
     frontend:ordering  "4"^^xsd:integer ;
-    frontend:fieldType "url" ;
+    frontend:fieldType xsd:anyURI  ;
     frontend:source    org:basedAt ;
     frontend:subjects  org:siteAddress ;
     frontend:fields    foaf:page ;
@@ -84,7 +85,7 @@ ext:website1
 ext:adres1
     a                  frontend:MultiLevelField ;
     frontend:ordering  "5"^^xsd:integer ;
-    frontend:fieldType "string" ;
+    frontend:fieldType xsd:string ;
     frontend:source    org:basedAt ;
     frontend:subjects  organisatie:bestaatUit ;
     frontend:fields    locn:fullAddress ;
@@ -111,16 +112,21 @@ ext:functie-table
 ext:functie1
     a                  frontend:MultiLevelField ;
     frontend:ordering  "0"^^xsd:integer ;
-    frontend:fieldType "string" ;
+    frontend:fieldType ext:codeList1 ;
+    frontend:isList "true"^^xsd:boolean ;
     frontend:source    org:holds ;
     frontend:subjects  org:role ;
     frontend:fields    skos:prefLabel ;
     frontend:label     "Functie" .
 
-ext:eredienst1
+ext:codeList1 a frontend:Datatype;
+        frontend:target  skos:inScheme.
+
+
+ ext:eredienst1
     a                  frontend:MultiLevelField ;
     frontend:ordering  "1"^^xsd:integer ;
-    frontend:fieldType "string" ;
+    frontend:fieldType xsd:string ;
     frontend:source    org:holds ;
     frontend:subjects  org:postIn, generiek:isTijdspecialisatieVan ;
     frontend:fields    regorg:legalName ;
@@ -135,7 +141,7 @@ ext:eredienst-link1
 ext:start-datum1
     a                  frontend:Field ;
     frontend:ordering  "2"^^xsd:integer ;
-    frontend:fieldType "date" ;
+    frontend:fieldType xsd:dateTime  ;
     frontend:fields    mandaat:start ;
     frontend:label     "Startdatum" .
 
@@ -146,7 +152,7 @@ ext:side-panel-title1
 ext:naam2
     a                  frontend:MultiLevelField ;
     frontend:ordering  "0"^^xsd:integer ;
-    frontend:fieldType "string" ;
+    frontend:fieldType xsd:string ;
     frontend:source    mandaat:isBestuurlijkeAliasVan ;
     frontend:fields    persoon:gebruikteVoornaam, foaf:familyName .
 

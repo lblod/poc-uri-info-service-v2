@@ -1,0 +1,13 @@
+select distinct ?option ?label where {
+
+ ?option ?x ?target ;
+
+<${label}> ?label.
+{
+    select ?target where {
+     <${subject}> <${target}> ?target
+    }
+
+}
+
+}

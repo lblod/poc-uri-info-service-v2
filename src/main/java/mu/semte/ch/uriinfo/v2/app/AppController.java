@@ -1,6 +1,7 @@
 package mu.semte.ch.uriinfo.v2.app;
 
 import lombok.extern.slf4j.Slf4j;
+import mu.semte.ch.uriinfo.v2.app.dto.FrontendField;
 import mu.semte.ch.uriinfo.v2.app.dto.FrontendStmt;
 import mu.semte.ch.uriinfo.v2.app.dto.FrontendUI;
 import mu.semte.ch.uriinfo.v2.app.service.CrudTripleService;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Map;
 
 import static java.util.Optional.ofNullable;
 
@@ -34,7 +36,7 @@ public class AppController {
 
     @GetMapping(value = "/model",
             produces = "application/ld+json")
-    public ResponseEntity<String> model(@RequestParam("uri") String uri, HttpServletRequest request) {
+    public ResponseEntity<String> model(@RequestParam("uri") String uri) {
         Model model = uriInfoService.fetchSubject(uri);
         String response = ModelUtils.toString(model, Lang.JSONLD);
         return ResponseEntity.ok(response);
@@ -42,14 +44,14 @@ public class AppController {
 
     @GetMapping(value = "/meta",
             produces = "application/ld+json")
-    public ResponseEntity<String> metaModel(@RequestParam("uri") String uri, HttpServletRequest request) {
+    public ResponseEntity<String> metaModel(@RequestParam("uri") String uri) {
         var metaModel = uriInfoService.fetchPage(uri);
         String response = ModelUtils.toString(metaModel, Lang.JSONLD);
         return ResponseEntity.ok(response);
     }
 
     @GetMapping("/page")
-    public ResponseEntity<FrontendUI> page(@RequestParam("uri") String uri, HttpServletRequest request) {
+    public ResponseEntity<FrontendUI> page(@RequestParam("uri") String uri) {
         try {
             FrontendUI ui = uiBuilderService.build(uri);
             if (ofNullable(ui).map(FrontendUI::getPages).orElseGet(List::of).isEmpty()) {
@@ -64,7 +66,12 @@ public class AppController {
     }
 
     @PostMapping("/update")
-    public ResponseEntity<List<FrontendStmt>> updateTriples(@RequestBody List<FrontendStmt> triples, HttpServletRequest request) {
+    public ResponseEntity<List<FrontendStmt>> updateTriples(@RequestBody List<FrontendStmt> triples) {
         return ResponseEntity.ok(crudTripleService.updateTriples(triples));
+    }
+
+    @PostMapping("/list-options")
+    public ResponseEntity<Map<String,String>> listOptions(@RequestBody FrontendField field) {
+        return ResponseEntity.ok(crudTripleService.listOptions(field));
     }
 }

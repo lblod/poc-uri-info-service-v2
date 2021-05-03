@@ -53,11 +53,10 @@ public class UIBuilderService {
                 .map(page -> this.buildPage(uri, model, metaModel, page))
                 .collect(Collectors.toList());
 
-
-        var ui = new FrontendUI();
-        ui.setUri(uri);
-        ui.setPages(pages);
-        return ui;
+        return FrontendUI.builder()
+                .uri(uri)
+                .pages(pages)
+                .build();
     }
 
 
@@ -98,7 +97,6 @@ public class UIBuilderService {
         } else if (FrontendElement.ElementType.PANEL.equals(el.getType())) {
             el.setFields(fields.stream().map(f -> this.buildField(uri, model, metaModel, f)).sorted().collect(Collectors.toList()));
         }
-
 
         return el;
     }
@@ -182,7 +180,11 @@ public class UIBuilderService {
         FrontendField f = new FrontendField();
         f.setLabel(ofNullable(metaModel.getProperty(field, P_LABEL)).map(Statement::getString).orElse(null));
         f.setOrdering(ofNullable(metaModel.getProperty(field, P_ORDERING)).map(Statement::getInt).orElse(0));
-        f.setType(ofNullable(metaModel.getProperty(field, P_FIELD_TYPE)).map(Statement::getString).orElse(null));
+        f.setTypeUri(ofNullable(metaModel.getProperty(field, P_FIELD_TYPE)).map(Statement::getResource).map(Resource::getURI)
+                .orElse(null));
+        f.setList(ofNullable(metaModel.getProperty(field, P_IS_LIST)).map(Statement::getBoolean)
+                .orElse(false));
+
         return f;
     }
 

@@ -23,6 +23,8 @@ public interface FrontendVoc {
     Property P_TYPE = ResourceFactory.createProperty("http://lblod.data.gift/vocabularies/frontend/type");
     Property P_ELEMENTS = ResourceFactory.createProperty("http://lblod.data.gift/vocabularies/frontend/elements");
     Property P_SIDE_PANEL_TITLE = ResourceFactory.createProperty("http://lblod.data.gift/vocabularies/frontend/sidePanelTitle");
+    Property P_TARGET = ResourceFactory.createProperty("http://lblod.data.gift/vocabularies/frontend/target");
+    Property P_IS_LIST = ResourceFactory.createProperty("http://lblod.data.gift/vocabularies/frontend/isList");
 
     Resource C_FIELD = ResourceFactory.createResource("http://lblod.data.gift/vocabularies/frontend/Field");
     Resource C_LINK = ResourceFactory.createResource("http://lblod.data.gift/vocabularies/frontend/Link");
@@ -33,6 +35,7 @@ public interface FrontendVoc {
     Resource C_SIDE_PANEL = ResourceFactory.createResource("http://lblod.data.gift/vocabularies/frontend/SidePanel");
     Resource C_PAGE = ResourceFactory.createResource("http://lblod.data.gift/vocabularies/frontend/Page");
     Resource C_UI = ResourceFactory.createResource("http://lblod.data.gift/vocabularies/frontend/UI");
+    Resource C_DATATYPE = ResourceFactory.createResource("http://lblod.data.gift/vocabularies/frontend/Datatype");
 
     Resource C_TABLE = ResourceFactory.createProperty("http://lblod.data.gift/vocabularies/frontend/Table");
     Resource C_PANEL = ResourceFactory.createProperty("http://lblod.data.gift/vocabularies/frontend/Panel");
