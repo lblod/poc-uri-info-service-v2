@@ -6,11 +6,13 @@ import mu.semte.ch.lib.utils.SparqlClient;
 import mu.semte.ch.lib.utils.SparqlQueryStore;
 import mu.semte.ch.uriinfo.v2.app.FrontendVoc;
 import mu.semte.ch.uriinfo.v2.app.dto.FrontendField;
+import mu.semte.ch.uriinfo.v2.app.dto.FrontendOption;
 import mu.semte.ch.uriinfo.v2.app.dto.FrontendStmt;
 import org.apache.jena.rdf.model.Model;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,7 +39,7 @@ public class CrudTripleService {
         return triples;
     }
 
-    public Map<String, String> listOptions(FrontendField field) {
+    public List<FrontendOption> listOptions(FrontendField field) {
         Preconditions.checkArgument(field.isList(), "This field is not a list! Check the meta model");
         Preconditions.checkArgument(!field.getTriples().isEmpty(), "At least 1 triple should be present! Check the  model");
         FrontendStmt triple = field.getTriples().get(0);
@@ -52,8 +54,11 @@ public class CrudTripleService {
         ));
         log.debug(query);
         return client.executeSelectQuery(query, rs ->{
-            Map<String , String> results = new HashMap<>();
-            rs.forEachRemaining(querySolution -> results.put(querySolution.getResource("option").getURI(), querySolution.getLiteral("label").getValue().toString()));
+            List<FrontendOption> results = new ArrayList<>();
+            rs.forEachRemaining(querySolution -> results.add(FrontendOption.builder()
+                            .option(querySolution.getResource("option").getURI())
+                            .value(querySolution.getLiteral("label").getValue().toString())
+                            .build()));
             return results;
         });
     }

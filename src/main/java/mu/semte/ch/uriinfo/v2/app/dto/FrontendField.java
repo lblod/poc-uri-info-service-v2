@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.apache.jena.vocabulary.XSD;
 
 import java.util.List;
 
@@ -24,5 +25,9 @@ public class FrontendField implements Comparable<FrontendField> {
     @Override
     public int compareTo(FrontendField o) {
         return Integer.compare(this.ordering, o.ordering);
+    }
+
+    public boolean isUri() {
+        return XSD.anyURI.getURI().equals(typeUri);
     }
 }

@@ -95,6 +95,15 @@ defmodule Dispatcher do
         } do
     forward conn, path, "http://uri-info-service-v2/update"
   end
+  match "/list-options/*path",
+        %{
+          layer: :api_services,
+          accept: %{
+            json: true
+          }
+        } do
+    forward conn, path, "http://uri-info-service-v2/list-options"
+  end
   #################
   # NOT FOUND
   #################

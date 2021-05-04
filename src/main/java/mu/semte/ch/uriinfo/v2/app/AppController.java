@@ -2,6 +2,7 @@ package mu.semte.ch.uriinfo.v2.app;
 
 import lombok.extern.slf4j.Slf4j;
 import mu.semte.ch.uriinfo.v2.app.dto.FrontendField;
+import mu.semte.ch.uriinfo.v2.app.dto.FrontendOption;
 import mu.semte.ch.uriinfo.v2.app.dto.FrontendStmt;
 import mu.semte.ch.uriinfo.v2.app.dto.FrontendUI;
 import mu.semte.ch.uriinfo.v2.app.service.CrudTripleService;
@@ -13,9 +14,7 @@ import org.apache.jena.riot.Lang;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
-import java.util.Map;
 
 import static java.util.Optional.ofNullable;
 
@@ -71,7 +70,7 @@ public class AppController {
     }
 
     @PostMapping("/list-options")
-    public ResponseEntity<Map<String,String>> listOptions(@RequestBody FrontendField field) {
+    public ResponseEntity<List<FrontendOption>> listOptions(@RequestBody FrontendField field) {
         return ResponseEntity.ok(crudTripleService.listOptions(field));
     }
 }
