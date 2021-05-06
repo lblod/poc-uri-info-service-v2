@@ -95,6 +95,33 @@ defmodule Dispatcher do
         } do
     forward conn, path, "http://uri-info-service-v2/update"
   end
+  match "/inserts/*path",
+        %{
+          layer: :api_services,
+          accept: %{
+            json: true
+          }
+        } do
+    forward conn, path, "http://kalliope/inserts"
+  end
+  match "/deletes/*path",
+        %{
+          layer: :api_services,
+          accept: %{
+            json: true
+          }
+        } do
+    forward conn, path, "http://kalliope/deletes"
+  end
+  match "/consolidated/*path",
+        %{
+          layer: :api_services,
+          accept: %{
+            json: true
+          }
+        } do
+    forward conn, path, "http://kalliope/consolidated"
+  end
   #################
   # NOT FOUND
   #################

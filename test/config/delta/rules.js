@@ -1,14 +1,10 @@
 export default [
   {
     match: {
-      predicate: {
-        type: 'uri',
-        value: 'http://data.vlaanderen.be/ns/persoon#aanHef'
-      }
     },
     callback: {
       method: 'POST',
-      url: 'http://job-controller-service/delta'
+      url: 'http://kalliope/delta'
     },
     options: {
       resourceFormat: 'v0.0.1',

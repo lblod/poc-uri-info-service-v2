@@ -64,3 +64,12 @@ services:
       RESOURCE_LABELS_ENDPOINT: "http://resource-labels-cache"
       RESOURCE_LABELS_ENABLED: "true"
     restart: always
+  kalliope:
+    image: lblod/kalliope
+    volumes:
+      - ./data/files:/share
+    environment:
+      SERVER_PORT: "80"
+      LOGGING_LEVEL: "INFO"
+      SPARQL_ENDPOINT: "http://database:8890/sparql"
+    restart: always
