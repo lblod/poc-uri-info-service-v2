@@ -63,6 +63,7 @@ services:
       SPARQL_ENDPOINT: "http://database:8890/sparql"
       RESOURCE_LABELS_ENDPOINT: "http://resource-labels-cache"
       RESOURCE_LABELS_ENABLED: "true"
+      TARGET_GRAPH: "http://mu.semte.ch/graphs/public"
     restart: always
   kalliope:
     image: lblod/kalliope

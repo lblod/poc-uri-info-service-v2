@@ -1,6 +1,8 @@
 export default [
   {
     match: {
+      subject: {
+      }
     },
     callback: {
       method: 'POST',
