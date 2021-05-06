@@ -3,11 +3,16 @@ services:
   identifier:
     image: semtech/mu-identifier:1.9.0
     environment:
-      DEFAULT_MU_AUTH_ALLOWED_GROUPS_HEADER: "[{\"variables\":[],\"name\":\"public\"}, {\"variables\":[],\"name\":\"harvesting\"}, {\"variables\":[],\"name\":\"clean\"}]"
+      DEFAULT_MU_AUTH_ALLOWED_GROUPS_HEADER: "[{\"variables\":[],\"name\":\"public\"}, {\"variables\":[],\"name\":\"clean\"}]"
       DEFAULT_ACCESS_CONTROL_ALLOW_ORIGIN_HEADER: "*"
     restart: always
     ports:
       - "80:80"
+  deltanotifier:
+    image: semtech/mu-delta-notifier:0.1.0
+    volumes:
+      - ./config/delta:/config
+    restart: always
   dispatcher:
     image: semtech/mu-dispatcher:2.1.0-beta.1
     volumes:
@@ -22,14 +27,21 @@ services:
       - ./data/db:/data
       - ./config/db/virtuoso.ini:/data/virtuoso.ini
     restart: always
+  database:
+    image: semtech/mu-authorization:0.6.0-beta.7
+    environment:
+      MU_SPARQL_ENDPOINT: "http://triplestore:8890/sparql"
+      LOG_OUTGOING_SPARQL_QUERIES: "true"
+      LOG_OUTGOING_SPARQL_QUERY_RESPONSES: "true"
+      LOG_INCOMING_SPARQL_QUERIES: "true"
+      LOG_ACCESS_RIGHTS: "true"
+      INSPECT_ACCESS_RIGHTS_PROCESSING: "true"
+    volumes:
+      - ./config/authorization:/config
   uri-info:
     image: redpencil/mu-uri-info-service:0.2.0
-    links:
-      - triplestore:database
   resource-labels:
     image: lblod/resource-label-service:0.3.1
-    links:
-      - triplestore:database
   resource-labels-cache:
     image: semtech/mu-cache:2.0.2
     links:
@@ -48,7 +60,7 @@ services:
     environment:
       SERVER_PORT: "80"
       LOGGING_LEVEL: "INFO"
-      SPARQL_ENDPOINT: "http://triplestore:8890/sparql"
+      SPARQL_ENDPOINT: "http://database:8890/sparql"
       RESOURCE_LABELS_ENDPOINT: "http://resource-labels-cache"
       RESOURCE_LABELS_ENABLED: "true"
     restart: always
