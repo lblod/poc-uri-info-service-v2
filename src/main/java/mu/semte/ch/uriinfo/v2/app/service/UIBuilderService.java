@@ -9,6 +9,8 @@ import mu.semte.ch.lib.dto.JsonApiResponse;
 import mu.semte.ch.lib.utils.ModelUtils;
 import org.apache.jena.rdf.model.*;
 import org.apache.jena.riot.Lang;
+import org.apache.jena.shacl.GraphValidation;
+import org.apache.jena.shacl.ShaclValidator;
 import org.apache.jena.vocabulary.RDF;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -18,6 +20,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -168,9 +171,9 @@ public class UIBuilderService {
                     .stream()
                     .map(RDFNode::asResource)
                     .collect(Collectors.toList());
-            Model lastDepth = this.findDepth(model, source, predicates);
-            if (!lastDepth.isEmpty()) {
-                return lastDepth.listStatements().nextStatement().getSubject().getURI();
+            var lastDepth = this.findDepth(model, source, predicates, null);
+            if (!lastDepth.model().isEmpty()) {
+                return lastDepth.model().listStatements().nextStatement().getSubject().getURI();
             }
         }
         return null;
@@ -238,14 +241,14 @@ public class UIBuilderService {
         String value = null;
         List<FrontendStmt> triples = null;
         if (predicates.size() >= 1) {
-            var lastDepth = findDepth(model, source, predicates);
-            if(!lastDepth.isEmpty()){
+            var lastDepth = findDepth(model, source, predicates, null);
+            if(!lastDepth.model().isEmpty()){
                 value = fields.stream()
-                        .map(fieldPropertyUri -> lastDepth.getProperty(null, createProperty(fieldPropertyUri.getURI())))
+                        .map(fieldPropertyUri -> lastDepth.model().getProperty(null, createProperty(fieldPropertyUri.getURI())))
                         .filter(Objects::nonNull)
                         .map(Statement::getString)
                         .collect(joining(separator));
-                triples = this.buildTriples(lastDepth, null, fields);
+                triples = this.buildTriples(lastDepth.model(), null, fields);
             }
 
         } else {
@@ -260,17 +263,23 @@ public class UIBuilderService {
         frontendField.setTriples(triples);
     }
 
-    private Model findDepth(Model model, Resource subject, List<Resource> predicates) {
+    private record DepthResult (Model model, List<Resource> orderedList){}
+
+    private DepthResult findDepth(Model model, Resource subject, List<Resource> predicates, List<Resource> orderedList) {
+        if(orderedList == null) {
+            orderedList = new LinkedList<>();
+        }
+        orderedList.add(subject);
 
         if(model.isEmpty()) {
             log.error("model is empty");
-            return model;
+            return new DepthResult(model, orderedList);
         }
 
         var root = model.listStatements(subject, null, (RDFNode) null);
 
         if (predicates.isEmpty()) {
-            return root.toModel();
+            return new DepthResult(root.toModel(), orderedList);
         }
         var rootSource = root.toList();
         Resource rootPredicate = predicates.stream()
@@ -280,8 +289,9 @@ public class UIBuilderService {
         if(rootPredicate == null) {
             log.error("could not find predicate. rootSource:\n%s\nsubject:\n%s\npredicates:\n%s\n"
                     .formatted(ModelUtils.toString(root.toModel(), Lang.TURTLE), subject.getURI(), predicates.stream().map(Resource::getURI).collect(joining(","))));
-            return createDefaultModel();
+            return new DepthResult(createDefaultModel(), orderedList);
         }
+        orderedList.add(rootPredicate);
 
         var newSubject = rootSource.stream()
                 .filter(rs -> rs.getPredicate().equals(rootPredicate))
@@ -293,10 +303,10 @@ public class UIBuilderService {
         if(newSubject == null) {
             log.error("could not find subject. rootSource:\n%s\nrootPredicate:\n%s\npredicates:\n%s\n"
                     .formatted(ModelUtils.toString(root.toModel(), Lang.TURTLE), rootPredicate.getURI(), predicates.stream().map(Resource::getURI).collect(joining(","))));
-            return createDefaultModel();
+            return new DepthResult( createDefaultModel(), orderedList);
         }
 
-        return findDepth(model, newSubject, predicates.stream().filter(p -> !p.equals(rootPredicate)).collect(Collectors.toList()));
+        return findDepth(model, newSubject, predicates.stream().filter(p -> !p.equals(rootPredicate)).collect(Collectors.toList()), orderedList);
     }
 
 }
