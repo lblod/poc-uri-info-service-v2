@@ -146,7 +146,6 @@ public class UIBuilderService {
                     .filter(Objects::nonNull)
                     .collect(joining(separator));
             f.setValue(value);
-            f.setTriples(this.buildTriples(model, rootResource, fields));
         } else if (C_MULTI_LEVEL_FIELD.equals(nsType)) {
             var optionalSource = ofNullable(metaModel.getProperty(field, P_SOURCE))
                     .map(Statement::getResource)
@@ -186,22 +185,6 @@ public class UIBuilderService {
         return f;
     }
 
-    private List<FrontendStmt> buildTriples(Model model, Resource rootResource, List<Resource> fields) {
-        return fields.stream().map(fieldPropertyUri -> {
-            Statement property = model.getProperty(rootResource, createProperty(fieldPropertyUri.getURI()));
-
-            return FrontendStmt.builder()
-                    .subject(ofNullable(property).map(Statement::getSubject).map(Resource::getURI).orElse(null))
-                    .predicate(fieldPropertyUri.getURI())
-                    .object(ofNullable(property).map(Statement::getLiteral).map(Literal::getString).orElse(null))
-                    .datatype(ofNullable(property).map(Statement::getLiteral).map(Literal::getDatatypeURI).orElse(null))
-                    .predicateLabel(this.fetchLabelFromResourceLabelsService(fieldPropertyUri.getURI()))
-                    .language(ofNullable(property).map(Statement::getLiteral).map(Literal::getLanguage).orElse(null))
-
-                    .build();
-        }).collect(Collectors.toList());
-    }
-
     private String fetchLabelFromResourceLabelsService(String uri) {
         if (resourceLabelsEnabled) {
             try {
@@ -234,7 +217,6 @@ public class UIBuilderService {
                 .map(RDFNode::asResource)
                 .collect(Collectors.toList());
         String value = null;
-        List<FrontendStmt> triples = null;
         if (predicates.size() >= 1) {
             var lastDepth = findDepth(model, source, predicates);
             if(!lastDepth.isEmpty()){
@@ -243,7 +225,6 @@ public class UIBuilderService {
                         .filter(Objects::nonNull)
                         .map(Statement::getString)
                         .collect(joining(separator));
-                triples = this.buildTriples(lastDepth, null, fields);
             }
 
         } else {
@@ -252,10 +233,8 @@ public class UIBuilderService {
                     .filter(Objects::nonNull)
                     .map(Statement::getString)
                     .collect(joining(separator));
-            triples = this.buildTriples(model, source, fields);
         }
         frontendField.setValue(value);
-        frontendField.setTriples(triples);
     }
 
     private Model findDepth(Model model, Resource subject, List<Resource> predicates) {
