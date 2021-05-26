@@ -1,12 +1,11 @@
 package mu.semte.ch.uriinfo.v2.app.service;
 
 import lombok.extern.slf4j.Slf4j;
+import mu.semte.ch.uriinfo.v2.app.error.UINotDefinedForSubjectException;
 import org.apache.jena.query.Dataset;
 import org.apache.jena.query.ReadWrite;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.ModelFactory;
-import org.apache.jena.rdf.model.RDFNode;
-import org.apache.jena.rdf.model.Statement;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -40,6 +39,11 @@ public class InMemoryTripleStoreService {
         metaDatatabase.begin(ReadWrite.READ);
         Optional.ofNullable(metaDatatabase.getNamedModel(nameUri)).ifPresent(model::add);
         metaDatatabase.end();
+
+        if(model.isEmpty()) {
+            throw new UINotDefinedForSubjectException();
+        }
+
         return model;
     }
 

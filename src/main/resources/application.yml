@@ -2,7 +2,7 @@ server:
   port: ${SERVER_PORT:8080}
 
 sparql:
-  endpoint: ${SPARQL_ENDPOINT:http://localhost/sparql}
+  endpoint: ${SPARQL_ENDPOINT:http://localhost:8890/sparql}
   defaultGraphUri: ${TARGET_GRAPH:http://mu.semte.ch/application}
   metaDirectory: ${META_DIRECTORY:/Users/bittichn/IdeaProjects/poc-uri-info-service-v2/test/data/tdb}
 

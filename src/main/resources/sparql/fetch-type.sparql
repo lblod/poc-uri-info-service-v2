@@ -1,6 +1,4 @@
 prefix frontend: <http://lblod.data.gift/vocabularies/frontend/>
-select distinct ?uri where {
+select distinct ?type where {
      <${uri}> a ?type.
-     ?uri a frontend:UI;
-     frontend:contentType ?type .
 }

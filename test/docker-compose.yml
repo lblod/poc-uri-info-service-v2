@@ -22,6 +22,8 @@ services:
       - ./data/db:/data
       - ./config/db/virtuoso.ini:/data/virtuoso.ini
     restart: always
+    ports:
+      - "8890:8890"
   uri-info:
     image: redpencil/mu-uri-info-service:0.2.0
     links:
