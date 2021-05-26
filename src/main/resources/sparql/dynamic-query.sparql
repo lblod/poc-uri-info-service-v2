@@ -1,0 +1,10 @@
+SELECT <#list variables?keys as variable>?${variable} </#list>
+
+where
+
+{
+    <${rootSubject}> a <${typeUri}>;
+      <#list variables as key, value>
+            <${value}> ?${key}<#if value?is_last>.<#else>;</#if>
+      </#list>
+}

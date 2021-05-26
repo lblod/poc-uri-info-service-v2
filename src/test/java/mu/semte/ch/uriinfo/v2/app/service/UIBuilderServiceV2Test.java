@@ -8,6 +8,7 @@ import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.Statement;
 import org.apache.jena.riot.Lang;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
+//@Disabled //todo ignore integration test
 class UIBuilderServiceV2Test {
     @Autowired
     private InMemoryTripleStoreService inMemoryTripleStoreService;
@@ -59,10 +61,15 @@ class UIBuilderServiceV2Test {
 
     }
 
-    @Test//todo ignore integration test
+    @Test
     void build(){
         String personUri = "http://data.lblod.info/id/persoon/5b18df411cbb975f6b57853018306250";
         FrontendUI build = this.uiBuilderServiceV2.build(personUri, null);
         System.out.println(build);
+    }
+
+    @Test
+    void buildTitle(){
+
     }
 }
