@@ -1,0 +1,37 @@
+@prefix persoon:     <http://data.vlaanderen.be/ns/persoon#> .
+@prefix generiek:    <http://data.vlaanderen.be/ns/generiek#> .
+@prefix organisatie: <http://data.vlaanderen.be/ns/organisatie#> .
+@prefix org:         <http://www.w3.org/ns/org#> .
+@prefix mandaat:     <http://data.vlaanderen.be/ns/mandaat#> .
+@prefix besluit:     <http://data.vlaanderen.be/ns/besluit#> .
+@prefix foaf:        <http://xmlns.com/foaf/0.1/> .
+@prefix locn:        <http://www.w3.org/ns/locn#> .
+@prefix skos:        <http://www.w3.org/2004/02/skos/core#> .
+@prefix schema:      <http://schema.org/> .
+@prefix regorg:      <http://www.w3.org/ns/regorg#> .
+@prefix adres:       <http://data.vlaanderen.be/ns/adres#> .
+@prefix xsd:         <http://www.w3.org/2001/XMLSchema#> .
+@prefix person:      <http://www.w3.org/ns/person#> .
+@prefix ext:         <http://mu.semte.ch/vocabularies/ext/> .
+@prefix frontend:    <http://lblod.data.gift/vocabularies/frontend/> .
+
+# ui definition
+ext:page_person
+    a                    frontend:UI ;
+    frontend:contentType person:Person ;
+    frontend:pages       (ext:personlijke_gegevens ext:contact_gegevens ext:posities) .
+
+# page definition
+ext:personlijke_gegevens
+    a                 frontend:Page ;
+    frontend:ordering "0"^^xsd:integer ;
+    frontend:title    "Persoonlijke gegevens" ;
+    frontend:subTitle ext:naam0 ;
+    frontend:elements ext:persoon_gegevens.
+
+ext:naam0
+    a                   frontend:Field ;
+    frontend:ordering   "0"^^xsd:integer ;
+    frontend:fieldType  "STRING" ;
+    frontend:fields     (foaf:givenName foaf:familyName) ;
+    frontend:label      "" .

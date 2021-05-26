@@ -1,0 +1,42 @@
+{
+  "person": {
+    "id": "5b18df411cbb975f6b57853018306250",
+    "familyName": "Van Eylen",
+    "givenName": "Luuk"
+  },
+  "mandataris": {
+    "id": "5183706662e154bce6fdf227fb674c82",
+    "start": "2020-08-14T00:00:00",
+    "status": "https://data.vlaanderen.be/id/concept/MandatarisStatusCode/21063a5b-912c-4241-841c-cc7fb3c73e75"
+  },
+  "mandaat": {
+    "id": "aefae003b2dc262ef5158427bcf40049",
+    "role": "http://data.vlaanderen.be/id/concept/BestuursfunctieCode/180d13930d6f1a3938e0aa7fa9990002"
+  },
+  "contactPoint": {
+    "id": "e1635170b540ef2191e338f00e11fcbe",
+    "email": "luuk.van-eylen@example.be",
+    "telephone": "011888888"
+  },
+  "address": {
+    "id": "5183706662e154bce6fdf227fb674c82",
+    "fullAddress": "Markt 30, 3570 Alken"
+  },
+  "bestuursorgaan": {
+    "id": "efbc04780b1c937959a47e2621e9b47b",
+    "isTijdspecialisatieVan": "83056cd1d24fd52fc7b9d877ef95d9c7",
+    "bindingEinde": "2023-04-30T00:00:00",
+    "bindingStart": "2020-07-11T00:00:00",
+    "mandaats": [
+      {
+        "id": "31f5b6419a31b61124d9ef6a54d5352c"
+      },
+      {
+        "id": "70f2c108b4de5ae016cddca4c076bcca"
+      },
+      {
+        "id": "aefae003b2dc262ef5158427bcf40049"
+      }
+    ]
+  }
+}
