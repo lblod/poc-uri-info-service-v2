@@ -51,6 +51,7 @@ class UIBuilderServiceV2Test {
         FrontendMenuLink personlijkGegevensPage = frontendMenuLinks.get(0);
         assertEquals("http://mu.semte.ch/vocabularies/ext/personlijke_gegevens", personlijkGegevensPage.getUri());
         assertFalse(personlijkGegevensPage.isActive());
+        assertTrue(personlijkGegevensPage.isMainPage());
         assertEquals("Persoonlijke gegevens", personlijkGegevensPage.getLabel());
 
         FrontendMenuLink contactGegevensPage = frontendMenuLinks.get(1);

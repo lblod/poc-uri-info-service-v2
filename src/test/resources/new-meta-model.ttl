@@ -18,8 +18,8 @@
 # ui definition
 ext:ui_person
     a                    frontend:UI ;
-    frontend:contentType person:Person ;
-    frontend:mainPage    ext:personlijke_gegevens;
+    frontend:contentType person:Person ; # required
+    frontend:mainPage    ext:personlijke_gegevens; # required
     frontend:pages       (ext:personlijke_gegevens ext:contact_gegevens ext:posities) .
 
 # page definition
@@ -37,3 +37,6 @@ ext:naam0
     frontend:fieldType  "STRING" ;
     frontend:fields     (foaf:givenName foaf:familyName) ;
     frontend:label      "" .
+
+
+# todo add frontend:CustomElement

@@ -3,6 +3,7 @@ package mu.semte.ch.uriinfo.v2.app.service;
 import com.github.slugify.Slugify;
 import mu.semte.ch.uriinfo.v2.app.FrontendVoc;
 import mu.semte.ch.uriinfo.v2.app.dto.v2.*;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.jena.rdf.model.*;
 import org.springframework.stereotype.Service;
 
@@ -34,12 +35,18 @@ public class UIBuilderServiceV2 {
         return ui;
     }
 
-    protected FrontendPage generatePage(Model metaModel, String pageUri){
+    protected FrontendPage generatePage(Model metaModel, String uri, String currentPageMetaUri){
+        return null;
+    }
+
+
+    protected String buildTitle(Model metaModel, String uri, String currentPageMetaUri) {
         return null;
     }
 
     protected List<FrontendMenuLink> buildMenu(Model metaModel, String pageUri) {
         List<RDFNode> pages = getPages(metaModel);
+        String mainPageUri = metaModel.getRequiredProperty(null, FrontendVoc.P_MAIN_PAGE).getResource().getURI();
         return pages.stream()
                 .map(RDFNode::asResource)
                 .map(Resource::getURI)
@@ -48,11 +55,13 @@ public class UIBuilderServiceV2 {
                             .map(Statement::getLiteral)
                             .map(Literal::getString)
                             .orElse(null);
+                    boolean mainPage = mainPageUri.equals(uri);
                     return FrontendMenuLink.builder()
                                             .slug(ofNullable(label).map(slugify::slugify).orElse(null))
                                             .label(label)
                                             .uri(uri)
-                                            .active(uri.equals(pageUri)).build();
+                                            .mainPage(mainPage)
+                                            .active(StringUtils.isNotEmpty(pageUri) ? uri.equals(pageUri) : mainPage).build();
                 })
                 .collect(Collectors.toList());
     }
