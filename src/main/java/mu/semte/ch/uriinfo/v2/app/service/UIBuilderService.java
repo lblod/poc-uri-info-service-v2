@@ -75,9 +75,16 @@ public class UIBuilderService {
   private List<FrontendContainer> buildContainers(Model metaModel, String uri, String typeUri, String currentPageMetaUri) {
     Property pageProp = ResourceFactory.createProperty(currentPageMetaUri);
     var containersProp = metaModel.getRequiredProperty(pageProp, P_CONTAINERS);
-    RDFList containerParts = metaModel.getList(containersProp.getObject().asResource());
+    var containerParts = metaModel.getList(containersProp.getObject().asResource()).asJavaList();
+    return containerParts.stream()
+                         .map(RDFNode::asResource)
+                         .map(containerPart -> {
+                           FrontendContainer container = new FrontendContainer();
+                           container.setTitle(this.buildTitle(metaModel, uri, typeUri, containerPart.getURI(), P_TITLE));
+                           container.setOrdering(metaModel.getProperty(containerPart, P_ORDERING).getInt());
 
-    return null;
+                           return container;
+                         }).collect(Collectors.toList());
   }
 
 
