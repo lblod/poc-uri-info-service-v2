@@ -42,7 +42,7 @@ ext:naam0
 ext:persoon_gegevens_container
   a                 frontend:Container ;
   frontend:ordering "0"^^xsd:integer ;
-  frontend:title    ( "Persoonlijke gegevens") ;
+  frontend:title    ( "Persoonlijke gegevens" ) ;
   frontend:elements ( ext:personlijke_gegevens_element ) .
 
 ext:personlijke_gegevens_element

@@ -10,18 +10,18 @@ import lombok.NoArgsConstructor;
 @Builder(toBuilder = true)
 @Data
 public class FrontendField implements Comparable<FrontendField> {
-    public enum FrontendFieldType {
-        STRING, NUMBER, BADGE, BOOLEAN
-    }
+  public enum FrontendFieldType {
+    STRING, NUMBER, BADGE, BOOLEAN
+  }
 
-    private int ordering;
-    private FrontendFieldType type;
-    private String label;
-    private String value;
-    private String link;
+  private int ordering;
+  private FrontendFieldType type;
+  private String label;
+  private String value;
+  private String link;
 
-    @Override
-    public int compareTo(FrontendField o) {
-        return Integer.compare(this.ordering, o.ordering);
-    }
+  @Override
+  public int compareTo(FrontendField o) {
+    return Integer.compare(this.ordering, o.ordering);
+  }
 }

@@ -15,591 +15,586 @@
 @prefix xsd:         <http://www.w3.org/2001/XMLSchema#> .
 
 <http://data.lblod.info/id/bestuursorgaan/2215887b0d5a87bfc4f01579c1f07354>
-    a                               besluit:Bestuursorgaan ;
-    mandaat:bindingEinde            "2023-04-30T00:00:00"^^xsd:dateTime ;
-    mandaat:bindingStart            "2020-04-20T00:00:00"^^xsd:dateTime ;
-    mu:uuid                         "2215887b0d5a87bfc4f01579c1f07354"^^xsd:string ;
-    generiek:isTijdspecialisatieVan
-                                    <http://data.lblod.info/id/eredienstbestuursorgaan/42cd45a235b09bfbe35a5922b6702050> .
+  a                               besluit:Bestuursorgaan ;
+  mandaat:bindingEinde            "2023-04-30T00:00:00"^^xsd:dateTime ;
+  mandaat:bindingStart            "2020-04-20T00:00:00"^^xsd:dateTime ;
+  mu:uuid                         "2215887b0d5a87bfc4f01579c1f07354"^^xsd:string ;
+  generiek:isTijdspecialisatieVan <http://data.lblod.info/id/eredienstbestuursorgaan/42cd45a235b09bfbe35a5922b6702050> .
 
 <http://data.lblod.info/id/adres/12bdecf9c0f59e025b98f9083d1a7e3f>
-    a                locn:Address ;
-    mu:uuid          "12bdecf9c0f59e025b98f9083d1a7e3f"^^xsd:string ;
-    locn:fullAddress "Hoogdorpstraat 32, 1850 Grimbergen"@nl .
+  a                locn:Address ;
+  mu:uuid          "12bdecf9c0f59e025b98f9083d1a7e3f"^^xsd:string ;
+  locn:fullAddress "Hoogdorpstraat 32, 1850 Grimbergen"@nl .
 
 <http://data.lblod.info/id/adres/1ce1d0fcc660eb0c7219b4eda69b93dd>
-    a                locn:Address ;
-    mu:uuid          "1ce1d0fcc660eb0c7219b4eda69b93dd"^^xsd:string ;
-    locn:fullAddress "Kerkstraat 120,  9090 Melle"@nl .
+  a                locn:Address ;
+  mu:uuid          "1ce1d0fcc660eb0c7219b4eda69b93dd"^^xsd:string ;
+  locn:fullAddress "Kerkstraat 120,  9090 Melle"@nl .
 
 <http://data.lblod.info/id/adres/2ac79cbe7cd6cbf15050747c07f495b9>
-    a                                  locn:Address ;
-    locn:adminUnitL2                   "Limburg"@nl ;
-    locn:postCode                      "3570"^^xsd:string ;
-    locn:thoroughfare                  "Markt"@nl ;
-    adres:Adresvoorstelling.huisnummer "38"^^xsd:string ;
-    adres:gemeentenaam                 "Alken"^^xsd:string ;
-    adres:land                         "België"@nl .
+  a                                  locn:Address ;
+  locn:adminUnitL2                   "Limburg"@nl ;
+  locn:postCode                      "3570"^^xsd:string ;
+  locn:thoroughfare                  "Markt"@nl ;
+  adres:Adresvoorstelling.huisnummer "38"^^xsd:string ;
+  adres:gemeentenaam                 "Alken"^^xsd:string ;
+  adres:land                         "België"@nl .
 
 <http://data.lblod.info/id/adres/2f89f81d801070abfa85b009718e5e17>
-    a                locn:Address ;
-    mu:uuid          "2f89f81d801070abfa85b009718e5e17"^^xsd:string ;
-    locn:fullAddress "Markt 11, 3570 Alken"@nl .
+  a                locn:Address ;
+  mu:uuid          "2f89f81d801070abfa85b009718e5e17"^^xsd:string ;
+  locn:fullAddress "Markt 11, 3570 Alken"@nl .
 
 <http://data.lblod.info/id/adres/42cd45a235b09bfbe35a5922b6702050>
-    a                                  locn:Address ;
-    locn:adminUnitL2                   "Vlaams-Brabant"@nl ;
-    locn:postCode                      "1850"^^xsd:string ;
-    locn:thoroughfare                  "Hoogdorpstraat"@nl ;
-    adres:Adresvoorstelling.huisnummer "11"^^xsd:string ;
-    adres:gemeentenaam                 "Grimbergen"^^xsd:string ;
-    adres:land                         "België"@nl .
+  a                                  locn:Address ;
+  locn:adminUnitL2                   "Vlaams-Brabant"@nl ;
+  locn:postCode                      "1850"^^xsd:string ;
+  locn:thoroughfare                  "Hoogdorpstraat"@nl ;
+  adres:Adresvoorstelling.huisnummer "11"^^xsd:string ;
+  adres:gemeentenaam                 "Grimbergen"^^xsd:string ;
+  adres:land                         "België"@nl .
 
 <http://data.lblod.info/id/adres/5183706662e154bce6fdf227fb674c82>
-    a                locn:Address ;
-    mu:uuid          "5183706662e154bce6fdf227fb674c82"^^xsd:string ;
-    locn:fullAddress "Markt 30, 3570 Alken"@nl .
+  a                locn:Address ;
+  mu:uuid          "5183706662e154bce6fdf227fb674c82"^^xsd:string ;
+  locn:fullAddress "Markt 30, 3570 Alken"@nl .
 
 <http://data.lblod.info/id/adres/60ed7632f86833143bd0820db7c3ba8b>
-    a                locn:Address ;
-    mu:uuid          "60ed7632f86833143bd0820db7c3ba8b"^^xsd:string ;
-    locn:fullAddress "Hoogdorpstraat 79, 1850 Grimbergen"@nl .
+  a                locn:Address ;
+  mu:uuid          "60ed7632f86833143bd0820db7c3ba8b"^^xsd:string ;
+  locn:fullAddress "Hoogdorpstraat 79, 1850 Grimbergen"@nl .
 
 <http://data.lblod.info/id/adres/83056cd1d24fd52fc7b9d877ef95d9c7>
-    a                                  locn:Address ;
-    locn:adminUnitL2                   "Oost-Vlaanderen"@nl ;
-    locn:postCode                      "9090"^^xsd:string ;
-    locn:thoroughfare                  "Kerkstraat"@nl ;
-    adres:Adresvoorstelling.huisnummer "1"^^xsd:string ;
-    adres:gemeentenaam                 "Melle"^^xsd:string ;
-    adres:land                         "België"@nl .
+  a                                  locn:Address ;
+  locn:adminUnitL2                   "Oost-Vlaanderen"@nl ;
+  locn:postCode                      "9090"^^xsd:string ;
+  locn:thoroughfare                  "Kerkstraat"@nl ;
+  adres:Adresvoorstelling.huisnummer "1"^^xsd:string ;
+  adres:gemeentenaam                 "Melle"^^xsd:string ;
+  adres:land                         "België"@nl .
 
 <http://data.lblod.info/id/adres/a19f1ea724da989e0fd57bdf0a2f2f4a>
-    a                locn:Address ;
-    mu:uuid          "a19f1ea724da989e0fd57bdf0a2f2f4a"^^xsd:string ;
-    locn:fullAddress "Kerkstraat 12, 9090 Melle"@nl .
+  a                locn:Address ;
+  mu:uuid          "a19f1ea724da989e0fd57bdf0a2f2f4a"^^xsd:string ;
+  locn:fullAddress "Kerkstraat 12, 9090 Melle"@nl .
 
 <http://data.lblod.info/id/adres/a9902a1bcefa4ca9c6196a3fe7923b29>
-    a                locn:Address ;
-    mu:uuid          "a9902a1bcefa4ca9c6196a3fe7923b29"^^xsd:string ;
-    locn:fullAddress "Markt 60, 3570 Alken"@nl .
+  a                locn:Address ;
+  mu:uuid          "a9902a1bcefa4ca9c6196a3fe7923b29"^^xsd:string ;
+  locn:fullAddress "Markt 60, 3570 Alken"@nl .
 
 <http://data.lblod.info/id/adres/c0a4eed1fcb59bbcd592d8d075fbcadb>
-    a                locn:Address ;
-    mu:uuid          "c0a4eed1fcb59bbcd592d8d075fbcadb"^^xsd:string ;
-    locn:fullAddress "Kerkstraat 2,  9090 Melle"@nl .
+  a                locn:Address ;
+  mu:uuid          "c0a4eed1fcb59bbcd592d8d075fbcadb"^^xsd:string ;
+  locn:fullAddress "Kerkstraat 2,  9090 Melle"@nl .
 
 <http://data.lblod.info/id/bestuurVanDeEredienst/2ac79cbe7cd6cbf15050747c07f495b9>
-    a                  ere:BestuurVanDeEredienst ;
-    ere:typeEredienst  "Orthodox"@nl ;
-    mu:uuid            "2ac79cbe7cd6cbf15050747c07f495b9"^^xsd:string ;
-    skos:prefLabel     "Orthodox Church"@nl ;
-    adms:identifier    <http://data.lblod.info/id/identificator/2ac79cbe7cd6cbf15050747c07f495b9>,
-                       <http://data.lblod.info/id/identificator/46342c1a2e97e06ec79d3bbfa3d5ea1e> ;
-    org:classification
-                       <http://data.vlaanderen.be/id/concept/BestuurseenheidClassificatieCode/66ec74fd-8cfc-4e16-99c6-350b35012e86> ;
-    org:hasPrimarySite <http://data.lblod.info/id/vestiging/2ac79cbe7cd6cbf15050747c07f495b9> ;
-    regorg:orgStatus   <http://contacthub-qa.lblod.info/id/concepts/abf4fee82019f88cf122f986830621ab> .
+  a                  ere:BestuurVanDeEredienst ;
+  ere:typeEredienst  "Orthodox"@nl ;
+  mu:uuid            "2ac79cbe7cd6cbf15050747c07f495b9"^^xsd:string ;
+  skos:prefLabel     "Orthodox Church"@nl ;
+  adms:identifier    <http://data.lblod.info/id/identificator/2ac79cbe7cd6cbf15050747c07f495b9>,
+                     <http://data.lblod.info/id/identificator/46342c1a2e97e06ec79d3bbfa3d5ea1e> ;
+  org:classification
+                     <http://data.vlaanderen.be/id/concept/BestuurseenheidClassificatieCode/66ec74fd-8cfc-4e16-99c6-350b35012e86> ;
+  org:hasPrimarySite <http://data.lblod.info/id/vestiging/2ac79cbe7cd6cbf15050747c07f495b9> ;
+  regorg:orgStatus   <http://contacthub-qa.lblod.info/id/concepts/abf4fee82019f88cf122f986830621ab> .
 
 <http://data.lblod.info/id/bestuurVanDeEredienst/42cd45a235b09bfbe35a5922b6702050>
-    a                  ere:BestuurVanDeEredienst ;
-    ere:typeEredienst  "Rooms-Katholiek"@nl ;
-    mu:uuid            "42cd45a235b09bfbe35a5922b6702050"^^xsd:string ;
-    skos:prefLabel     "Another Katholiek church"@nl ;
-    adms:identifier    <http://data.lblod.info/id/identificator/047f81d31048b3db3977d94b18894fda>,
-                       <http://data.lblod.info/id/identificator/42cd45a235b09bfbe35a5922b6702050> ;
-    org:classification
-                       <http://data.vlaanderen.be/id/concept/BestuurseenheidClassificatieCode/66ec74fd-8cfc-4e16-99c6-350b35012e86> ;
-    org:hasPrimarySite <http://data.lblod.info/id/vestiging/42cd45a235b09bfbe35a5922b6702050> ;
-    regorg:orgStatus   <http://contacthub-qa.lblod.info/id/concepts/63cc561de9188d64ba5840a42ae8f0d6> .
+  a                  ere:BestuurVanDeEredienst ;
+  ere:typeEredienst  "Rooms-Katholiek"@nl ;
+  mu:uuid            "42cd45a235b09bfbe35a5922b6702050"^^xsd:string ;
+  skos:prefLabel     "Another Katholiek church"@nl ;
+  adms:identifier    <http://data.lblod.info/id/identificator/047f81d31048b3db3977d94b18894fda>,
+                     <http://data.lblod.info/id/identificator/42cd45a235b09bfbe35a5922b6702050> ;
+  org:classification
+                     <http://data.vlaanderen.be/id/concept/BestuurseenheidClassificatieCode/66ec74fd-8cfc-4e16-99c6-350b35012e86> ;
+  org:hasPrimarySite <http://data.lblod.info/id/vestiging/42cd45a235b09bfbe35a5922b6702050> ;
+  regorg:orgStatus   <http://contacthub-qa.lblod.info/id/concepts/63cc561de9188d64ba5840a42ae8f0d6> .
 
 <http://data.lblod.info/id/bestuurVanDeEredienst/83056cd1d24fd52fc7b9d877ef95d9c7>
-    a                  ere:BestuurVanDeEredienst ;
-    ere:typeEredienst  "Rooms-Katholiek"@nl ;
-    mu:uuid            "83056cd1d24fd52fc7b9d877ef95d9c7"^^xsd:string ;
-    skos:prefLabel     "Kerkfabriek van het Vliegend Spaghettimonster Melle"@nl ;
-    adms:identifier    <http://data.lblod.info/id/identificator/09d4bc4127a528e2c7192dd2d464659f>,
-                       <http://data.lblod.info/id/identificator/83056cd1d24fd52fc7b9d877ef95d9c7> ;
-    org:classification
-                       <http://data.vlaanderen.be/id/concept/BestuurseenheidClassificatieCode/66ec74fd-8cfc-4e16-99c6-350b35012e86> ;
-    org:hasPrimarySite <http://data.lblod.info/id/vestiging/83056cd1d24fd52fc7b9d877ef95d9c7> ;
-    regorg:orgStatus   <http://contacthub-qa.lblod.info/id/concepts/63cc561de9188d64ba5840a42ae8f0d6> .
+  a                  ere:BestuurVanDeEredienst ;
+  ere:typeEredienst  "Rooms-Katholiek"@nl ;
+  mu:uuid            "83056cd1d24fd52fc7b9d877ef95d9c7"^^xsd:string ;
+  skos:prefLabel     "Kerkfabriek van het Vliegend Spaghettimonster Melle"@nl ;
+  adms:identifier    <http://data.lblod.info/id/identificator/09d4bc4127a528e2c7192dd2d464659f>,
+                     <http://data.lblod.info/id/identificator/83056cd1d24fd52fc7b9d877ef95d9c7> ;
+  org:classification
+                     <http://data.vlaanderen.be/id/concept/BestuurseenheidClassificatieCode/66ec74fd-8cfc-4e16-99c6-350b35012e86> ;
+  org:hasPrimarySite <http://data.lblod.info/id/vestiging/83056cd1d24fd52fc7b9d877ef95d9c7> ;
+  regorg:orgStatus   <http://contacthub-qa.lblod.info/id/concepts/63cc561de9188d64ba5840a42ae8f0d6> .
 
 <http://data.lblod.info/id/bestuursorgaan/84951666dd4aac0673a82838de48c64e>
-    a                               besluit:Bestuursorgaan ;
-    mandaat:bindingEinde            "2020-04-17T00:00:00"^^xsd:dateTime ;
-    mandaat:bindingStart            "2017-05-02T00:00:00"^^xsd:dateTime ;
-    mu:uuid                         "84951666dd4aac0673a82838de48c64e"^^xsd:string ;
-    org:hasPost                     <http://data.lblod.info/id/mandaat/70e9f3609d82b286e5640b59491d0569> ;
-    generiek:isTijdspecialisatieVan
-                                    <http://data.lblod.info/id/eredienstbestuursorgaan/2ac79cbe7cd6cbf15050747c07f495b9> .
+  a                               besluit:Bestuursorgaan ;
+  mandaat:bindingEinde            "2020-04-17T00:00:00"^^xsd:dateTime ;
+  mandaat:bindingStart            "2017-05-02T00:00:00"^^xsd:dateTime ;
+  mu:uuid                         "84951666dd4aac0673a82838de48c64e"^^xsd:string ;
+  org:hasPost                     <http://data.lblod.info/id/mandaat/70e9f3609d82b286e5640b59491d0569> ;
+  generiek:isTijdspecialisatieVan <http://data.lblod.info/id/eredienstbestuursorgaan/2ac79cbe7cd6cbf15050747c07f495b9> .
 
 <http://data.lblod.info/id/contactpunt/1a35c7ae3088f4bd163596be0e29a78d>
-    a                schema:ContactPoint ;
-    mu:uuid          "1a35c7ae3088f4bd163596be0e29a78d"^^xsd:string ;
-    schema:email     "Jane.roe@example.com"^^xsd:string ;
-    schema:telephone "0488222222"^^xsd:string ;
-    locn:address     <http://data.lblod.info/id/adres/1ce1d0fcc660eb0c7219b4eda69b93dd> .
+  a                schema:ContactPoint ;
+  mu:uuid          "1a35c7ae3088f4bd163596be0e29a78d"^^xsd:string ;
+  schema:email     "Jane.roe@example.com"^^xsd:string ;
+  schema:telephone "0488222222"^^xsd:string ;
+  locn:address     <http://data.lblod.info/id/adres/1ce1d0fcc660eb0c7219b4eda69b93dd> .
 
 <http://data.lblod.info/id/contactpunt/1dcd593c56d94d1966d22bc6f9d475d3>
-    a                schema:ContactPoint ;
-    mu:uuid          "1dcd593c56d94d1966d22bc6f9d475d3"^^xsd:string ;
-    schema:email     "alex.herse@example.be"^^xsd:string ;
-    schema:telephone "011999999"^^xsd:string ;
-    locn:address     <http://data.lblod.info/id/adres/2f89f81d801070abfa85b009718e5e17> .
+  a                schema:ContactPoint ;
+  mu:uuid          "1dcd593c56d94d1966d22bc6f9d475d3"^^xsd:string ;
+  schema:email     "alex.herse@example.be"^^xsd:string ;
+  schema:telephone "011999999"^^xsd:string ;
+  locn:address     <http://data.lblod.info/id/adres/2f89f81d801070abfa85b009718e5e17> .
 
 <http://data.lblod.info/id/contactpunt/22f002032db59e2fc26ebefe623159ba>
-    a                schema:ContactPoint ;
-    mu:uuid          "22f002032db59e2fc26ebefe623159ba"^^xsd:string ;
-    schema:email     "john.doe@example.com"^^xsd:string ;
-    schema:telephone "0488111111"^^xsd:string ;
-    locn:address     <http://data.lblod.info/id/adres/a19f1ea724da989e0fd57bdf0a2f2f4a> .
+  a                schema:ContactPoint ;
+  mu:uuid          "22f002032db59e2fc26ebefe623159ba"^^xsd:string ;
+  schema:email     "john.doe@example.com"^^xsd:string ;
+  schema:telephone "0488111111"^^xsd:string ;
+  locn:address     <http://data.lblod.info/id/adres/a19f1ea724da989e0fd57bdf0a2f2f4a> .
 
 <http://data.lblod.info/id/contactpunt/55137c6f77c3d60f57324e1317924c74>
-    a                schema:ContactPoint ;
-    mu:uuid          "55137c6f77c3d60f57324e1317924c74"^^xsd:string ;
-    schema:email     "fabienne.maes@example.it"^^xsd:string ;
-    schema:telephone "032413300"^^xsd:string ;
-    locn:address     <http://data.lblod.info/id/adres/12bdecf9c0f59e025b98f9083d1a7e3f> .
+  a                schema:ContactPoint ;
+  mu:uuid          "55137c6f77c3d60f57324e1317924c74"^^xsd:string ;
+  schema:email     "fabienne.maes@example.it"^^xsd:string ;
+  schema:telephone "032413300"^^xsd:string ;
+  locn:address     <http://data.lblod.info/id/adres/12bdecf9c0f59e025b98f9083d1a7e3f> .
 
 <http://data.lblod.info/id/contactpunt/8def5e26b2dceb31ad85cb3d77ffcf03>
-    a                schema:ContactPoint ;
-    mu:uuid          "8def5e26b2dceb31ad85cb3d77ffcf03"^^xsd:string ;
-    schema:email     "jan.jansen@example.com"^^xsd:string ;
-    schema:telephone "0494111111"^^xsd:string ;
-    locn:address     <http://data.lblod.info/id/adres/c0a4eed1fcb59bbcd592d8d075fbcadb> .
+  a                schema:ContactPoint ;
+  mu:uuid          "8def5e26b2dceb31ad85cb3d77ffcf03"^^xsd:string ;
+  schema:email     "jan.jansen@example.com"^^xsd:string ;
+  schema:telephone "0494111111"^^xsd:string ;
+  locn:address     <http://data.lblod.info/id/adres/c0a4eed1fcb59bbcd592d8d075fbcadb> .
 
 <http://data.lblod.info/id/contactpunt/b8aa581cbc9741eaad74dd9f8bec2fa0>
-    a                schema:ContactPoint ;
-    mu:uuid          "b8aa581cbc9741eaad74dd9f8bec2fa0"^^xsd:string ;
-    schema:email     "isabel.smits@example.be"^^xsd:string ;
-    schema:telephone "0320105600"^^xsd:string ;
-    locn:address     <http://data.lblod.info/id/adres/60ed7632f86833143bd0820db7c3ba8b> .
+  a                schema:ContactPoint ;
+  mu:uuid          "b8aa581cbc9741eaad74dd9f8bec2fa0"^^xsd:string ;
+  schema:email     "isabel.smits@example.be"^^xsd:string ;
+  schema:telephone "0320105600"^^xsd:string ;
+  locn:address     <http://data.lblod.info/id/adres/60ed7632f86833143bd0820db7c3ba8b> .
 
 <http://data.lblod.info/id/contactpunt/d73068dcbfcec0238913bbfa1689b80e>
-    a                schema:ContactPoint ;
-    mu:uuid          "d73068dcbfcec0238913bbfa1689b80e"^^xsd:string ;
-    schema:email     "bart.desmet@exapmle.com"^^xsd:string ;
-    schema:telephone "0112030405"^^xsd:string ;
-    locn:address     <http://data.lblod.info/id/adres/a9902a1bcefa4ca9c6196a3fe7923b29> .
+  a                schema:ContactPoint ;
+  mu:uuid          "d73068dcbfcec0238913bbfa1689b80e"^^xsd:string ;
+  schema:email     "bart.desmet@exapmle.com"^^xsd:string ;
+  schema:telephone "0112030405"^^xsd:string ;
+  locn:address     <http://data.lblod.info/id/adres/a9902a1bcefa4ca9c6196a3fe7923b29> .
 
 <http://data.lblod.info/id/contactpunt/e1635170b540ef2191e338f00e11fcbe>
-    a                schema:ContactPoint ;
-    mu:uuid          "e1635170b540ef2191e338f00e11fcbe"^^xsd:string ;
-    schema:email     "luuk.van-eylen@example.be"^^xsd:string ;
-    schema:telephone "011888888"^^xsd:string ;
-    locn:address     <http://data.lblod.info/id/adres/5183706662e154bce6fdf227fb674c82> .
+  a                schema:ContactPoint ;
+  mu:uuid          "e1635170b540ef2191e338f00e11fcbe"^^xsd:string ;
+  schema:email     "luuk.van-eylen@example.be"^^xsd:string ;
+  schema:telephone "011888888"^^xsd:string ;
+  locn:address     <http://data.lblod.info/id/adres/5183706662e154bce6fdf227fb674c82> .
 
 <http://data.lblod.info/id/eredienstbestuursorgaan/2ac79cbe7cd6cbf15050747c07f495b9>
-    a                ere:Eredienstbestuursorgaan ;
-    besluit:bestuurt <http://data.lblod.info/id/bestuurVanDeEredienst/2ac79cbe7cd6cbf15050747c07f495b9> ;
-    mu:uuid          "2ac79cbe7cd6cbf15050747c07f495b9"^^xsd:string ;
-    org:classification
-                     <http://data.vlaanderen.be/id/concept/BestuursorgaanClassificatieCode/af811edba97c6ec34874d0830cbb1183> .
+  a                ere:Eredienstbestuursorgaan ;
+  besluit:bestuurt <http://data.lblod.info/id/bestuurVanDeEredienst/2ac79cbe7cd6cbf15050747c07f495b9> ;
+  mu:uuid          "2ac79cbe7cd6cbf15050747c07f495b9"^^xsd:string ;
+  org:classification
+                   <http://data.vlaanderen.be/id/concept/BestuursorgaanClassificatieCode/af811edba97c6ec34874d0830cbb1183> .
 
 <http://data.lblod.info/id/gestructureerdeIdentificator/047f81d31048b3db3977d94b18894fda>
-    a                            generiek:GestructureerdeIdentificator ;
-    generiek:lokaleIdentificator "E_GRIERGEN_V_dummy"^^xsd:string .
+  a                            generiek:GestructureerdeIdentificator ;
+  generiek:lokaleIdentificator "E_GRIERGEN_V_dummy"^^xsd:string .
 
 <http://data.lblod.info/id/gestructureerdeIdentificator/09d4bc4127a528e2c7192dd2d464659f>
-    a                            generiek:GestructureerdeIdentificator ;
-    generiek:lokaleIdentificator "E_MELLE_FSM_dummy"^^xsd:string .
+  a                            generiek:GestructureerdeIdentificator ;
+  generiek:lokaleIdentificator "E_MELLE_FSM_dummy"^^xsd:string .
 
 <http://data.lblod.info/id/gestructureerdeIdentificator/2ac79cbe7cd6cbf15050747c07f495b9>
-    a                            generiek:GestructureerdeIdentificator ;
-    generiek:lokaleIdentificator "536533333"^^xsd:string .
+  a                            generiek:GestructureerdeIdentificator ;
+  generiek:lokaleIdentificator "536533333"^^xsd:string .
 
 <http://data.lblod.info/id/gestructureerdeIdentificator/42cd45a235b09bfbe35a5922b6702050>
-    a                            generiek:GestructureerdeIdentificator ;
-    generiek:lokaleIdentificator "644449444"^^xsd:string .
+  a                            generiek:GestructureerdeIdentificator ;
+  generiek:lokaleIdentificator "644449444"^^xsd:string .
 
 <http://data.lblod.info/id/gestructureerdeIdentificator/46342c1a2e97e06ec79d3bbfa3d5ea1e>
-    a                            generiek:GestructureerdeIdentificator ;
-    generiek:lokaleIdentificator "E_AEN_L_dummy"^^xsd:string .
+  a                            generiek:GestructureerdeIdentificator ;
+  generiek:lokaleIdentificator "E_AEN_L_dummy"^^xsd:string .
 
 <http://data.lblod.info/id/gestructureerdeIdentificator/83056cd1d24fd52fc7b9d877ef95d9c7>
-    a                            generiek:GestructureerdeIdentificator ;
-    generiek:lokaleIdentificator "111111674"^^xsd:string .
+  a                            generiek:GestructureerdeIdentificator ;
+  generiek:lokaleIdentificator "111111674"^^xsd:string .
 
 <http://data.lblod.info/id/identificator/047f81d31048b3db3977d94b18894fda>
-    a             adms:Identifier ;
-    mu:uuid       "047f81d31048b3db3977d94b18894fda"^^xsd:string ;
-    skos:notation "SharePoint identificator"^^xsd:string ;
-    generiek:gestructureerdeIdentificator
-                  <http://data.lblod.info/id/gestructureerdeIdentificator/047f81d31048b3db3977d94b18894fda> .
+  a             adms:Identifier ;
+  mu:uuid       "047f81d31048b3db3977d94b18894fda"^^xsd:string ;
+  skos:notation "SharePoint identificator"^^xsd:string ;
+  generiek:gestructureerdeIdentificator
+                <http://data.lblod.info/id/gestructureerdeIdentificator/047f81d31048b3db3977d94b18894fda> .
 
 <http://data.lblod.info/id/identificator/09d4bc4127a528e2c7192dd2d464659f>
-    a             adms:Identifier ;
-    mu:uuid       "09d4bc4127a528e2c7192dd2d464659f"^^xsd:string ;
-    skos:notation "SharePoint identificator"^^xsd:string ;
-    generiek:gestructureerdeIdentificator
-                  <http://data.lblod.info/id/gestructureerdeIdentificator/09d4bc4127a528e2c7192dd2d464659f> .
+  a             adms:Identifier ;
+  mu:uuid       "09d4bc4127a528e2c7192dd2d464659f"^^xsd:string ;
+  skos:notation "SharePoint identificator"^^xsd:string ;
+  generiek:gestructureerdeIdentificator
+                <http://data.lblod.info/id/gestructureerdeIdentificator/09d4bc4127a528e2c7192dd2d464659f> .
 
 <http://data.lblod.info/id/identificator/2ac79cbe7cd6cbf15050747c07f495b9>
-    a             adms:Identifier ;
-    mu:uuid       "2ac79cbe7cd6cbf15050747c07f495b9"^^xsd:string ;
-    skos:notation "KBO nummer"^^xsd:string ;
-    generiek:gestructureerdeIdentificator
-                  <http://data.lblod.info/id/gestructureerdeIdentificator/2ac79cbe7cd6cbf15050747c07f495b9> .
+  a             adms:Identifier ;
+  mu:uuid       "2ac79cbe7cd6cbf15050747c07f495b9"^^xsd:string ;
+  skos:notation "KBO nummer"^^xsd:string ;
+  generiek:gestructureerdeIdentificator
+                <http://data.lblod.info/id/gestructureerdeIdentificator/2ac79cbe7cd6cbf15050747c07f495b9> .
 
 <http://data.lblod.info/id/identificator/42cd45a235b09bfbe35a5922b6702050>
-    a             adms:Identifier ;
-    mu:uuid       "42cd45a235b09bfbe35a5922b6702050"^^xsd:string ;
-    skos:notation "KBO nummer"^^xsd:string ;
-    generiek:gestructureerdeIdentificator
-                  <http://data.lblod.info/id/gestructureerdeIdentificator/42cd45a235b09bfbe35a5922b6702050> .
+  a             adms:Identifier ;
+  mu:uuid       "42cd45a235b09bfbe35a5922b6702050"^^xsd:string ;
+  skos:notation "KBO nummer"^^xsd:string ;
+  generiek:gestructureerdeIdentificator
+                <http://data.lblod.info/id/gestructureerdeIdentificator/42cd45a235b09bfbe35a5922b6702050> .
 
 <http://data.lblod.info/id/identificator/46342c1a2e97e06ec79d3bbfa3d5ea1e>
-    a             adms:Identifier ;
-    mu:uuid       "46342c1a2e97e06ec79d3bbfa3d5ea1e"^^xsd:string ;
-    skos:notation "SharePoint identificator"^^xsd:string ;
-    generiek:gestructureerdeIdentificator
-                  <http://data.lblod.info/id/gestructureerdeIdentificator/46342c1a2e97e06ec79d3bbfa3d5ea1e> .
+  a             adms:Identifier ;
+  mu:uuid       "46342c1a2e97e06ec79d3bbfa3d5ea1e"^^xsd:string ;
+  skos:notation "SharePoint identificator"^^xsd:string ;
+  generiek:gestructureerdeIdentificator
+                <http://data.lblod.info/id/gestructureerdeIdentificator/46342c1a2e97e06ec79d3bbfa3d5ea1e> .
 
 <http://data.lblod.info/id/identificator/83056cd1d24fd52fc7b9d877ef95d9c7>
-    a             adms:Identifier ;
-    mu:uuid       "83056cd1d24fd52fc7b9d877ef95d9c7"^^xsd:string ;
-    skos:notation "KBO nummer"^^xsd:string ;
-    generiek:gestructureerdeIdentificator
-                  <http://data.lblod.info/id/gestructureerdeIdentificator/83056cd1d24fd52fc7b9d877ef95d9c7> .
+  a             adms:Identifier ;
+  mu:uuid       "83056cd1d24fd52fc7b9d877ef95d9c7"^^xsd:string ;
+  skos:notation "KBO nummer"^^xsd:string ;
+  generiek:gestructureerdeIdentificator
+                <http://data.lblod.info/id/gestructureerdeIdentificator/83056cd1d24fd52fc7b9d877ef95d9c7> .
 
 <http://data.lblod.info/id/persoon/1e218214d6994742c9d543f8fbb5ee10>
-    a                       <http://www.w3.org/ns/person#Person> ;
-    mandaat:isAangesteldAls <http://data.lblod.info/id/mandataris/a16634bd9010170c3534ab1c4409637a> ;
-    mu:uuid                 "1e218214d6994742c9d543f8fbb5ee10"^^xsd:string ;
-    foaf:familyName         "Doe"@nl ;
-    foaf:givenName          "Jane"@nl .
+  a                       <http://www.w3.org/ns/person#Person> ;
+  mandaat:isAangesteldAls <http://data.lblod.info/id/mandataris/a16634bd9010170c3534ab1c4409637a> ;
+  mu:uuid                 "1e218214d6994742c9d543f8fbb5ee10"^^xsd:string ;
+  foaf:familyName         "Doe"@nl ;
+  foaf:givenName          "Jane"@nl .
 
 <http://data.lblod.info/id/persoon/596483f4bdd1a7fb894b9de960027486>
-    a                       <http://www.w3.org/ns/person#Person> ;
-    mandaat:isAangesteldAls <http://data.lblod.info/id/mandataris/8130ab866f658ed9c7a1bf4309db244f> ;
-    mu:uuid                 "596483f4bdd1a7fb894b9de960027486"^^xsd:string ;
-    foaf:familyName         "Wuyts"@nl ;
-    foaf:givenName          "Greta"@nl .
+  a                       <http://www.w3.org/ns/person#Person> ;
+  mandaat:isAangesteldAls <http://data.lblod.info/id/mandataris/8130ab866f658ed9c7a1bf4309db244f> ;
+  mu:uuid                 "596483f4bdd1a7fb894b9de960027486"^^xsd:string ;
+  foaf:familyName         "Wuyts"@nl ;
+  foaf:givenName          "Greta"@nl .
 
 <http://data.lblod.info/id/persoon/5a616d80d0c2908573bd27bdb5aefee7>
-    a                       <http://www.w3.org/ns/person#Person> ;
-    mandaat:isAangesteldAls <http://data.lblod.info/id/mandataris/c0a4eed1fcb59bbcd592d8d075fbcadb> ;
-    mu:uuid                 "5a616d80d0c2908573bd27bdb5aefee7"^^xsd:string ;
-    foaf:familyName         "Jansen"@nl ;
-    foaf:givenName          "Jan"@nl .
+  a                       <http://www.w3.org/ns/person#Person> ;
+  mandaat:isAangesteldAls <http://data.lblod.info/id/mandataris/c0a4eed1fcb59bbcd592d8d075fbcadb> ;
+  mu:uuid                 "5a616d80d0c2908573bd27bdb5aefee7"^^xsd:string ;
+  foaf:familyName         "Jansen"@nl ;
+  foaf:givenName          "Jan"@nl .
 
 <http://data.lblod.info/id/persoon/5b18df411cbb975f6b57853018306250>
-    a                       <http://www.w3.org/ns/person#Person> ;
-    mandaat:isAangesteldAls <http://data.lblod.info/id/mandataris/5183706662e154bce6fdf227fb674c82> ;
-    mu:uuid                 "5b18df411cbb975f6b57853018306250"^^xsd:string ;
-    foaf:familyName         "Van Eylen"@nl ;
-    foaf:givenName          "Luuk"@nl .
+  a                       <http://www.w3.org/ns/person#Person> ;
+  mandaat:isAangesteldAls <http://data.lblod.info/id/mandataris/5183706662e154bce6fdf227fb674c82> ;
+  mu:uuid                 "5b18df411cbb975f6b57853018306250"^^xsd:string ;
+  foaf:familyName         "Van Eylen"@nl ;
+  foaf:givenName          "Luuk"@nl .
 
 <http://data.lblod.info/id/persoon/6b8d4055bf7f5b561d33e7d1cd452cad>
-    a                       <http://www.w3.org/ns/person#Person> ;
-    mandaat:isAangesteldAls <http://data.lblod.info/id/mandataris/12bdecf9c0f59e025b98f9083d1a7e3f> ;
-    mu:uuid                 "6b8d4055bf7f5b561d33e7d1cd452cad"^^xsd:string ;
-    foaf:familyName         "Maes"@nl ;
-    foaf:givenName          "Fabienne"@nl .
+  a                       <http://www.w3.org/ns/person#Person> ;
+  mandaat:isAangesteldAls <http://data.lblod.info/id/mandataris/12bdecf9c0f59e025b98f9083d1a7e3f> ;
+  mu:uuid                 "6b8d4055bf7f5b561d33e7d1cd452cad"^^xsd:string ;
+  foaf:familyName         "Maes"@nl ;
+  foaf:givenName          "Fabienne"@nl .
 
 <http://data.lblod.info/id/persoon/71890e1c07bd1879ab70cd0d74db5eb1>
-    a                       <http://www.w3.org/ns/person#Person> ;
-    mandaat:isAangesteldAls <http://data.lblod.info/id/mandataris/a9902a1bcefa4ca9c6196a3fe7923b29> ;
-    mu:uuid                 "71890e1c07bd1879ab70cd0d74db5eb1"^^xsd:string ;
-    foaf:familyName         "Desmet"@nl ;
-    foaf:givenName          "Bart"@nl .
+  a                       <http://www.w3.org/ns/person#Person> ;
+  mandaat:isAangesteldAls <http://data.lblod.info/id/mandataris/a9902a1bcefa4ca9c6196a3fe7923b29> ;
+  mu:uuid                 "71890e1c07bd1879ab70cd0d74db5eb1"^^xsd:string ;
+  foaf:familyName         "Desmet"@nl ;
+  foaf:givenName          "Bart"@nl .
 
 <http://data.lblod.info/id/persoon/76ade33c361780a620f611b9f8e17419>
-    a                       <http://www.w3.org/ns/person#Person> ;
-    mandaat:isAangesteldAls <http://data.lblod.info/id/mandataris/e65540890568adb63941e60f1f36b857> ;
-    mu:uuid                 "76ade33c361780a620f611b9f8e17419"^^xsd:string ;
-    foaf:familyName         "Shmoe"@nl ;
-    foaf:givenName          "Joe"@nl .
+  a                       <http://www.w3.org/ns/person#Person> ;
+  mandaat:isAangesteldAls <http://data.lblod.info/id/mandataris/e65540890568adb63941e60f1f36b857> ;
+  mu:uuid                 "76ade33c361780a620f611b9f8e17419"^^xsd:string ;
+  foaf:familyName         "Shmoe"@nl ;
+  foaf:givenName          "Joe"@nl .
 
 <http://data.lblod.info/id/persoon/90cf766789cb40934b2ea5be483cc176>
-    a                       <http://www.w3.org/ns/person#Person> ;
-    mandaat:isAangesteldAls <http://data.lblod.info/id/mandataris/2f89f81d801070abfa85b009718e5e17> ;
-    mu:uuid                 "90cf766789cb40934b2ea5be483cc176"^^xsd:string ;
-    foaf:familyName         "Herse"@nl ;
-    foaf:givenName          "Alex"@nl .
+  a                       <http://www.w3.org/ns/person#Person> ;
+  mandaat:isAangesteldAls <http://data.lblod.info/id/mandataris/2f89f81d801070abfa85b009718e5e17> ;
+  mu:uuid                 "90cf766789cb40934b2ea5be483cc176"^^xsd:string ;
+  foaf:familyName         "Herse"@nl ;
+  foaf:givenName          "Alex"@nl .
 
 <http://data.lblod.info/id/persoon/9fd9f63e0d6487537569075da85a0c7f>
-    a                       <http://www.w3.org/ns/person#Person> ;
-    mandaat:isAangesteldAls <http://data.lblod.info/id/mandataris/a19f1ea724da989e0fd57bdf0a2f2f4a> ;
-    mu:uuid                 "9fd9f63e0d6487537569075da85a0c7f"^^xsd:string ;
-    foaf:familyName         "Doe"@nl ;
-    foaf:givenName          "John"@nl .
+  a                       <http://www.w3.org/ns/person#Person> ;
+  mandaat:isAangesteldAls <http://data.lblod.info/id/mandataris/a19f1ea724da989e0fd57bdf0a2f2f4a> ;
+  mu:uuid                 "9fd9f63e0d6487537569075da85a0c7f"^^xsd:string ;
+  foaf:familyName         "Doe"@nl ;
+  foaf:givenName          "John"@nl .
 
 <http://data.lblod.info/id/persoon/ae3af2ada6d6660a6ecd020893d6f8fb>
-    a                       <http://www.w3.org/ns/person#Person> ;
-    mandaat:isAangesteldAls <http://data.lblod.info/id/mandataris/562f5893769c97988e1d0269bb860ec8> ;
-    mu:uuid                 "ae3af2ada6d6660a6ecd020893d6f8fb"^^xsd:string ;
-    foaf:familyName         "Van Camp"@nl ;
-    foaf:givenName          "Bernard"@nl .
+  a                       <http://www.w3.org/ns/person#Person> ;
+  mandaat:isAangesteldAls <http://data.lblod.info/id/mandataris/562f5893769c97988e1d0269bb860ec8> ;
+  mu:uuid                 "ae3af2ada6d6660a6ecd020893d6f8fb"^^xsd:string ;
+  foaf:familyName         "Van Camp"@nl ;
+  foaf:givenName          "Bernard"@nl .
 
 <http://data.lblod.info/id/persoon/b4a4725400870722d0f858ae2785a5dc>
-    a                       <http://www.w3.org/ns/person#Person> ;
-    mandaat:isAangesteldAls <http://data.lblod.info/id/mandataris/1ce1d0fcc660eb0c7219b4eda69b93dd> ;
-    mu:uuid                 "b4a4725400870722d0f858ae2785a5dc"^^xsd:string ;
-    foaf:familyName         "Roe"@nl ;
-    foaf:givenName          "Jane"@nl .
+  a                       <http://www.w3.org/ns/person#Person> ;
+  mandaat:isAangesteldAls <http://data.lblod.info/id/mandataris/1ce1d0fcc660eb0c7219b4eda69b93dd> ;
+  mu:uuid                 "b4a4725400870722d0f858ae2785a5dc"^^xsd:string ;
+  foaf:familyName         "Roe"@nl ;
+  foaf:givenName          "Jane"@nl .
 
 <http://data.lblod.info/id/persoon/d916b16b69fae3c8651090e074f8a872>
-    a                       <http://www.w3.org/ns/person#Person> ;
-    mandaat:isAangesteldAls <http://data.lblod.info/id/mandataris/60ed7632f86833143bd0820db7c3ba8b> ;
-    mu:uuid                 "d916b16b69fae3c8651090e074f8a872"^^xsd:string ;
-    foaf:familyName         "Smits"@nl ;
-    foaf:givenName          "Isabel"@nl .
+  a                       <http://www.w3.org/ns/person#Person> ;
+  mandaat:isAangesteldAls <http://data.lblod.info/id/mandataris/60ed7632f86833143bd0820db7c3ba8b> ;
+  mu:uuid                 "d916b16b69fae3c8651090e074f8a872"^^xsd:string ;
+  foaf:familyName         "Smits"@nl ;
+  foaf:givenName          "Isabel"@nl .
 
 <http://data.lblod.info/id/vestiging/2ac79cbe7cd6cbf15050747c07f495b9>
-    a                      org:Site ;
-    mu:uuid                "2ac79cbe7cd6cbf15050747c07f495b9"^^xsd:string ;
-    organisatie:bestaatUit <http://data.lblod.info/id/adres/2ac79cbe7cd6cbf15050747c07f495b9> .
+  a                      org:Site ;
+  mu:uuid                "2ac79cbe7cd6cbf15050747c07f495b9"^^xsd:string ;
+  organisatie:bestaatUit <http://data.lblod.info/id/adres/2ac79cbe7cd6cbf15050747c07f495b9> .
 
 <http://data.lblod.info/id/vestiging/42cd45a235b09bfbe35a5922b6702050>
-    a                      org:Site ;
-    mu:uuid                "42cd45a235b09bfbe35a5922b6702050"^^xsd:string ;
-    organisatie:bestaatUit <http://data.lblod.info/id/adres/42cd45a235b09bfbe35a5922b6702050> .
+  a                      org:Site ;
+  mu:uuid                "42cd45a235b09bfbe35a5922b6702050"^^xsd:string ;
+  organisatie:bestaatUit <http://data.lblod.info/id/adres/42cd45a235b09bfbe35a5922b6702050> .
 
 <http://data.lblod.info/id/vestiging/83056cd1d24fd52fc7b9d877ef95d9c7>
-    a                      org:Site ;
-    mu:uuid                "83056cd1d24fd52fc7b9d877ef95d9c7"^^xsd:string ;
-    organisatie:bestaatUit <http://data.lblod.info/id/adres/83056cd1d24fd52fc7b9d877ef95d9c7> .
+  a                      org:Site ;
+  mu:uuid                "83056cd1d24fd52fc7b9d877ef95d9c7"^^xsd:string ;
+  organisatie:bestaatUit <http://data.lblod.info/id/adres/83056cd1d24fd52fc7b9d877ef95d9c7> .
 
 <http://data.lblod.info/id/eredienstbestuursorgaan/42cd45a235b09bfbe35a5922b6702050>
-    a                ere:Eredienstbestuursorgaan ;
-    besluit:bestuurt <http://data.lblod.info/id/bestuurVanDeEredienst/42cd45a235b09bfbe35a5922b6702050> ;
-    mu:uuid          "42cd45a235b09bfbe35a5922b6702050"^^xsd:string ;
-    org:classification
-                     <http://data.vlaanderen.be/id/concept/BestuursorgaanClassificatieCode/04f65457bf125b2dc59fd71917ac3d08> .
+  a                ere:Eredienstbestuursorgaan ;
+  besluit:bestuurt <http://data.lblod.info/id/bestuurVanDeEredienst/42cd45a235b09bfbe35a5922b6702050> ;
+  mu:uuid          "42cd45a235b09bfbe35a5922b6702050"^^xsd:string ;
+  org:classification
+                   <http://data.vlaanderen.be/id/concept/BestuursorgaanClassificatieCode/04f65457bf125b2dc59fd71917ac3d08> .
 
 <http://data.lblod.info/id/eredienstbestuursorgaan/83056cd1d24fd52fc7b9d877ef95d9c7>
-    a                ere:Eredienstbestuursorgaan ;
-    besluit:bestuurt <http://data.lblod.info/id/bestuurVanDeEredienst/83056cd1d24fd52fc7b9d877ef95d9c7> ;
-    mu:uuid          "83056cd1d24fd52fc7b9d877ef95d9c7"^^xsd:string ;
-    org:classification
-                     <http://data.vlaanderen.be/id/concept/BestuursorgaanClassificatieCode/04f65457bf125b2dc59fd71917ac3d08> .
+  a                ere:Eredienstbestuursorgaan ;
+  besluit:bestuurt <http://data.lblod.info/id/bestuurVanDeEredienst/83056cd1d24fd52fc7b9d877ef95d9c7> ;
+  mu:uuid          "83056cd1d24fd52fc7b9d877ef95d9c7"^^xsd:string ;
+  org:classification
+                   <http://data.vlaanderen.be/id/concept/BestuursorgaanClassificatieCode/04f65457bf125b2dc59fd71917ac3d08> .
 
 <http://data.lblod.info/id/mandaat/1628b15d8ebaca177bda3dbe01d34d50>
-    a          mandaat:Mandaat ;
-    mu:uuid    "1628b15d8ebaca177bda3dbe01d34d50"^^xsd:string ;
-    org:heldBy <http://data.lblod.info/id/mandataris/e65540890568adb63941e60f1f36b857> ;
-    org:postIn <http://data.lblod.info/id/bestuursorgaan/b74fc0b255801b0aabf2acdc4f795658> ;
-    org:role   <http://data.vlaanderen.be/id/concept/BestuursfunctieCode/2e021095727b2464459a63e16ebeafd2> .
+  a          mandaat:Mandaat ;
+  mu:uuid    "1628b15d8ebaca177bda3dbe01d34d50"^^xsd:string ;
+  org:heldBy <http://data.lblod.info/id/mandataris/e65540890568adb63941e60f1f36b857> ;
+  org:postIn <http://data.lblod.info/id/bestuursorgaan/b74fc0b255801b0aabf2acdc4f795658> ;
+  org:role   <http://data.vlaanderen.be/id/concept/BestuursfunctieCode/2e021095727b2464459a63e16ebeafd2> .
 
 <http://data.lblod.info/id/mandaat/31f5b6419a31b61124d9ef6a54d5352c>
-    a          mandaat:Mandaat ;
-    mu:uuid    "31f5b6419a31b61124d9ef6a54d5352c"^^xsd:string ;
-    org:heldBy <http://data.lblod.info/id/mandataris/2f89f81d801070abfa85b009718e5e17> ;
-    org:postIn <http://data.lblod.info/id/bestuursorgaan/efbc04780b1c937959a47e2621e9b47b> ;
-    org:role   <http://data.vlaanderen.be/id/concept/BestuursfunctieCode/67e6e585166cd97575b3e17ffc430a43> .
+  a          mandaat:Mandaat ;
+  mu:uuid    "31f5b6419a31b61124d9ef6a54d5352c"^^xsd:string ;
+  org:heldBy <http://data.lblod.info/id/mandataris/2f89f81d801070abfa85b009718e5e17> ;
+  org:postIn <http://data.lblod.info/id/bestuursorgaan/efbc04780b1c937959a47e2621e9b47b> ;
+  org:role   <http://data.vlaanderen.be/id/concept/BestuursfunctieCode/67e6e585166cd97575b3e17ffc430a43> .
 
 <http://data.lblod.info/id/mandaat/3f762b36de83034aef2152bcbed4097d>
-    a          mandaat:Mandaat ;
-    mu:uuid    "3f762b36de83034aef2152bcbed4097d"^^xsd:string ;
-    org:heldBy <http://data.lblod.info/id/mandataris/1ce1d0fcc660eb0c7219b4eda69b93dd> ;
-    org:postIn <http://data.lblod.info/id/bestuursorgaan/b74fc0b255801b0aabf2acdc4f795658> ;
-    org:role   <http://data.vlaanderen.be/id/concept/BestuursfunctieCode/5ac134b9800b81da3c450d6b9605cef2> .
+  a          mandaat:Mandaat ;
+  mu:uuid    "3f762b36de83034aef2152bcbed4097d"^^xsd:string ;
+  org:heldBy <http://data.lblod.info/id/mandataris/1ce1d0fcc660eb0c7219b4eda69b93dd> ;
+  org:postIn <http://data.lblod.info/id/bestuursorgaan/b74fc0b255801b0aabf2acdc4f795658> ;
+  org:role   <http://data.vlaanderen.be/id/concept/BestuursfunctieCode/5ac134b9800b81da3c450d6b9605cef2> .
 
 <http://data.lblod.info/id/mandaat/577c11e8af4b70ad1af91b25ed83cc9d>
-    a          mandaat:Mandaat ;
-    mu:uuid    "577c11e8af4b70ad1af91b25ed83cc9d"^^xsd:string ;
-    org:heldBy <http://data.lblod.info/id/mandataris/c0a4eed1fcb59bbcd592d8d075fbcadb> ;
-    org:postIn <http://data.lblod.info/id/bestuursorgaan/b74fc0b255801b0aabf2acdc4f795658> ;
-    org:role   <http://data.vlaanderen.be/id/concept/BestuursfunctieCode/67e6e585166cd97575b3e17ffc430a43> .
+  a          mandaat:Mandaat ;
+  mu:uuid    "577c11e8af4b70ad1af91b25ed83cc9d"^^xsd:string ;
+  org:heldBy <http://data.lblod.info/id/mandataris/c0a4eed1fcb59bbcd592d8d075fbcadb> ;
+  org:postIn <http://data.lblod.info/id/bestuursorgaan/b74fc0b255801b0aabf2acdc4f795658> ;
+  org:role   <http://data.vlaanderen.be/id/concept/BestuursfunctieCode/67e6e585166cd97575b3e17ffc430a43> .
 
 <http://data.lblod.info/id/mandaat/657d7ab7ad85081d01897c5c6a8c634e>
-    a          mandaat:Mandaat ;
-    mu:uuid    "657d7ab7ad85081d01897c5c6a8c634e"^^xsd:string ;
-    org:heldBy <http://data.lblod.info/id/mandataris/60ed7632f86833143bd0820db7c3ba8b> ;
-    org:postIn <http://data.lblod.info/id/bestuursorgaan/f9a9d15c9f36ea7d4b9fa33a080ce6ed> ;
-    org:role   <http://data.vlaanderen.be/id/concept/BestuursfunctieCode/5ac134b9800b81da3c450d6b9605cef2> .
+  a          mandaat:Mandaat ;
+  mu:uuid    "657d7ab7ad85081d01897c5c6a8c634e"^^xsd:string ;
+  org:heldBy <http://data.lblod.info/id/mandataris/60ed7632f86833143bd0820db7c3ba8b> ;
+  org:postIn <http://data.lblod.info/id/bestuursorgaan/f9a9d15c9f36ea7d4b9fa33a080ce6ed> ;
+  org:role   <http://data.vlaanderen.be/id/concept/BestuursfunctieCode/5ac134b9800b81da3c450d6b9605cef2> .
 
 <http://data.lblod.info/id/mandaat/70e9f3609d82b286e5640b59491d0569>
-    a          mandaat:Mandaat ;
-    mu:uuid    "70e9f3609d82b286e5640b59491d0569"^^xsd:string ;
-    org:heldBy <http://data.lblod.info/id/mandataris/562f5893769c97988e1d0269bb860ec8> ;
-    org:postIn <http://data.lblod.info/id/bestuursorgaan/84951666dd4aac0673a82838de48c64e> ;
-    org:role   <http://data.vlaanderen.be/id/concept/BestuursfunctieCode/2e021095727b2464459a63e16ebeafd2> .
+  a          mandaat:Mandaat ;
+  mu:uuid    "70e9f3609d82b286e5640b59491d0569"^^xsd:string ;
+  org:heldBy <http://data.lblod.info/id/mandataris/562f5893769c97988e1d0269bb860ec8> ;
+  org:postIn <http://data.lblod.info/id/bestuursorgaan/84951666dd4aac0673a82838de48c64e> ;
+  org:role   <http://data.vlaanderen.be/id/concept/BestuursfunctieCode/2e021095727b2464459a63e16ebeafd2> .
 
 <http://data.lblod.info/id/mandaat/70f2c108b4de5ae016cddca4c076bcca>
-    a          mandaat:Mandaat ;
-    mu:uuid    "70f2c108b4de5ae016cddca4c076bcca"^^xsd:string ;
-    org:heldBy <http://data.lblod.info/id/mandataris/a9902a1bcefa4ca9c6196a3fe7923b29> ;
-    org:postIn <http://data.lblod.info/id/bestuursorgaan/efbc04780b1c937959a47e2621e9b47b> ;
-    org:role   <http://data.vlaanderen.be/id/concept/BestuursfunctieCode/5ac134b9800b81da3c450d6b9605cef2> .
+  a          mandaat:Mandaat ;
+  mu:uuid    "70f2c108b4de5ae016cddca4c076bcca"^^xsd:string ;
+  org:heldBy <http://data.lblod.info/id/mandataris/a9902a1bcefa4ca9c6196a3fe7923b29> ;
+  org:postIn <http://data.lblod.info/id/bestuursorgaan/efbc04780b1c937959a47e2621e9b47b> ;
+  org:role   <http://data.vlaanderen.be/id/concept/BestuursfunctieCode/5ac134b9800b81da3c450d6b9605cef2> .
 
 <http://data.lblod.info/id/mandaat/77e32cbc36be743dd9e5fcc0846cce63>
-    a          mandaat:Mandaat ;
-    mu:uuid    "77e32cbc36be743dd9e5fcc0846cce63"^^xsd:string ;
-    org:heldBy <http://data.lblod.info/id/mandataris/a16634bd9010170c3534ab1c4409637a> ;
-    org:postIn <http://data.lblod.info/id/bestuursorgaan/b74fc0b255801b0aabf2acdc4f795658> ;
-    org:role   <http://data.vlaanderen.be/id/concept/BestuursfunctieCode/2e021095727b2464459a63e16ebeafd2> .
+  a          mandaat:Mandaat ;
+  mu:uuid    "77e32cbc36be743dd9e5fcc0846cce63"^^xsd:string ;
+  org:heldBy <http://data.lblod.info/id/mandataris/a16634bd9010170c3534ab1c4409637a> ;
+  org:postIn <http://data.lblod.info/id/bestuursorgaan/b74fc0b255801b0aabf2acdc4f795658> ;
+  org:role   <http://data.vlaanderen.be/id/concept/BestuursfunctieCode/2e021095727b2464459a63e16ebeafd2> .
 
 <http://data.lblod.info/id/mandaat/abb50e7884bcfee487c09a643a1cf35a>
-    a          mandaat:Mandaat ;
-    mu:uuid    "abb50e7884bcfee487c09a643a1cf35a"^^xsd:string ;
-    org:heldBy <http://data.lblod.info/id/mandataris/12bdecf9c0f59e025b98f9083d1a7e3f> ;
-    org:postIn <http://data.lblod.info/id/bestuursorgaan/f9a9d15c9f36ea7d4b9fa33a080ce6ed> ;
-    org:role   <http://data.vlaanderen.be/id/concept/BestuursfunctieCode/67e6e585166cd97575b3e17ffc430a43> .
+  a          mandaat:Mandaat ;
+  mu:uuid    "abb50e7884bcfee487c09a643a1cf35a"^^xsd:string ;
+  org:heldBy <http://data.lblod.info/id/mandataris/12bdecf9c0f59e025b98f9083d1a7e3f> ;
+  org:postIn <http://data.lblod.info/id/bestuursorgaan/f9a9d15c9f36ea7d4b9fa33a080ce6ed> ;
+  org:role   <http://data.vlaanderen.be/id/concept/BestuursfunctieCode/67e6e585166cd97575b3e17ffc430a43> .
 
 <http://data.lblod.info/id/mandaat/aefae003b2dc262ef5158427bcf40049>
-    a          mandaat:Mandaat ;
-    mu:uuid    "aefae003b2dc262ef5158427bcf40049"^^xsd:string ;
-    org:heldBy <http://data.lblod.info/id/mandataris/5183706662e154bce6fdf227fb674c82> ;
-    org:postIn <http://data.lblod.info/id/bestuursorgaan/efbc04780b1c937959a47e2621e9b47b> ;
-    org:role   <http://data.vlaanderen.be/id/concept/BestuursfunctieCode/180d13930d6f1a3938e0aa7fa9990002> .
+  a          mandaat:Mandaat ;
+  mu:uuid    "aefae003b2dc262ef5158427bcf40049"^^xsd:string ;
+  org:heldBy <http://data.lblod.info/id/mandataris/5183706662e154bce6fdf227fb674c82> ;
+  org:postIn <http://data.lblod.info/id/bestuursorgaan/efbc04780b1c937959a47e2621e9b47b> ;
+  org:role   <http://data.vlaanderen.be/id/concept/BestuursfunctieCode/180d13930d6f1a3938e0aa7fa9990002> .
 
 <http://data.lblod.info/id/mandaat/b0af18ee7e43e619ec04119e713aaaac>
-    a          mandaat:Mandaat ;
-    mu:uuid    "b0af18ee7e43e619ec04119e713aaaac"^^xsd:string ;
-    org:heldBy <http://data.lblod.info/id/mandataris/8130ab866f658ed9c7a1bf4309db244f> ;
-    org:postIn <http://data.lblod.info/id/bestuursorgaan/f9a9d15c9f36ea7d4b9fa33a080ce6ed> ;
-    org:role   <http://data.vlaanderen.be/id/concept/BestuursfunctieCode/2e021095727b2464459a63e16ebeafd2> .
+  a          mandaat:Mandaat ;
+  mu:uuid    "b0af18ee7e43e619ec04119e713aaaac"^^xsd:string ;
+  org:heldBy <http://data.lblod.info/id/mandataris/8130ab866f658ed9c7a1bf4309db244f> ;
+  org:postIn <http://data.lblod.info/id/bestuursorgaan/f9a9d15c9f36ea7d4b9fa33a080ce6ed> ;
+  org:role   <http://data.vlaanderen.be/id/concept/BestuursfunctieCode/2e021095727b2464459a63e16ebeafd2> .
 
 <http://data.lblod.info/id/mandaat/e8e1e9d6f0f7cb425290f31f5b630f7d>
-    a          mandaat:Mandaat ;
-    mu:uuid    "e8e1e9d6f0f7cb425290f31f5b630f7d"^^xsd:string ;
-    org:heldBy <http://data.lblod.info/id/mandataris/a19f1ea724da989e0fd57bdf0a2f2f4a> ;
-    org:postIn <http://data.lblod.info/id/bestuursorgaan/b74fc0b255801b0aabf2acdc4f795658> ;
-    org:role   <http://data.vlaanderen.be/id/concept/BestuursfunctieCode/180d13930d6f1a3938e0aa7fa9990002> .
+  a          mandaat:Mandaat ;
+  mu:uuid    "e8e1e9d6f0f7cb425290f31f5b630f7d"^^xsd:string ;
+  org:heldBy <http://data.lblod.info/id/mandataris/a19f1ea724da989e0fd57bdf0a2f2f4a> ;
+  org:postIn <http://data.lblod.info/id/bestuursorgaan/b74fc0b255801b0aabf2acdc4f795658> ;
+  org:role   <http://data.vlaanderen.be/id/concept/BestuursfunctieCode/180d13930d6f1a3938e0aa7fa9990002> .
 
 <http://data.lblod.info/id/mandataris/12bdecf9c0f59e025b98f9083d1a7e3f>
-    a                              mandaat:EredienstMandataris ;
-    mandaat:isBestuurlijkeAliasVan <http://data.lblod.info/id/persoon/6b8d4055bf7f5b561d33e7d1cd452cad> ;
-    mandaat:start                  "2018-07-15T00:00:00"^^xsd:dateTime ;
-    mandaat:status
-                                   <https://data.vlaanderen.be/id/concept/MandatarisStatusCode/21063a5b-912c-4241-841c-cc7fb3c73e75> ;
-    mu:uuid                        "12bdecf9c0f59e025b98f9083d1a7e3f"^^xsd:string ;
-    schema:contactPoint            <http://data.lblod.info/id/contactpunt/55137c6f77c3d60f57324e1317924c74> ;
-    org:holds                      <http://data.lblod.info/id/mandaat/abb50e7884bcfee487c09a643a1cf35a> .
+  a                              mandaat:EredienstMandataris ;
+  mandaat:isBestuurlijkeAliasVan <http://data.lblod.info/id/persoon/6b8d4055bf7f5b561d33e7d1cd452cad> ;
+  mandaat:start                  "2018-07-15T00:00:00"^^xsd:dateTime ;
+  mandaat:status
+                                 <https://data.vlaanderen.be/id/concept/MandatarisStatusCode/21063a5b-912c-4241-841c-cc7fb3c73e75> ;
+  mu:uuid                        "12bdecf9c0f59e025b98f9083d1a7e3f"^^xsd:string ;
+  schema:contactPoint            <http://data.lblod.info/id/contactpunt/55137c6f77c3d60f57324e1317924c74> ;
+  org:holds                      <http://data.lblod.info/id/mandaat/abb50e7884bcfee487c09a643a1cf35a> .
 
 <http://data.lblod.info/id/mandataris/1ce1d0fcc660eb0c7219b4eda69b93dd>
-    a                              mandaat:EredienstMandataris ;
-    mandaat:isBestuurlijkeAliasVan <http://data.lblod.info/id/persoon/b4a4725400870722d0f858ae2785a5dc> ;
-    mandaat:start                  "2019-06-02T00:00:00"^^xsd:dateTime ;
-    mandaat:status
-                                   <https://data.vlaanderen.be/id/concept/MandatarisStatusCode/21063a5b-912c-4241-841c-cc7fb3c73e75> ;
-    mu:uuid                        "1ce1d0fcc660eb0c7219b4eda69b93dd"^^xsd:string ;
-    schema:contactPoint            <http://data.lblod.info/id/contactpunt/1a35c7ae3088f4bd163596be0e29a78d> ;
-    org:holds                      <http://data.lblod.info/id/mandaat/3f762b36de83034aef2152bcbed4097d> .
+  a                              mandaat:EredienstMandataris ;
+  mandaat:isBestuurlijkeAliasVan <http://data.lblod.info/id/persoon/b4a4725400870722d0f858ae2785a5dc> ;
+  mandaat:start                  "2019-06-02T00:00:00"^^xsd:dateTime ;
+  mandaat:status
+                                 <https://data.vlaanderen.be/id/concept/MandatarisStatusCode/21063a5b-912c-4241-841c-cc7fb3c73e75> ;
+  mu:uuid                        "1ce1d0fcc660eb0c7219b4eda69b93dd"^^xsd:string ;
+  schema:contactPoint            <http://data.lblod.info/id/contactpunt/1a35c7ae3088f4bd163596be0e29a78d> ;
+  org:holds                      <http://data.lblod.info/id/mandaat/3f762b36de83034aef2152bcbed4097d> .
 
 <http://data.lblod.info/id/mandataris/2f89f81d801070abfa85b009718e5e17>
-    a                              mandaat:EredienstMandataris ;
-    mandaat:isBestuurlijkeAliasVan <http://data.lblod.info/id/persoon/90cf766789cb40934b2ea5be483cc176> ;
-    mandaat:start                  "2020-08-14T00:00:00"^^xsd:dateTime ;
-    mandaat:status
-                                   <https://data.vlaanderen.be/id/concept/MandatarisStatusCode/21063a5b-912c-4241-841c-cc7fb3c73e75> ;
-    mu:uuid                        "2f89f81d801070abfa85b009718e5e17"^^xsd:string ;
-    schema:contactPoint            <http://data.lblod.info/id/contactpunt/1dcd593c56d94d1966d22bc6f9d475d3> ;
-    org:holds                      <http://data.lblod.info/id/mandaat/31f5b6419a31b61124d9ef6a54d5352c> .
+  a                              mandaat:EredienstMandataris ;
+  mandaat:isBestuurlijkeAliasVan <http://data.lblod.info/id/persoon/90cf766789cb40934b2ea5be483cc176> ;
+  mandaat:start                  "2020-08-14T00:00:00"^^xsd:dateTime ;
+  mandaat:status
+                                 <https://data.vlaanderen.be/id/concept/MandatarisStatusCode/21063a5b-912c-4241-841c-cc7fb3c73e75> ;
+  mu:uuid                        "2f89f81d801070abfa85b009718e5e17"^^xsd:string ;
+  schema:contactPoint            <http://data.lblod.info/id/contactpunt/1dcd593c56d94d1966d22bc6f9d475d3> ;
+  org:holds                      <http://data.lblod.info/id/mandaat/31f5b6419a31b61124d9ef6a54d5352c> .
 
 <http://data.lblod.info/id/mandataris/5183706662e154bce6fdf227fb674c82>
-    a                              mandaat:EredienstMandataris ;
-    mandaat:isBestuurlijkeAliasVan <http://data.lblod.info/id/persoon/5b18df411cbb975f6b57853018306250> ;
-    mandaat:start                  "2020-08-14T00:00:00"^^xsd:dateTime ;
-    mandaat:status
-                                   <https://data.vlaanderen.be/id/concept/MandatarisStatusCode/21063a5b-912c-4241-841c-cc7fb3c73e75> ;
-    mu:uuid                        "5183706662e154bce6fdf227fb674c82"^^xsd:string ;
-    schema:contactPoint            <http://data.lblod.info/id/contactpunt/e1635170b540ef2191e338f00e11fcbe> ;
-    org:holds                      <http://data.lblod.info/id/mandaat/aefae003b2dc262ef5158427bcf40049> .
+  a                              mandaat:EredienstMandataris ;
+  mandaat:isBestuurlijkeAliasVan <http://data.lblod.info/id/persoon/5b18df411cbb975f6b57853018306250> ;
+  mandaat:start                  "2020-08-14T00:00:00"^^xsd:dateTime ;
+  mandaat:status
+                                 <https://data.vlaanderen.be/id/concept/MandatarisStatusCode/21063a5b-912c-4241-841c-cc7fb3c73e75> ;
+  mu:uuid                        "5183706662e154bce6fdf227fb674c82"^^xsd:string ;
+  schema:contactPoint            <http://data.lblod.info/id/contactpunt/e1635170b540ef2191e338f00e11fcbe> ;
+  org:holds                      <http://data.lblod.info/id/mandaat/aefae003b2dc262ef5158427bcf40049> .
 
 <http://data.lblod.info/id/mandataris/562f5893769c97988e1d0269bb860ec8>
-    a                              mandaat:Mandataris ;
-    mandaat:isBestuurlijkeAliasVan <http://data.lblod.info/id/persoon/ae3af2ada6d6660a6ecd020893d6f8fb> ;
-    mandaat:start                  "2019-04-19T00:00:00"^^xsd:dateTime ;
-    mu:uuid                        "562f5893769c97988e1d0269bb860ec8"^^xsd:string ;
-    org:holds                      <http://data.lblod.info/id/mandaat/70e9f3609d82b286e5640b59491d0569> .
+  a                              mandaat:Mandataris ;
+  mandaat:isBestuurlijkeAliasVan <http://data.lblod.info/id/persoon/ae3af2ada6d6660a6ecd020893d6f8fb> ;
+  mandaat:start                  "2019-04-19T00:00:00"^^xsd:dateTime ;
+  mu:uuid                        "562f5893769c97988e1d0269bb860ec8"^^xsd:string ;
+  org:holds                      <http://data.lblod.info/id/mandaat/70e9f3609d82b286e5640b59491d0569> .
 
 <http://data.lblod.info/id/mandataris/60ed7632f86833143bd0820db7c3ba8b>
-    a                              mandaat:EredienstMandataris ;
-    mandaat:isBestuurlijkeAliasVan <http://data.lblod.info/id/persoon/d916b16b69fae3c8651090e074f8a872> ;
-    mandaat:start                  "2018-07-15T00:00:00"^^xsd:dateTime ;
-    mandaat:status
-                                   <https://data.vlaanderen.be/id/concept/MandatarisStatusCode/21063a5b-912c-4241-841c-cc7fb3c73e75> ;
-    mu:uuid                        "60ed7632f86833143bd0820db7c3ba8b"^^xsd:string ;
-    schema:contactPoint            <http://data.lblod.info/id/contactpunt/b8aa581cbc9741eaad74dd9f8bec2fa0> ;
-    org:holds                      <http://data.lblod.info/id/mandaat/657d7ab7ad85081d01897c5c6a8c634e> .
+  a                              mandaat:EredienstMandataris ;
+  mandaat:isBestuurlijkeAliasVan <http://data.lblod.info/id/persoon/d916b16b69fae3c8651090e074f8a872> ;
+  mandaat:start                  "2018-07-15T00:00:00"^^xsd:dateTime ;
+  mandaat:status
+                                 <https://data.vlaanderen.be/id/concept/MandatarisStatusCode/21063a5b-912c-4241-841c-cc7fb3c73e75> ;
+  mu:uuid                        "60ed7632f86833143bd0820db7c3ba8b"^^xsd:string ;
+  schema:contactPoint            <http://data.lblod.info/id/contactpunt/b8aa581cbc9741eaad74dd9f8bec2fa0> ;
+  org:holds                      <http://data.lblod.info/id/mandaat/657d7ab7ad85081d01897c5c6a8c634e> .
 
 <http://data.lblod.info/id/mandataris/8130ab866f658ed9c7a1bf4309db244f>
-    a                              mandaat:Mandataris ;
-    mandaat:isBestuurlijkeAliasVan <http://data.lblod.info/id/persoon/596483f4bdd1a7fb894b9de960027486> ;
-    mandaat:start                  "2018-03-30T00:00:00"^^xsd:dateTime ;
-    mu:uuid                        "8130ab866f658ed9c7a1bf4309db244f"^^xsd:string ;
-    org:holds                      <http://data.lblod.info/id/mandaat/b0af18ee7e43e619ec04119e713aaaac> .
+  a                              mandaat:Mandataris ;
+  mandaat:isBestuurlijkeAliasVan <http://data.lblod.info/id/persoon/596483f4bdd1a7fb894b9de960027486> ;
+  mandaat:start                  "2018-03-30T00:00:00"^^xsd:dateTime ;
+  mu:uuid                        "8130ab866f658ed9c7a1bf4309db244f"^^xsd:string ;
+  org:holds                      <http://data.lblod.info/id/mandaat/b0af18ee7e43e619ec04119e713aaaac> .
 
 <http://data.lblod.info/id/mandataris/a16634bd9010170c3534ab1c4409637a>
-    a                              mandaat:Mandataris ;
-    mandaat:isBestuurlijkeAliasVan <http://data.lblod.info/id/persoon/1e218214d6994742c9d543f8fbb5ee10> ;
-    mandaat:start                  "2019-06-02T00:00:00"^^xsd:dateTime ;
-    mu:uuid                        "a16634bd9010170c3534ab1c4409637a"^^xsd:string ;
-    org:holds                      <http://data.lblod.info/id/mandaat/77e32cbc36be743dd9e5fcc0846cce63> .
+  a                              mandaat:Mandataris ;
+  mandaat:isBestuurlijkeAliasVan <http://data.lblod.info/id/persoon/1e218214d6994742c9d543f8fbb5ee10> ;
+  mandaat:start                  "2019-06-02T00:00:00"^^xsd:dateTime ;
+  mu:uuid                        "a16634bd9010170c3534ab1c4409637a"^^xsd:string ;
+  org:holds                      <http://data.lblod.info/id/mandaat/77e32cbc36be743dd9e5fcc0846cce63> .
 
 <http://data.lblod.info/id/mandataris/a19f1ea724da989e0fd57bdf0a2f2f4a>
-    a                              mandaat:EredienstMandataris ;
-    mandaat:isBestuurlijkeAliasVan <http://data.lblod.info/id/persoon/9fd9f63e0d6487537569075da85a0c7f> ;
-    mandaat:start                  "2019-06-02T00:00:00"^^xsd:dateTime ;
-    mandaat:status
-                                   <https://data.vlaanderen.be/id/concept/MandatarisStatusCode/21063a5b-912c-4241-841c-cc7fb3c73e75> ;
-    mu:uuid                        "a19f1ea724da989e0fd57bdf0a2f2f4a"^^xsd:string ;
-    schema:contactPoint            <http://data.lblod.info/id/contactpunt/22f002032db59e2fc26ebefe623159ba> ;
-    org:holds                      <http://data.lblod.info/id/mandaat/e8e1e9d6f0f7cb425290f31f5b630f7d> .
+  a                              mandaat:EredienstMandataris ;
+  mandaat:isBestuurlijkeAliasVan <http://data.lblod.info/id/persoon/9fd9f63e0d6487537569075da85a0c7f> ;
+  mandaat:start                  "2019-06-02T00:00:00"^^xsd:dateTime ;
+  mandaat:status
+                                 <https://data.vlaanderen.be/id/concept/MandatarisStatusCode/21063a5b-912c-4241-841c-cc7fb3c73e75> ;
+  mu:uuid                        "a19f1ea724da989e0fd57bdf0a2f2f4a"^^xsd:string ;
+  schema:contactPoint            <http://data.lblod.info/id/contactpunt/22f002032db59e2fc26ebefe623159ba> ;
+  org:holds                      <http://data.lblod.info/id/mandaat/e8e1e9d6f0f7cb425290f31f5b630f7d> .
 
 <http://data.lblod.info/id/mandataris/a9902a1bcefa4ca9c6196a3fe7923b29>
-    a                              mandaat:EredienstMandataris ;
-    mandaat:isBestuurlijkeAliasVan <http://data.lblod.info/id/persoon/71890e1c07bd1879ab70cd0d74db5eb1> ;
-    mandaat:start                  "2020-08-14T00:00:00"^^xsd:dateTime ;
-    mandaat:status
-                                   <https://data.vlaanderen.be/id/concept/MandatarisStatusCode/21063a5b-912c-4241-841c-cc7fb3c73e75> ;
-    mu:uuid                        "a9902a1bcefa4ca9c6196a3fe7923b29"^^xsd:string ;
-    schema:contactPoint            <http://data.lblod.info/id/contactpunt/d73068dcbfcec0238913bbfa1689b80e> ;
-    org:holds                      <http://data.lblod.info/id/mandaat/70f2c108b4de5ae016cddca4c076bcca> .
+  a                              mandaat:EredienstMandataris ;
+  mandaat:isBestuurlijkeAliasVan <http://data.lblod.info/id/persoon/71890e1c07bd1879ab70cd0d74db5eb1> ;
+  mandaat:start                  "2020-08-14T00:00:00"^^xsd:dateTime ;
+  mandaat:status
+                                 <https://data.vlaanderen.be/id/concept/MandatarisStatusCode/21063a5b-912c-4241-841c-cc7fb3c73e75> ;
+  mu:uuid                        "a9902a1bcefa4ca9c6196a3fe7923b29"^^xsd:string ;
+  schema:contactPoint            <http://data.lblod.info/id/contactpunt/d73068dcbfcec0238913bbfa1689b80e> ;
+  org:holds                      <http://data.lblod.info/id/mandaat/70f2c108b4de5ae016cddca4c076bcca> .
 
 <http://data.lblod.info/id/mandataris/c0a4eed1fcb59bbcd592d8d075fbcadb>
-    a                              mandaat:EredienstMandataris ;
-    mandaat:isBestuurlijkeAliasVan <http://data.lblod.info/id/persoon/5a616d80d0c2908573bd27bdb5aefee7> ;
-    mandaat:start                  "2019-06-02T00:00:00"^^xsd:dateTime ;
-    mandaat:status
-                                   <https://data.vlaanderen.be/id/concept/MandatarisStatusCode/21063a5b-912c-4241-841c-cc7fb3c73e75> ;
-    mu:uuid                        "c0a4eed1fcb59bbcd592d8d075fbcadb"^^xsd:string ;
-    schema:contactPoint            <http://data.lblod.info/id/contactpunt/8def5e26b2dceb31ad85cb3d77ffcf03> ;
-    org:holds                      <http://data.lblod.info/id/mandaat/577c11e8af4b70ad1af91b25ed83cc9d> .
+  a                              mandaat:EredienstMandataris ;
+  mandaat:isBestuurlijkeAliasVan <http://data.lblod.info/id/persoon/5a616d80d0c2908573bd27bdb5aefee7> ;
+  mandaat:start                  "2019-06-02T00:00:00"^^xsd:dateTime ;
+  mandaat:status
+                                 <https://data.vlaanderen.be/id/concept/MandatarisStatusCode/21063a5b-912c-4241-841c-cc7fb3c73e75> ;
+  mu:uuid                        "c0a4eed1fcb59bbcd592d8d075fbcadb"^^xsd:string ;
+  schema:contactPoint            <http://data.lblod.info/id/contactpunt/8def5e26b2dceb31ad85cb3d77ffcf03> ;
+  org:holds                      <http://data.lblod.info/id/mandaat/577c11e8af4b70ad1af91b25ed83cc9d> .
 
 <http://data.lblod.info/id/mandataris/e65540890568adb63941e60f1f36b857>
-    a                              mandaat:Mandataris ;
-    mandaat:isBestuurlijkeAliasVan <http://data.lblod.info/id/persoon/76ade33c361780a620f611b9f8e17419> ;
-    mandaat:start                  "2019-03-14T00:00:00"^^xsd:dateTime ;
-    mu:uuid                        "e65540890568adb63941e60f1f36b857"^^xsd:string ;
-    org:holds                      <http://data.lblod.info/id/mandaat/1628b15d8ebaca177bda3dbe01d34d50> .
+  a                              mandaat:Mandataris ;
+  mandaat:isBestuurlijkeAliasVan <http://data.lblod.info/id/persoon/76ade33c361780a620f611b9f8e17419> ;
+  mandaat:start                  "2019-03-14T00:00:00"^^xsd:dateTime ;
+  mu:uuid                        "e65540890568adb63941e60f1f36b857"^^xsd:string ;
+  org:holds                      <http://data.lblod.info/id/mandaat/1628b15d8ebaca177bda3dbe01d34d50> .
 
 <http://data.lblod.info/id/bestuursorgaan/efbc04780b1c937959a47e2621e9b47b>
-    a                               besluit:Bestuursorgaan ;
-    mandaat:bindingEinde            "2023-04-30T00:00:00"^^xsd:dateTime ;
-    mandaat:bindingStart            "2020-07-11T00:00:00"^^xsd:dateTime ;
-    mu:uuid                         "efbc04780b1c937959a47e2621e9b47b"^^xsd:string ;
-    org:hasPost                     <http://data.lblod.info/id/mandaat/31f5b6419a31b61124d9ef6a54d5352c>,
-                                    <http://data.lblod.info/id/mandaat/70f2c108b4de5ae016cddca4c076bcca>,
-                                    <http://data.lblod.info/id/mandaat/aefae003b2dc262ef5158427bcf40049> ;
-    generiek:isTijdspecialisatieVan
-                                    <http://data.lblod.info/id/eredienstbestuursorgaan/83056cd1d24fd52fc7b9d877ef95d9c7> .
+  a                               besluit:Bestuursorgaan ;
+  mandaat:bindingEinde            "2023-04-30T00:00:00"^^xsd:dateTime ;
+  mandaat:bindingStart            "2020-07-11T00:00:00"^^xsd:dateTime ;
+  mu:uuid                         "efbc04780b1c937959a47e2621e9b47b"^^xsd:string ;
+  org:hasPost                     <http://data.lblod.info/id/mandaat/31f5b6419a31b61124d9ef6a54d5352c>,
+                                  <http://data.lblod.info/id/mandaat/70f2c108b4de5ae016cddca4c076bcca>,
+                                  <http://data.lblod.info/id/mandaat/aefae003b2dc262ef5158427bcf40049> ;
+  generiek:isTijdspecialisatieVan <http://data.lblod.info/id/eredienstbestuursorgaan/83056cd1d24fd52fc7b9d877ef95d9c7> .
 
 <http://data.lblod.info/id/bestuursorgaan/f9a9d15c9f36ea7d4b9fa33a080ce6ed>
-    a                               besluit:Bestuursorgaan ;
-    mandaat:bindingEinde            "2020-04-20T00:00:00"^^xsd:dateTime ;
-    mandaat:bindingStart            "2017-02-03T00:00:00"^^xsd:dateTime ;
-    mu:uuid                         "f9a9d15c9f36ea7d4b9fa33a080ce6ed"^^xsd:string ;
-    org:hasPost                     <http://data.lblod.info/id/mandaat/657d7ab7ad85081d01897c5c6a8c634e>,
-                                    <http://data.lblod.info/id/mandaat/abb50e7884bcfee487c09a643a1cf35a>,
-                                    <http://data.lblod.info/id/mandaat/b0af18ee7e43e619ec04119e713aaaac> ;
-    generiek:isTijdspecialisatieVan
-                                    <http://data.lblod.info/id/eredienstbestuursorgaan/42cd45a235b09bfbe35a5922b6702050> .
+  a                               besluit:Bestuursorgaan ;
+  mandaat:bindingEinde            "2020-04-20T00:00:00"^^xsd:dateTime ;
+  mandaat:bindingStart            "2017-02-03T00:00:00"^^xsd:dateTime ;
+  mu:uuid                         "f9a9d15c9f36ea7d4b9fa33a080ce6ed"^^xsd:string ;
+  org:hasPost                     <http://data.lblod.info/id/mandaat/657d7ab7ad85081d01897c5c6a8c634e>,
+                                  <http://data.lblod.info/id/mandaat/abb50e7884bcfee487c09a643a1cf35a>,
+                                  <http://data.lblod.info/id/mandaat/b0af18ee7e43e619ec04119e713aaaac> ;
+  generiek:isTijdspecialisatieVan <http://data.lblod.info/id/eredienstbestuursorgaan/42cd45a235b09bfbe35a5922b6702050> .
 
 <http://data.lblod.info/id/bestuursorgaan/b74fc0b255801b0aabf2acdc4f795658>
-    a                               besluit:Bestuursorgaan ;
-    mandaat:bindingEinde            "2020-07-11T00:00:00"^^xsd:dateTime ;
-    mandaat:bindingStart            "2017-05-23T00:00:00"^^xsd:dateTime ;
-    mu:uuid                         "b74fc0b255801b0aabf2acdc4f795658"^^xsd:string ;
-    org:hasPost                     <http://data.lblod.info/id/mandaat/1628b15d8ebaca177bda3dbe01d34d50>,
-                                    <http://data.lblod.info/id/mandaat/3f762b36de83034aef2152bcbed4097d>,
-                                    <http://data.lblod.info/id/mandaat/577c11e8af4b70ad1af91b25ed83cc9d>,
-                                    <http://data.lblod.info/id/mandaat/77e32cbc36be743dd9e5fcc0846cce63>,
-                                    <http://data.lblod.info/id/mandaat/e8e1e9d6f0f7cb425290f31f5b630f7d> ;
-    generiek:isTijdspecialisatieVan
-                                    <http://data.lblod.info/id/eredienstbestuursorgaan/83056cd1d24fd52fc7b9d877ef95d9c7> .
+  a                               besluit:Bestuursorgaan ;
+  mandaat:bindingEinde            "2020-07-11T00:00:00"^^xsd:dateTime ;
+  mandaat:bindingStart            "2017-05-23T00:00:00"^^xsd:dateTime ;
+  mu:uuid                         "b74fc0b255801b0aabf2acdc4f795658"^^xsd:string ;
+  org:hasPost                     <http://data.lblod.info/id/mandaat/1628b15d8ebaca177bda3dbe01d34d50>,
+                                  <http://data.lblod.info/id/mandaat/3f762b36de83034aef2152bcbed4097d>,
+                                  <http://data.lblod.info/id/mandaat/577c11e8af4b70ad1af91b25ed83cc9d>,
+                                  <http://data.lblod.info/id/mandaat/77e32cbc36be743dd9e5fcc0846cce63>,
+                                  <http://data.lblod.info/id/mandaat/e8e1e9d6f0f7cb425290f31f5b630f7d> ;
+  generiek:isTijdspecialisatieVan <http://data.lblod.info/id/eredienstbestuursorgaan/83056cd1d24fd52fc7b9d877ef95d9c7> .
 

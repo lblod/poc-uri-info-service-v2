@@ -14,14 +14,14 @@ import java.util.List;
 @Data
 public class FrontendContainer implements Comparable<FrontendContainer> {
 
-    private String title;
-    private int ordering;
-    private List<FrontendElement> elements;
+  private String title;
+  private int ordering;
+  private List<FrontendElement> elements;
 
-    @Override
-    public int compareTo(FrontendContainer o) {
-        return Integer.compare(this.ordering, o.ordering);
-    }
+  @Override
+  public int compareTo(FrontendContainer o) {
+    return Integer.compare(this.ordering, o.ordering);
+  }
 
 
 }

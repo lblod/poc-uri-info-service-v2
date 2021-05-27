@@ -16,40 +16,42 @@ import org.springframework.core.io.Resource;
 
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @SpringBootTest
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class InMemoryTripleStoreServiceTest {
 
-    @Autowired
-    private InMemoryTripleStoreService inMemoryTripleStoreService;
+  @Autowired
+  private InMemoryTripleStoreService inMemoryTripleStoreService;
 
-    @Value("classpath:new-meta-model.ttl")
-    private Resource newMetaModel;
+  @Value("classpath:new-meta-model.ttl")
+  private Resource newMetaModel;
 
-    static String NAMED_GRAPH = "http://www.w3.org/ns/person#Person";
+  static String NAMED_GRAPH = "http://www.w3.org/ns/person#Person";
 
-    @BeforeAll
-    void setup() throws IOException {
-        Model model = ModelUtils.toModel(newMetaModel.getInputStream(), Lang.TTL);
-        Statement property = model.getProperty(null, FrontendVoc.P_CONTENT_TYPE);
-        String namedGraph = property.getResource().getURI();
-        inMemoryTripleStoreService.write(namedGraph, model);
-    }
+  @BeforeAll
+  void setup() throws IOException {
+    Model model = ModelUtils.toModel(newMetaModel.getInputStream(), Lang.TTL);
+    Statement property = model.getProperty(null, FrontendVoc.P_CONTENT_TYPE);
+    String namedGraph = property.getResource().getURI();
+    inMemoryTripleStoreService.write(namedGraph, model);
+  }
 
-    @Test
-    void writeTest() throws IOException {
-        Model namedModel = inMemoryTripleStoreService.getNamedModel(NAMED_GRAPH);
-        assertNotNull(namedModel);
-        assertFalse(namedModel.isEmpty());
-    }
+  @Test
+  void writeTest() throws IOException {
+    Model namedModel = inMemoryTripleStoreService.getNamedModel(NAMED_GRAPH);
+    assertNotNull(namedModel);
+    assertFalse(namedModel.isEmpty());
+  }
 
-    @Test
-    void getNamedModel() {
-        Model namedModel = inMemoryTripleStoreService.getNamedModel(NAMED_GRAPH);
-        var pages = namedModel.getRequiredProperty(null, FrontendVoc.P_PAGES);
-        RDFList list = namedModel.getList(pages.getObject().asResource());
-        assertEquals(3, list.size());
-    }
+  @Test
+  void getNamedModel() {
+    Model namedModel = inMemoryTripleStoreService.getNamedModel(NAMED_GRAPH);
+    var pages = namedModel.getRequiredProperty(null, FrontendVoc.P_PAGES);
+    RDFList list = namedModel.getList(pages.getObject().asResource());
+    assertEquals(3, list.size());
+  }
 }

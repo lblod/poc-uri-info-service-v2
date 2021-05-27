@@ -15,17 +15,17 @@ import org.springframework.context.annotation.Import;
 @Slf4j
 public class ApplicationConfig {
 
-    @Value("${sparql.metaDirectory}")
-    private String metaDirectory;
+  @Value("${sparql.metaDirectory}")
+  private String metaDirectory;
 
-    @Bean
-    public Slugify slugify() {
-        return new Slugify();
-    }
+  @Bean
+  public Slugify slugify() {
+    return new Slugify();
+  }
 
-    @Bean(destroyMethod = "close")
-    public Dataset metaModelDataset() {
-        return TDBFactory.createDataset(metaDirectory);
-    }
+  @Bean(destroyMethod = "close")
+  public Dataset metaModelDataset() {
+    return TDBFactory.createDataset(metaDirectory);
+  }
 
 }

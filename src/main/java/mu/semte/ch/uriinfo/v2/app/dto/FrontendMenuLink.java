@@ -10,9 +10,9 @@ import lombok.NoArgsConstructor;
 @Builder(toBuilder = true)
 @Data
 public class FrontendMenuLink {
-    private String label;
-    private String uri;
-    private String slug;
-    private boolean mainPage;
-    private boolean active;
+  private String label;
+  private String uri;
+  private String slug;
+  private boolean mainPage;
+  private boolean active;
 }

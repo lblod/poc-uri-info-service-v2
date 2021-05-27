@@ -12,8 +12,8 @@ import java.util.List;
 @Builder(toBuilder = true)
 @Data
 public class FrontendPage {
-    private String title;
-    private String subtitle;
-    private int ordering;
-    private List<FrontendContainer> containers;
+  private String title;
+  private String subtitle;
+  private int ordering;
+  private List<FrontendContainer> containers;
 }

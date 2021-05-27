@@ -12,8 +12,8 @@ import java.util.List;
 @Builder(toBuilder = true)
 @Data
 public class FrontendUI {
-    private String uri;
-    private List<FrontendMenuLink> menu;
-    private FrontendPage page;
+  private String uri;
+  private List<FrontendMenuLink> menu;
+  private FrontendPage page;
 
 }

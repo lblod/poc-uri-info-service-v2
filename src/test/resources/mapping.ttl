@@ -22,124 +22,124 @@
 
 ########################################################################################################## person:Person
 :person
-    a                     rr:TriplesMap ;
-    rml:logicalSource     [ rml:source               [ a                carml:Stream ;
-                                                       carml:streamName "input" ; ] ;
-                            rml:referenceFormulation ql:JSONPath ;
-                            rml:iterator             "$" ] ;
-    rr:subjectMap         [ rr:template "http://data.lblod.info/id/persoon/{person.id}" ;
-                            rr:class    person:Person ] ;
-    rr:predicateObjectMap [ rr:predicate mandaat:isAangesteldAls ;
-                            rr:objectMap [ rr:parentTriplesMap :mandataris ] ] ;
-    rr:predicateObjectMap [ rr:predicate foaf:familyName ;
-                            rr:objectMap [ rml:reference "person.familyName" ] ] ;
-    rr:predicateObjectMap [ rr:predicate mu:uuid ;
-                            rr:objectMap [ rml:reference "person.id" ] ] ;
-    rr:predicateObjectMap [ rr:predicate foaf:givenName ;
-                            rr:objectMap [ rml:reference "person.givenName" ] ] .
+  a                     rr:TriplesMap ;
+  rml:logicalSource     [ rml:source               [ a                carml:Stream ;
+                                                     carml:streamName "input" ; ] ;
+                          rml:referenceFormulation ql:JSONPath ;
+                          rml:iterator             "$" ] ;
+  rr:subjectMap         [ rr:template "http://data.lblod.info/id/persoon/{person.id}" ;
+                          rr:class    person:Person ] ;
+  rr:predicateObjectMap [ rr:predicate mandaat:isAangesteldAls ;
+                          rr:objectMap [ rr:parentTriplesMap :mandataris ] ] ;
+  rr:predicateObjectMap [ rr:predicate foaf:familyName ;
+                          rr:objectMap [ rml:reference "person.familyName" ] ] ;
+  rr:predicateObjectMap [ rr:predicate mu:uuid ;
+                          rr:objectMap [ rml:reference "person.id" ] ] ;
+  rr:predicateObjectMap [ rr:predicate foaf:givenName ;
+                          rr:objectMap [ rml:reference "person.givenName" ] ] .
 ########################################################################################################## mandaat:EredienstMandataris
 :mandataris
-    a                     rr:TriplesMap ;
-    rml:logicalSource     [ rml:source               [ a                carml:Stream ;
-                                                       carml:streamName "input" ; ] ;
-                            rml:referenceFormulation ql:JSONPath ;
-                            rml:iterator             "$" ] ;
-    rr:subjectMap         [ rr:template "http://data.lblod.info/id/mandataris/{mandataris.id}" ;
-                            rr:class    mandaat:EredienstMandataris ] ;
-    rr:predicateObjectMap [ rr:predicate mandaat:isBestuurlijkeAliasVan ;
-                            rr:objectMap [ rr:template "http://data.lblod.info/id/persoon/{person.id}" ] ] ;
-    rr:predicateObjectMap [ rr:predicate mandaat:status ;
-                            rr:objectMap [ rml:reference "mandataris.status" ] ] ;
-    rr:predicateObjectMap [ rr:predicate mu:uuid ;
-                            rr:objectMap [ rml:reference "mandataris.id" ] ] ;
-    rr:predicateObjectMap [ rr:predicate schema:contactPoint ;
-                            rr:objectMap [ rr:parentTriplesMap :contactPoint ] ] ;
-    rr:predicateObjectMap [ rr:predicate org:holds ;
-                            rr:objectMap [ rr:parentTriplesMap :mandaat ] ] ;
-    rr:predicateObjectMap [ rr:predicate schema:start ;
-                            rr:objectMap [ rml:reference "mandataris.start" ;
-                                           rr:datatype   xsd:dateTime ] ]
+  a                     rr:TriplesMap ;
+  rml:logicalSource     [ rml:source               [ a                carml:Stream ;
+                                                     carml:streamName "input" ; ] ;
+                          rml:referenceFormulation ql:JSONPath ;
+                          rml:iterator             "$" ] ;
+  rr:subjectMap         [ rr:template "http://data.lblod.info/id/mandataris/{mandataris.id}" ;
+                          rr:class    mandaat:EredienstMandataris ] ;
+  rr:predicateObjectMap [ rr:predicate mandaat:isBestuurlijkeAliasVan ;
+                          rr:objectMap [ rr:template "http://data.lblod.info/id/persoon/{person.id}" ] ] ;
+  rr:predicateObjectMap [ rr:predicate mandaat:status ;
+                          rr:objectMap [ rml:reference "mandataris.status" ] ] ;
+  rr:predicateObjectMap [ rr:predicate mu:uuid ;
+                          rr:objectMap [ rml:reference "mandataris.id" ] ] ;
+  rr:predicateObjectMap [ rr:predicate schema:contactPoint ;
+                          rr:objectMap [ rr:parentTriplesMap :contactPoint ] ] ;
+  rr:predicateObjectMap [ rr:predicate org:holds ;
+                          rr:objectMap [ rr:parentTriplesMap :mandaat ] ] ;
+  rr:predicateObjectMap [ rr:predicate schema:start ;
+                          rr:objectMap [ rml:reference "mandataris.start" ;
+                                         rr:datatype   xsd:dateTime ] ]
 .
 ########################################################################################################## schema:ContactPoint
 :contactPoint
-    a                     rr:TriplesMap ;
-    rml:logicalSource     [ rml:source               [ a                carml:Stream ;
-                                                       carml:streamName "input" ; ] ;
-                            rml:referenceFormulation ql:JSONPath ;
-                            rml:iterator             "$" ] ;
-    rr:subjectMap         [ rr:template "http://data.lblod.info/id/contactpunt/{contactPoint.id}" ;
-                            rr:class    schema:ContactPoint ] ;
-    rr:predicateObjectMap [ rr:predicate mu:uuid ;
-                            rr:objectMap [ rml:reference "contactPoint.id" ] ] ;
-    rr:predicateObjectMap [ rr:predicate schema:email ;
-                            rr:objectMap [ rml:reference "contactPoint.email" ] ] ;
-    rr:predicateObjectMap [ rr:predicate schema:telephone ;
-                            rr:objectMap [ rml:reference "contactPoint.telephone" ] ] ;
-    rr:predicateObjectMap [ rr:predicate locn:address ;
-                            rr:objectMap [ rr:parentTriplesMap :adres ] ]
+  a                     rr:TriplesMap ;
+  rml:logicalSource     [ rml:source               [ a                carml:Stream ;
+                                                     carml:streamName "input" ; ] ;
+                          rml:referenceFormulation ql:JSONPath ;
+                          rml:iterator             "$" ] ;
+  rr:subjectMap         [ rr:template "http://data.lblod.info/id/contactpunt/{contactPoint.id}" ;
+                          rr:class    schema:ContactPoint ] ;
+  rr:predicateObjectMap [ rr:predicate mu:uuid ;
+                          rr:objectMap [ rml:reference "contactPoint.id" ] ] ;
+  rr:predicateObjectMap [ rr:predicate schema:email ;
+                          rr:objectMap [ rml:reference "contactPoint.email" ] ] ;
+  rr:predicateObjectMap [ rr:predicate schema:telephone ;
+                          rr:objectMap [ rml:reference "contactPoint.telephone" ] ] ;
+  rr:predicateObjectMap [ rr:predicate locn:address ;
+                          rr:objectMap [ rr:parentTriplesMap :adres ] ]
 .
 ########################################################################################################## locn:Address
 :adres
-    a                     rr:TriplesMap ;
-    rml:logicalSource     [ rml:source               [ a                carml:Stream ;
-                                                       carml:streamName "input" ; ] ;
-                            rml:referenceFormulation ql:JSONPath ;
-                            rml:iterator             "$" ] ;
-    rr:subjectMap         [ rr:template "http://data.lblod.info/id/adres/{address.id}" ;
-                            rr:class    locn:Address ] ;
-    rr:predicateObjectMap [ rr:predicate mu:uuid ;
-                            rr:objectMap [ rml:reference "address.id" ] ] ;
-    rr:predicateObjectMap [ rr:predicate locn:fullAddress ;
-                            rr:objectMap [ rml:reference "address.fullAddress" ] ] .
+  a                     rr:TriplesMap ;
+  rml:logicalSource     [ rml:source               [ a                carml:Stream ;
+                                                     carml:streamName "input" ; ] ;
+                          rml:referenceFormulation ql:JSONPath ;
+                          rml:iterator             "$" ] ;
+  rr:subjectMap         [ rr:template "http://data.lblod.info/id/adres/{address.id}" ;
+                          rr:class    locn:Address ] ;
+  rr:predicateObjectMap [ rr:predicate mu:uuid ;
+                          rr:objectMap [ rml:reference "address.id" ] ] ;
+  rr:predicateObjectMap [ rr:predicate locn:fullAddress ;
+                          rr:objectMap [ rml:reference "address.fullAddress" ] ] .
 ########################################################################################################## mandaat:Mandaat
 :mandaat
-    a                     rr:TriplesMap ;
-    rml:logicalSource     [ rml:source               [ a                carml:Stream ;
-                                                       carml:streamName "input" ; ] ;
-                            rml:referenceFormulation ql:JSONPath ;
-                            rml:iterator             "$" ] ;
-    rr:subjectMap         [ rr:template "http://data.lblod.info/id/mandaat/{mandaat.id}" ;
-                            rr:class    mandaat:Mandaat ] ;
-    rr:predicateObjectMap [ rr:predicate mu:uuid ;
-                            rr:objectMap [ rml:reference "address.id" ] ] ;
-    rr:predicateObjectMap [ rr:predicate org:heldBy ;
-                            rr:objectMap [ rr:template "http://data.lblod.info/id/mandataris/{mandataris.id}" ] ] ;
-    rr:predicateObjectMap [ rr:predicate org:postIn ;
-                            rr:objectMap
-                                         [ rr:template
-                                                   "http://data.lblod.info/id/bestuursorgaan/{bestuursorgaan.id}" ] ] ;
-    rr:predicateObjectMap [ rr:predicate org:role ;
-                            rr:objectMap [ rml:reference "mandaat.role" ] ] .
+  a                     rr:TriplesMap ;
+  rml:logicalSource     [ rml:source               [ a                carml:Stream ;
+                                                     carml:streamName "input" ; ] ;
+                          rml:referenceFormulation ql:JSONPath ;
+                          rml:iterator             "$" ] ;
+  rr:subjectMap         [ rr:template "http://data.lblod.info/id/mandaat/{mandaat.id}" ;
+                          rr:class    mandaat:Mandaat ] ;
+  rr:predicateObjectMap [ rr:predicate mu:uuid ;
+                          rr:objectMap [ rml:reference "address.id" ] ] ;
+  rr:predicateObjectMap [ rr:predicate org:heldBy ;
+                          rr:objectMap [ rr:template "http://data.lblod.info/id/mandataris/{mandataris.id}" ] ] ;
+  rr:predicateObjectMap [ rr:predicate org:postIn ;
+                          rr:objectMap
+                                       [ rr:template
+                                                 "http://data.lblod.info/id/bestuursorgaan/{bestuursorgaan.id}" ] ] ;
+  rr:predicateObjectMap [ rr:predicate org:role ;
+                          rr:objectMap [ rml:reference "mandaat.role" ] ] .
 
 
 ########################################################################################################## besluit:Bestuursorgaan
 :besluit
-    a                     rr:TriplesMap ;
-    rml:logicalSource     [ rml:source               [ a                carml:Stream ;
-                                                       carml:streamName "input" ; ] ;
-                            rml:referenceFormulation ql:JSONPath ;
-                            rml:iterator             "$.bestuursorgaan" ] ;
-    rr:subjectMap         [ rr:template "http://data.lblod.info/id/bestuursorgaan/{id}" ;
-                            rr:class    besluit:Bestuursorgaan ] ;
-    rr:predicateObjectMap [ rr:predicate mu:uuid ;
-                            rr:objectMap [ rml:reference "id" ] ] ;
-    rr:predicateObjectMap [ rr:predicate generiek:isTijdspecialisatieVan ;
-                            rr:objectMap [ rr:template
-                                                   "http://data.lblod.info/id/eredienstbestuursorgaan/{isTijdspecialisatieVan}" ] ] ;
-    rr:predicateObjectMap [ rr:predicate mandaat:bindingEinde ;
-                            rr:objectMap [ rml:reference "bindingEinde" ;
-                                           rr:datatype   xsd:dateTime ] ] ;
-    rr:predicateObjectMap [ rr:predicate mandaat:bindingStart ;
-                            rr:objectMap [ rml:reference "bindingStart" ;
-                                           rr:datatype   xsd:dateTime ] ] .
+  a                     rr:TriplesMap ;
+  rml:logicalSource     [ rml:source               [ a                carml:Stream ;
+                                                     carml:streamName "input" ; ] ;
+                          rml:referenceFormulation ql:JSONPath ;
+                          rml:iterator             "$.bestuursorgaan" ] ;
+  rr:subjectMap         [ rr:template "http://data.lblod.info/id/bestuursorgaan/{id}" ;
+                          rr:class    besluit:Bestuursorgaan ] ;
+  rr:predicateObjectMap [ rr:predicate mu:uuid ;
+                          rr:objectMap [ rml:reference "id" ] ] ;
+  rr:predicateObjectMap [ rr:predicate generiek:isTijdspecialisatieVan ;
+                          rr:objectMap [ rr:template
+                                                 "http://data.lblod.info/id/eredienstbestuursorgaan/{isTijdspecialisatieVan}" ] ] ;
+  rr:predicateObjectMap [ rr:predicate mandaat:bindingEinde ;
+                          rr:objectMap [ rml:reference "bindingEinde" ;
+                                         rr:datatype   xsd:dateTime ] ] ;
+  rr:predicateObjectMap [ rr:predicate mandaat:bindingStart ;
+                          rr:objectMap [ rml:reference "bindingStart" ;
+                                         rr:datatype   xsd:dateTime ] ] .
 
 :besluitHasPost
-    a                     rr:TriplesMap ;
-    rml:logicalSource     [ rml:source               [ a                carml:Stream ;
-                                                       carml:streamName "input" ; ] ;
-                            rml:referenceFormulation ql:JSONPath ;
-                            rml:iterator             "$.bestuursorgaan" ] ;
-    rr:subjectMap         [ rr:template "http://data.lblod.info/id/bestuursorgaan/{id}" ;
-                            rr:class    besluit:Bestuursorgaan ] ;
-    rr:predicateObjectMap [ rr:predicate org:hasPost ;
-                            rr:objectMap [ rr:template "http://data.lblod.info/id/mandaat/{mandaats[*].id}" ] ; ] .
+  a                     rr:TriplesMap ;
+  rml:logicalSource     [ rml:source               [ a                carml:Stream ;
+                                                     carml:streamName "input" ; ] ;
+                          rml:referenceFormulation ql:JSONPath ;
+                          rml:iterator             "$.bestuursorgaan" ] ;
+  rr:subjectMap         [ rr:template "http://data.lblod.info/id/bestuursorgaan/{id}" ;
+                          rr:class    besluit:Bestuursorgaan ] ;
+  rr:predicateObjectMap [ rr:predicate org:hasPost ;
+                          rr:objectMap [ rr:template "http://data.lblod.info/id/mandaat/{mandaats[*].id}" ] ; ] .

@@ -30,7 +30,16 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import static java.util.Optional.ofNullable;
-import static mu.semte.ch.uriinfo.v2.app.FrontendVoc.*;
+import static mu.semte.ch.uriinfo.v2.app.FrontendVoc.P_CONTAINERS;
+import static mu.semte.ch.uriinfo.v2.app.FrontendVoc.P_EDITABLE;
+import static mu.semte.ch.uriinfo.v2.app.FrontendVoc.P_ELEMENTS;
+import static mu.semte.ch.uriinfo.v2.app.FrontendVoc.P_FIELDS;
+import static mu.semte.ch.uriinfo.v2.app.FrontendVoc.P_FIELD_TYPE;
+import static mu.semte.ch.uriinfo.v2.app.FrontendVoc.P_LABEL;
+import static mu.semte.ch.uriinfo.v2.app.FrontendVoc.P_ORDERING;
+import static mu.semte.ch.uriinfo.v2.app.FrontendVoc.P_SEPARATOR;
+import static mu.semte.ch.uriinfo.v2.app.FrontendVoc.P_SUB_TITLE;
+import static mu.semte.ch.uriinfo.v2.app.FrontendVoc.P_TITLE;
 
 
 @Service
@@ -96,19 +105,23 @@ public class UIBuilderService {
     var elementsProp = metaModel.getRequiredProperty(containerPart, P_ELEMENTS);
     var elementParts = metaModel.getList(elementsProp.getObject().asResource()).asJavaList();
     return elementParts.stream()
-                         .map(RDFNode::asResource)
-                          .map(elementPart ->{
-                            Statement elementTypeStmt = metaModel.getRequiredProperty(elementPart, RDF.type);
-                            ElementType elementType = ElementType.evaluateType(elementTypeStmt.getResource());
-                            FrontendElement element = switch (elementType){
-                              case PANEL -> this.buildPanel(metaModel, uri, typeUri, currentPageMetaUri, elementPart);
-                              case TABLE -> null;
-                            };
-                            return element;
-                          }).collect(Collectors.toList());
+                       .map(RDFNode::asResource)
+                       .map(elementPart -> {
+                         Statement elementTypeStmt = metaModel.getRequiredProperty(elementPart, RDF.type);
+                         ElementType elementType = ElementType.evaluateType(elementTypeStmt.getResource());
+                         FrontendElement element = switch (elementType) {
+                           case PANEL -> this.buildPanel(metaModel, uri, typeUri, currentPageMetaUri, elementPart);
+                           case TABLE -> null;
+                         };
+                         return element;
+                       }).collect(Collectors.toList());
   }
 
-  private FrontendElement buildPanel(Model metaModel, String uri, String typeUri, String currentPageMetaUri, Resource elementPart) {
+  private FrontendElement buildPanel(Model metaModel,
+                                     String uri,
+                                     String typeUri,
+                                     String currentPageMetaUri,
+                                     Resource elementPart) {
     FrontendPanel panel = new FrontendPanel();
     panel.setType(ElementType.PANEL);
     panel.setOrdering(metaModel.getProperty(elementPart, P_ORDERING).getInt());
@@ -120,9 +133,10 @@ public class UIBuilderService {
                               .map(fieldPart -> {
                                 FrontendField field = new FrontendField();
                                 field.setOrdering(metaModel.getProperty(fieldPart, P_ORDERING).getInt());
-                                field.setType(FrontendField.FrontendFieldType.valueOf(metaModel.getProperty(fieldPart, P_FIELD_TYPE).getString()));
+                                field.setType(FrontendField.FrontendFieldType.valueOf(metaModel.getProperty(fieldPart, P_FIELD_TYPE)
+                                                                                               .getString()));
                                 field.setLabel(metaModel.getProperty(fieldPart, P_LABEL).getString());
-                                field.setValue(this.queryForField(fieldPart,metaModel,uri, typeUri));
+                                field.setValue(this.queryForField(fieldPart, metaModel, uri, typeUri));
                                 // todo add link
                                 return field;
                               }).collect(Collectors.toList()));

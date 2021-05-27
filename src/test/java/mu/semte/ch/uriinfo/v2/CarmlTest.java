@@ -18,25 +18,25 @@ import java.io.StringWriter;
 @Slf4j
 public class CarmlTest {
 
-    @SneakyThrows
-    @Test
-    public void testJsonMapping() {
-        var source = new ClassPathResource("input.json").getInputStream();
-        var mappingDefinition = new ClassPathResource("mapping.ttl").getInputStream();
-        var loader = RmlMappingLoader
-                .build();
+  @SneakyThrows
+  @Test
+  public void testJsonMapping() {
+    var source = new ClassPathResource("input.json").getInputStream();
+    var mappingDefinition = new ClassPathResource("mapping.ttl").getInputStream();
+    var loader = RmlMappingLoader
+            .build();
 
-        var mapper = RmlMapper.newBuilder()
-                .setLogicalSourceResolver(Rdf.Ql.JsonPath, new JsonPathResolver())
-                .classPathResolver("/tmp")
-                .build();
-        mapper.bindInputStream("input", source);
+    var mapper = RmlMapper.newBuilder()
+                          .setLogicalSourceResolver(Rdf.Ql.JsonPath, new JsonPathResolver())
+                          .classPathResolver("/tmp")
+                          .build();
+    mapper.bindInputStream("input", source);
 
-        var mapping = loader.load(RDFFormat.TURTLE, mappingDefinition);
-        Model result = mapper.map(mapping);
-        StringWriter writer = new StringWriter();
-        Rio.write(result, writer, RDFFormat.TURTLE);
-        log.info(writer.toString());
+    var mapping = loader.load(RDFFormat.TURTLE, mappingDefinition);
+    Model result = mapper.map(mapping);
+    StringWriter writer = new StringWriter();
+    Rio.write(result, writer, RDFFormat.TURTLE);
+    log.info(writer.toString());
 
-    }
+  }
 }

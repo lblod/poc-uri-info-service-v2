@@ -14,37 +14,39 @@ import java.util.Optional;
 @Slf4j
 public class InMemoryTripleStoreService {
 
-    private final Dataset metaDatatabase;
+  private final Dataset metaDatatabase;
 
-    public InMemoryTripleStoreService(Dataset metaDatatabase) {
-        this.metaDatatabase = metaDatatabase;
+  public InMemoryTripleStoreService(Dataset metaDatatabase) {
+    this.metaDatatabase = metaDatatabase;
+  }
+
+  public void write(String nameUri, Model model) {
+    try {
+      metaDatatabase.removeNamedModel(nameUri);
+      metaDatatabase.begin(ReadWrite.WRITE);
+      metaDatatabase.addNamedModel(nameUri, model);
+      metaDatatabase.commit();
+    }
+    catch (Throwable e) {
+      log.error("error while writing in memory triplestore", e);
+      metaDatatabase.abort();
+    }
+    finally {
+      metaDatatabase.end();
+    }
+  }
+
+  public Model getNamedModel(String nameUri) {
+    Model model = ModelFactory.createDefaultModel();
+    metaDatatabase.begin(ReadWrite.READ);
+    Optional.ofNullable(metaDatatabase.getNamedModel(nameUri)).ifPresent(model::add);
+    metaDatatabase.end();
+
+    if (model.isEmpty()) {
+      throw new UINotDefinedForSubjectException();
     }
 
-    public void write(String nameUri, Model model) {
-        try {
-            metaDatatabase.removeNamedModel(nameUri);
-            metaDatatabase.begin(ReadWrite.WRITE);
-            metaDatatabase.addNamedModel(nameUri, model);
-            metaDatatabase.commit();
-        } catch (Throwable e) {
-            log.error("error while writing in memory triplestore", e);
-            metaDatatabase.abort();
-        } finally {
-            metaDatatabase.end();
-        }
-    }
-
-    public Model getNamedModel(String nameUri) {
-        Model model = ModelFactory.createDefaultModel();
-        metaDatatabase.begin(ReadWrite.READ);
-        Optional.ofNullable(metaDatatabase.getNamedModel(nameUri)).ifPresent(model::add);
-        metaDatatabase.end();
-
-        if (model.isEmpty()) {
-            throw new UINotDefinedForSubjectException();
-        }
-
-        return model;
-    }
+    return model;
+  }
 
 }
