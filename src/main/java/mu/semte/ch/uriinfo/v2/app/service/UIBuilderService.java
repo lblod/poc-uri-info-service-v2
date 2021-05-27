@@ -3,9 +3,12 @@ package mu.semte.ch.uriinfo.v2.app.service;
 import com.github.slugify.Slugify;
 import lombok.extern.slf4j.Slf4j;
 import mu.semte.ch.uriinfo.v2.app.FrontendVoc;
+import mu.semte.ch.uriinfo.v2.app.dto.ElementType;
 import mu.semte.ch.uriinfo.v2.app.dto.FrontendContainer;
+import mu.semte.ch.uriinfo.v2.app.dto.FrontendElement;
 import mu.semte.ch.uriinfo.v2.app.dto.FrontendMenuLink;
 import mu.semte.ch.uriinfo.v2.app.dto.FrontendPage;
+import mu.semte.ch.uriinfo.v2.app.dto.FrontendPanel;
 import mu.semte.ch.uriinfo.v2.app.dto.FrontendUI;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.jena.rdf.model.Literal;
@@ -17,6 +20,7 @@ import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.rdf.model.ResourceFactory;
 import org.apache.jena.rdf.model.Statement;
 import org.apache.jena.util.SplitIRI;
+import org.apache.jena.vocabulary.RDF;
 import org.springframework.stereotype.Service;
 
 import java.util.LinkedHashMap;
@@ -26,6 +30,8 @@ import java.util.stream.Collectors;
 
 import static java.util.Optional.ofNullable;
 import static mu.semte.ch.uriinfo.v2.app.FrontendVoc.P_CONTAINERS;
+import static mu.semte.ch.uriinfo.v2.app.FrontendVoc.P_EDITABLE;
+import static mu.semte.ch.uriinfo.v2.app.FrontendVoc.P_ELEMENTS;
 import static mu.semte.ch.uriinfo.v2.app.FrontendVoc.P_FIELDS;
 import static mu.semte.ch.uriinfo.v2.app.FrontendVoc.P_ORDERING;
 import static mu.semte.ch.uriinfo.v2.app.FrontendVoc.P_SEPARATOR;
@@ -82,9 +88,38 @@ public class UIBuilderService {
                            FrontendContainer container = new FrontendContainer();
                            container.setTitle(this.buildTitle(metaModel, uri, typeUri, containerPart.getURI(), P_TITLE));
                            container.setOrdering(metaModel.getProperty(containerPart, P_ORDERING).getInt());
-
+                           container.setElements(this.buildElements(metaModel, uri, typeUri, currentPageMetaUri, containerPart));
                            return container;
                          }).collect(Collectors.toList());
+  }
+
+  private List<FrontendElement> buildElements(Model metaModel,
+                                              String uri,
+                                              String typeUri,
+                                              String currentPageMetaUri,
+                                              Resource containerPart) {
+    // todo Property pageProp = ResourceFactory.createProperty(currentPageMetaUri);
+    var elementsProp = metaModel.getRequiredProperty(containerPart, P_ELEMENTS);
+    var elementParts = metaModel.getList(elementsProp.getObject().asResource()).asJavaList();
+    return elementParts.stream()
+                         .map(RDFNode::asResource)
+                          .map(elementPart ->{
+                            Statement elementTypeStmt = metaModel.getRequiredProperty(elementPart, RDF.type);
+                            ElementType elementType = ElementType.evaluateType(elementTypeStmt.getResource());
+                            FrontendElement element = switch (elementType){
+                              case PANEL -> this.buildPanel(metaModel, uri, typeUri, currentPageMetaUri, elementPart);
+                              case TABLE -> null;
+                            };
+                            return element;
+                          }).collect(Collectors.toList());
+  }
+
+  private FrontendElement buildPanel(Model metaModel, String uri, String typeUri, String currentPageMetaUri, Resource elementPart) {
+    FrontendPanel panel = new FrontendPanel();
+    panel.setType(ElementType.PANEL);
+    panel.setOrdering(metaModel.getProperty(elementPart, P_ORDERING).getInt());
+    panel.setEditable(ofNullable(metaModel.getProperty(elementPart, P_EDITABLE)).map(Statement::getBoolean).orElse(false));
+    return panel;
   }
 
 

@@ -11,4 +11,6 @@ import lombok.NoArgsConstructor;
 @Data
 public class FrontendPanel implements FrontendElement {
   private ElementType type;
+  private boolean editable;
+  private int ordering;
 }
