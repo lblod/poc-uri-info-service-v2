@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder(toBuilder = true)
@@ -13,4 +15,5 @@ public class FrontendPanel implements FrontendElement {
   private ElementType type;
   private boolean editable;
   private int ordering;
+  private List<FrontendField> fields;
 }

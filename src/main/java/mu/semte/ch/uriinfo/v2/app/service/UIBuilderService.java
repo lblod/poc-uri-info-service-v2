@@ -6,6 +6,7 @@ import mu.semte.ch.uriinfo.v2.app.FrontendVoc;
 import mu.semte.ch.uriinfo.v2.app.dto.ElementType;
 import mu.semte.ch.uriinfo.v2.app.dto.FrontendContainer;
 import mu.semte.ch.uriinfo.v2.app.dto.FrontendElement;
+import mu.semte.ch.uriinfo.v2.app.dto.FrontendField;
 import mu.semte.ch.uriinfo.v2.app.dto.FrontendMenuLink;
 import mu.semte.ch.uriinfo.v2.app.dto.FrontendPage;
 import mu.semte.ch.uriinfo.v2.app.dto.FrontendPanel;
@@ -29,14 +30,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import static java.util.Optional.ofNullable;
-import static mu.semte.ch.uriinfo.v2.app.FrontendVoc.P_CONTAINERS;
-import static mu.semte.ch.uriinfo.v2.app.FrontendVoc.P_EDITABLE;
-import static mu.semte.ch.uriinfo.v2.app.FrontendVoc.P_ELEMENTS;
-import static mu.semte.ch.uriinfo.v2.app.FrontendVoc.P_FIELDS;
-import static mu.semte.ch.uriinfo.v2.app.FrontendVoc.P_ORDERING;
-import static mu.semte.ch.uriinfo.v2.app.FrontendVoc.P_SEPARATOR;
-import static mu.semte.ch.uriinfo.v2.app.FrontendVoc.P_SUB_TITLE;
-import static mu.semte.ch.uriinfo.v2.app.FrontendVoc.P_TITLE;
+import static mu.semte.ch.uriinfo.v2.app.FrontendVoc.*;
 
 
 @Service
@@ -119,6 +113,19 @@ public class UIBuilderService {
     panel.setType(ElementType.PANEL);
     panel.setOrdering(metaModel.getProperty(elementPart, P_ORDERING).getInt());
     panel.setEditable(ofNullable(metaModel.getProperty(elementPart, P_EDITABLE)).map(Statement::getBoolean).orElse(false));
+    var fieldsProp = metaModel.getRequiredProperty(elementPart, P_FIELDS);
+    var fieldParts = metaModel.getList(fieldsProp.getObject().asResource()).asJavaList();
+    panel.setFields(fieldParts.stream()
+                              .map(RDFNode::asResource)
+                              .map(fieldPart -> {
+                                FrontendField field = new FrontendField();
+                                field.setOrdering(metaModel.getProperty(fieldPart, P_ORDERING).getInt());
+                                field.setType(FrontendField.FrontendFieldType.valueOf(metaModel.getProperty(fieldPart, P_FIELD_TYPE).getString()));
+                                field.setLabel(metaModel.getProperty(fieldPart, P_LABEL).getString());
+                                field.setValue(this.queryForField(fieldPart,metaModel,uri, typeUri));
+                                // todo add link
+                                return field;
+                              }).collect(Collectors.toList()));
     return panel;
   }
 
