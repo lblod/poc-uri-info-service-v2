@@ -1,4 +1,4 @@
 package mu.semte.ch.uriinfo.v2.app.error;
 
-public class UINotDefinedForSubjectException extends RuntimeException{
+public class UINotDefinedForSubjectException extends RuntimeException {
 }

@@ -76,7 +76,7 @@ class UIBuilderServiceTest {
     }
 
     @Test
-    void buildTitle(){
+    void buildTitle() {
 
     }
 }

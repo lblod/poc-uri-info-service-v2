@@ -9,5 +9,5 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder(toBuilder = true)
 @Data
-public class FrontendPanel implements FrontendElement{
+public class FrontendPanel implements FrontendElement {
 }

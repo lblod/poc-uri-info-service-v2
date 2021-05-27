@@ -24,7 +24,7 @@ public class ApplicationConfig {
     }
 
     @Bean(destroyMethod = "close")
-    public Dataset metaModelDataset(){
+    public Dataset metaModelDataset() {
         return TDBFactory.createDataset(metaDirectory);
     }
 

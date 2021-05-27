@@ -6,7 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.apache.jena.rdf.model.Resource;
 
-
 import java.util.List;
 
 import static mu.semte.ch.uriinfo.v2.app.FrontendVoc.C_PANEL;
@@ -16,8 +15,9 @@ import static mu.semte.ch.uriinfo.v2.app.FrontendVoc.C_TABLE;
 @AllArgsConstructor
 @Builder(toBuilder = true)
 @Data
-public class FrontendContainer implements Comparable<FrontendContainer>{
+public class FrontendContainer implements Comparable<FrontendContainer> {
     public enum ContainerType {TABLE, PANEL}
+
     private String title;
     private ContainerType type;
     private int ordering;

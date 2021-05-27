@@ -1,10 +1,7 @@
 package mu.semte.ch.uriinfo.v2.app;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import static mu.semte.ch.lib.Constants.CONTENT_TYPE_JSON_LD;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @Slf4j

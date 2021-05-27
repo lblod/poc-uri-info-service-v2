@@ -22,7 +22,8 @@ public interface FrontendVoc {
     Property P_SUB_TITLE = ResourceFactory.createProperty("http://lblod.data.gift/vocabularies/frontend/subTitle");
     Property P_EDITABLE = ResourceFactory.createProperty("http://lblod.data.gift/vocabularies/frontend/editable");
     Property P_TYPE = ResourceFactory.createProperty("http://lblod.data.gift/vocabularies/frontend/type");
-    @Deprecated Property P_ELEMENTS = ResourceFactory.createProperty("http://lblod.data.gift/vocabularies/frontend/elements");
+    @Deprecated
+    Property P_ELEMENTS = ResourceFactory.createProperty("http://lblod.data.gift/vocabularies/frontend/elements");
     Property P_CONTAINERS = ResourceFactory.createProperty("http://lblod.data.gift/vocabularies/frontend/containers");
     Property P_SIDE_PANEL_TITLE = ResourceFactory.createProperty("http://lblod.data.gift/vocabularies/frontend/sidePanelTitle");
 

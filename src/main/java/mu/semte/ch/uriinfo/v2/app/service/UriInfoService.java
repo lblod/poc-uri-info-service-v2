@@ -7,7 +7,10 @@ import mu.semte.ch.uriinfo.v2.app.error.SubjectUriNotFoundException;
 import org.apache.jena.rdf.model.RDFNode;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 @Service
 @Slf4j
@@ -19,6 +22,7 @@ public class UriInfoService {
         this.sparqlClient = sparqlClient;
         this.sparqlQueryStore = sparqlQueryStore;
     }
+
     public String fetchType(String uri) {
         String query = sparqlQueryStore.getQueryWithParameters("fetchType", Map.of("uri", uri));
         return sparqlClient.executeSelectQuery(query, resultSet -> {
@@ -31,24 +35,24 @@ public class UriInfoService {
 
 
     public List<Map<String, String>> dynamicQuery(String rootSubject, String rootTypeUri, Map<String, String> variablesQuery) {
-        String query = sparqlQueryStore.getQueryWithParameters("dynamicQuery", Map.of("rootSubject", rootSubject, "variables", variablesQuery,"typeUri",rootTypeUri));
+        String query = sparqlQueryStore.getQueryWithParameters("dynamicQuery", Map.of("rootSubject", rootSubject, "variables", variablesQuery, "typeUri", rootTypeUri));
 
         log.info(query);
         return this.sparqlClient.executeSelectQuery(query, resultSet -> {
             List<Map<String, String>> res = new ArrayList<>();
-           resultSet.forEachRemaining(querySolution -> {
-           Map<String, String> values = new LinkedHashMap<>();
-               querySolution.varNames().forEachRemaining(s -> {
-                   RDFNode rdfNode = querySolution.get(s);
-                   if(rdfNode.isLiteral()){
-                       values.put(s, rdfNode.asLiteral().getString());
-                   } else{
-                       values.put(s,rdfNode.asResource().getURI());
-                   }
-               });
-               res.add(values);
-           });
-           return res;
+            resultSet.forEachRemaining(querySolution -> {
+                Map<String, String> values = new LinkedHashMap<>();
+                querySolution.varNames().forEachRemaining(s -> {
+                    RDFNode rdfNode = querySolution.get(s);
+                    if (rdfNode.isLiteral()) {
+                        values.put(s, rdfNode.asLiteral().getString());
+                    } else {
+                        values.put(s, rdfNode.asResource().getURI());
+                    }
+                });
+                res.add(values);
+            });
+            return res;
         });
     }
 }

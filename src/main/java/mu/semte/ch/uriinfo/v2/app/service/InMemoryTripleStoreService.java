@@ -24,7 +24,7 @@ public class InMemoryTripleStoreService {
         try {
             metaDatatabase.removeNamedModel(nameUri);
             metaDatatabase.begin(ReadWrite.WRITE);
-            metaDatatabase.addNamedModel(nameUri,model);
+            metaDatatabase.addNamedModel(nameUri, model);
             metaDatatabase.commit();
         } catch (Throwable e) {
             log.error("error while writing in memory triplestore", e);
@@ -40,7 +40,7 @@ public class InMemoryTripleStoreService {
         Optional.ofNullable(metaDatatabase.getNamedModel(nameUri)).ifPresent(model::add);
         metaDatatabase.end();
 
-        if(model.isEmpty()) {
+        if (model.isEmpty()) {
             throw new UINotDefinedForSubjectException();
         }
 

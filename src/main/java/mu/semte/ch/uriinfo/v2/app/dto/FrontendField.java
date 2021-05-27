@@ -5,8 +5,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder(toBuilder = true)
@@ -15,6 +13,7 @@ public class FrontendField implements Comparable<FrontendField> {
     public enum FrontendFieldType {
         STRING, NUMBER, BADGE, BOOLEAN
     }
+
     private int ordering;
     private FrontendFieldType type;
     private String label;

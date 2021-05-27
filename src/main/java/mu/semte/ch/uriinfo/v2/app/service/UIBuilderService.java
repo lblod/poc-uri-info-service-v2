@@ -43,26 +43,26 @@ public class UIBuilderService {
         return ui;
     }
 
-    protected FrontendPage buildPage(Model metaModel, String uri, String typeUri, String currentPageMetaUri){
+    protected FrontendPage buildPage(Model metaModel, String uri, String typeUri, String currentPageMetaUri) {
         FrontendPage page = new FrontendPage();
         page.setOrdering(metaModel.getProperty(ResourceFactory.createProperty(currentPageMetaUri), P_ORDERING).getInt());
-        page.setTitle(this.buildTitle(metaModel, uri, typeUri, currentPageMetaUri,P_TITLE));
-        page.setSubtitle(this.buildTitle(metaModel, uri, typeUri, currentPageMetaUri,P_SUB_TITLE));
+        page.setTitle(this.buildTitle(metaModel, uri, typeUri, currentPageMetaUri, P_TITLE));
+        page.setSubtitle(this.buildTitle(metaModel, uri, typeUri, currentPageMetaUri, P_SUB_TITLE));
         return page;
     }
 
 
-    protected String buildTitle(Model metaModel,String uri, String typeUri, String resourceUri, Property titleProperty) {
+    protected String buildTitle(Model metaModel, String uri, String typeUri, String resourceUri, Property titleProperty) {
         Property resourceProp = ResourceFactory.createProperty(resourceUri);
         var title = metaModel.getRequiredProperty(resourceProp, titleProperty);
         String separator = ofNullable(metaModel.getProperty(resourceProp, P_SEPARATOR)).map(Statement::getString).orElse(" ");
         RDFList list = metaModel.getList(title.getObject().asResource());
-        return list.asJavaList().stream().map(titlePart-> {
-            if(titlePart.isLiteral()){
+        return list.asJavaList().stream().map(titlePart -> {
+            if (titlePart.isLiteral()) {
                 return titlePart.asLiteral().getString();
             }
             Resource titleField = titlePart.asResource();
-            return this.queryForField(titleField,metaModel,uri,typeUri);
+            return this.queryForField(titleField, metaModel, uri, typeUri);
         }).collect(Collectors.joining(separator));
     }
 
@@ -78,14 +78,10 @@ public class UIBuilderService {
                 .map(iri -> Map.entry(SplitIRI.localname(iri), iri))
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (s, s2) -> s, LinkedHashMap::new));
 
-        var result = this.uriInfoService.dynamicQuery(uri,typeUri, variableQuery);
+        var result = this.uriInfoService.dynamicQuery(uri, typeUri, variableQuery);
 
-         return result.stream().findFirst().map(m -> String.join(separator, m.values())).orElse(null);
+        return result.stream().findFirst().map(m -> String.join(separator, m.values())).orElse(null);
     }
-
-
-
-
 
 
     protected List<FrontendMenuLink> buildMenu(Model metaModel, String pageUri) {
@@ -101,16 +97,16 @@ public class UIBuilderService {
                             .orElse(null);
                     boolean mainPage = mainPageUri.equals(uri);
                     return FrontendMenuLink.builder()
-                                            .slug(ofNullable(label).map(slugify::slugify).orElse(null))
-                                            .label(label)
-                                            .uri(uri)
-                                            .mainPage(mainPage)
-                                            .active(StringUtils.isNotEmpty(pageUri) ? uri.equals(pageUri) : mainPage).build();
+                            .slug(ofNullable(label).map(slugify::slugify).orElse(null))
+                            .label(label)
+                            .uri(uri)
+                            .mainPage(mainPage)
+                            .active(StringUtils.isNotEmpty(pageUri) ? uri.equals(pageUri) : mainPage).build();
                 })
                 .collect(Collectors.toList());
     }
 
-    private List<RDFNode> getPages(Model metaModel){
+    private List<RDFNode> getPages(Model metaModel) {
         var pages = metaModel.getRequiredProperty(null, FrontendVoc.P_PAGES);
         RDFList list = metaModel.getList(pages.getObject().asResource());
         return list.asJavaList();

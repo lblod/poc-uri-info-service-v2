@@ -14,15 +14,16 @@ import org.junit.jupiter.api.Test;
 import org.springframework.core.io.ClassPathResource;
 
 import java.io.StringWriter;
+
 @Slf4j
 public class CarmlTest {
 
     @SneakyThrows
     @Test
-    public void testJsonMapping(){
+    public void testJsonMapping() {
         var source = new ClassPathResource("input.json").getInputStream();
         var mappingDefinition = new ClassPathResource("mapping.ttl").getInputStream();
-        var  loader = RmlMappingLoader
+        var loader = RmlMappingLoader
                 .build();
 
         var mapper = RmlMapper.newBuilder()
@@ -34,7 +35,7 @@ public class CarmlTest {
         var mapping = loader.load(RDFFormat.TURTLE, mappingDefinition);
         Model result = mapper.map(mapping);
         StringWriter writer = new StringWriter();
-        Rio.write( result, writer, RDFFormat.TURTLE);
+        Rio.write(result, writer, RDFFormat.TURTLE);
         log.info(writer.toString());
 
     }
