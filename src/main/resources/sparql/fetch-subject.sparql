@@ -1,1 +1,0 @@
-SELECT ?s ?p ?o where {BIND(<${subject}> as ?s) ?s ?p ?o}

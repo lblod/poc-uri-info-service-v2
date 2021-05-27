@@ -1,0 +1,5 @@
+select ?subject ?type where {
+    <${subject}> a <${type}>;
+               <${predicate}> ?subject.
+    ?subject a ?type.
+}

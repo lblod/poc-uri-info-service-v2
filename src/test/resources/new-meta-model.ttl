@@ -1,19 +1,22 @@
-@prefix persoon:     <http://data.vlaanderen.be/ns/persoon#> .
-@prefix generiek:    <http://data.vlaanderen.be/ns/generiek#> .
-@prefix organisatie: <http://data.vlaanderen.be/ns/organisatie#> .
-@prefix org:         <http://www.w3.org/ns/org#> .
-@prefix mandaat:     <http://data.vlaanderen.be/ns/mandaat#> .
-@prefix besluit:     <http://data.vlaanderen.be/ns/besluit#> .
-@prefix foaf:        <http://xmlns.com/foaf/0.1/> .
-@prefix locn:        <http://www.w3.org/ns/locn#> .
-@prefix skos:        <http://www.w3.org/2004/02/skos/core#> .
-@prefix schema:      <http://schema.org/> .
-@prefix regorg:      <http://www.w3.org/ns/regorg#> .
-@prefix adres:       <http://data.vlaanderen.be/ns/adres#> .
-@prefix xsd:         <http://www.w3.org/2001/XMLSchema#> .
 @prefix person:      <http://www.w3.org/ns/person#> .
 @prefix ext:         <http://mu.semte.ch/vocabularies/ext/> .
 @prefix frontend:    <http://lblod.data.gift/vocabularies/frontend/> .
+
+@prefix mandaat:     <http://data.vlaanderen.be/ns/mandaat#> .
+@prefix regorg:      <http://www.w3.org/ns/regorg#> .
+@prefix foaf:        <http://xmlns.com/foaf/0.1/> .
+@prefix ere:         <http://data.lblod.info/vocabularies/erediensten/> .
+@prefix adms:        <http://www.w3.org/ns/adms#> .
+@prefix besluit:     <http://data.vlaanderen.be/ns/besluit#> .
+@prefix schema:      <http://schema.org/> .
+@prefix org:         <http://www.w3.org/ns/org#> .
+@prefix skos:        <http://www.w3.org/2004/02/skos/core#> .
+@prefix mu:          <http://mu.semte.ch/vocabularies/core/> .
+@prefix locn:        <http://www.w3.org/ns/locn#> .
+@prefix adres:       <https://data.vlaanderen.be/ns/adres#> .
+@prefix generiek:    <https://data.vlaanderen.be/ns/generiek#> .
+@prefix organisatie: <https://data.vlaanderen.be/ns/organisatie#> .
+@prefix xsd:         <http://www.w3.org/2001/XMLSchema#> .
 
 # ui definition
 ext:ui_person
@@ -29,7 +32,7 @@ ext:personlijke_gegevens
   frontend:label      "Persoonlijke gegevens" ;
   frontend:title      ( "Persoonlijke gegevens:" ext:naam0 ) ;
   frontend:subTitle   ( ext:naam0 ) ;
-  frontend:containers ( ext:persoon_gegevens_container ) .
+  frontend:containers ( ext:persoon_gegevens_container ext:contact_gegevens_organisatie_container ) .
 
 ext:naam0
   a                  frontend:Field ;
@@ -65,4 +68,61 @@ ext:achternaam
   frontend:fieldType "STRING" ;
   frontend:fields    ( foaf:familyName ) ;
   frontend:label     "Achternaam" .
+
+
+# second panel
+ext:contact_gegevens_organisatie_container
+  a                 frontend:Container ;
+  frontend:ordering "1"^^xsd:integer ;
+  frontend:title    ( "Contact Gegevens: Bestuur van de Eredienst" ) ;
+  frontend:elements ( ext:contact_gegevens_organisatie_element ) .
+
+ext:contact_gegevens_organisatie_element
+  a                 frontend:Panel ;
+  frontend:ordering "0"^^xsd:integer ;
+  frontend:editable "true"^^xsd:boolean ;
+  frontend:fields   ( ext:organisatie ext:email1 ext:adres1 ext:tel1 ) .
+
+ext:organisatie
+  a                  frontend:Field ;
+  frontend:ordering  "0"^^xsd:integer ;
+  frontend:fieldType "STRING" ;
+  frontend:source    ( mandaat:isAangesteldAls org:holds org:postIn generiek:isTijdspecialisatieVan
+                       besluit:bestuurt ) ;
+  frontend:fields    (skos:prefLabel) ;
+  frontend:hasLink   ext:organisatie_link ;
+  frontend:label     "Organisatie" .
+
+
+ext:email1
+  a                  frontend:Field ;
+  frontend:ordering  "1"^^xsd:integer ;
+  frontend:fieldType "STRING" ;
+  frontend:source    ( mandaat:isAangesteldAls schema:contactPoint ) ;
+  frontend:fields    (schema:email) ;
+  frontend:label     "Email" .
+
+ext:adres1
+  a                  frontend:Field ;
+  frontend:ordering  "2"^^xsd:integer ;
+  frontend:fieldType "STRING" ;
+  frontend:source    ( mandaat:isAangesteldAls schema:contactPoint locn:address ) ;
+  frontend:fields    (locn:fullAddress) ;
+  frontend:label     "Adres" .
+
+ext:tel1
+  a                  frontend:Field ;
+  frontend:ordering  "3"^^xsd:integer ;
+  frontend:fieldType "STRING" ;
+  frontend:source    ( mandaat:isAangesteldAls schema:contactPoint ) ;
+  frontend:fields    (schema:telephone) ;
+  frontend:label     "Telefoonnummer" .
+
+
+
+ext:organisatie_link
+  a               frontend:Link ;
+  frontend:source ( mandaat:isAangesteldAls org:holds org:postIn generiek:isTijdspecialisatieVan besluit:bestuurt ) .
+
 # todo add frontend:CustomElement
+

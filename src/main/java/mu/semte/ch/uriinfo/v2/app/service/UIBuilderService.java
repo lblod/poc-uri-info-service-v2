@@ -27,6 +27,7 @@ import org.springframework.stereotype.Service;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static java.util.Optional.ofNullable;
@@ -38,6 +39,7 @@ import static mu.semte.ch.uriinfo.v2.app.FrontendVoc.P_FIELD_TYPE;
 import static mu.semte.ch.uriinfo.v2.app.FrontendVoc.P_LABEL;
 import static mu.semte.ch.uriinfo.v2.app.FrontendVoc.P_ORDERING;
 import static mu.semte.ch.uriinfo.v2.app.FrontendVoc.P_SEPARATOR;
+import static mu.semte.ch.uriinfo.v2.app.FrontendVoc.P_SOURCE;
 import static mu.semte.ch.uriinfo.v2.app.FrontendVoc.P_SUB_TITLE;
 import static mu.semte.ch.uriinfo.v2.app.FrontendVoc.P_TITLE;
 
@@ -160,17 +162,35 @@ public class UIBuilderService {
 
 
   private String queryForField(Resource fieldResource, Model metaModel, String uri, String typeUri) {
-    //todo just make it simple stupid for now
+    var rootSubject = uri;
+    var rootType = typeUri;
+
     Statement fieldsProperty = metaModel.getRequiredProperty(fieldResource, P_FIELDS);
     String separator = ofNullable(metaModel.getProperty(fieldResource, P_SEPARATOR)).map(Statement::getString).orElse(" ");
+    //multi level field
+    Optional<Resource> sourceProperty = ofNullable(metaModel.getProperty(fieldResource, P_SOURCE)).map(Statement::getResource);
+    if(sourceProperty.isPresent()){
+      List<RDFNode> sources = metaModel.getList(sourceProperty.get()).asJavaList();
+      for (var node : sources){
+        Resource source = node.asResource();
+        Map<String, String> result = this.uriInfoService.fetchSource(rootSubject, source.getURI(), rootType);
+        if(result.isEmpty() || StringUtils.isAnyEmpty(result.get("type"), result.get("subject"))){
+          // todo it means no value. return null
+          return null;
+        }
+        rootSubject = result.get("subject");
+        rootType = result.get("type");
+      }
+    }
+    //end multi level field
 
-    RDFList innerFields = metaModel.getList(fieldsProperty.getObject().asResource());
+    RDFList innerFields = metaModel.getList(fieldsProperty.getResource());
     Map<String, String> variableQuery = innerFields.asJavaList().stream().map(RDFNode::asResource)
                                                    .map(Resource::getURI)
                                                    .map(iri -> Map.entry(SplitIRI.localname(iri), iri))
                                                    .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (s, s2) -> s, LinkedHashMap::new));
 
-    var result = this.uriInfoService.dynamicQuery(uri, typeUri, variableQuery);
+    var result = this.uriInfoService.dynamicQuery(rootSubject, rootType, variableQuery);
 
     return result.stream().findFirst().map(m -> String.join(separator, m.values())).orElse(null);
   }

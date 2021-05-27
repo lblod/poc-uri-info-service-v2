@@ -4,13 +4,18 @@ import lombok.extern.slf4j.Slf4j;
 import mu.semte.ch.lib.utils.SparqlClient;
 import mu.semte.ch.lib.utils.SparqlQueryStore;
 import mu.semte.ch.uriinfo.v2.app.error.SubjectUriNotFoundException;
+import org.apache.jena.query.QuerySolution;
 import org.apache.jena.rdf.model.RDFNode;
+import org.apache.jena.rdf.model.Resource;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+
+import static java.util.Optional.ofNullable;
 
 @Service
 @Slf4j
@@ -55,5 +60,22 @@ public class UriInfoService {
       });
       return res;
     });
+  }
+
+  public Map<String, String> fetchSource(String subject, String predicate, String type) {
+    String query = sparqlQueryStore.getQueryWithParameters("fetchSource",
+                                                           Map.of("subject", subject, "predicate", predicate, "type", type));
+    log.info(query);
+    return this.sparqlClient.executeSelectQuery(query, resultSet -> {
+      if (!resultSet.hasNext()) {
+        return Map.of();
+      }
+      Map<String, String> values = new HashMap<>();
+      QuerySolution solution = resultSet.next(); // todo maybe we could have multiple values, dunno
+      ofNullable(solution.get("type")).map(RDFNode::asResource).map(Resource::getURI).ifPresent(uri -> values.put("type",uri));
+      ofNullable(solution.get("subject")).map(RDFNode::asResource).map(Resource::getURI).ifPresent(uri -> values.put("subject",uri));
+      return values;
+    });
+
   }
 }
