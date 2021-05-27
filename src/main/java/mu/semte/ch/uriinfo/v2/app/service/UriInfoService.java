@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -62,19 +63,20 @@ public class UriInfoService {
     });
   }
 
-  public Map<String, String> fetchSource(String subject, String predicate, String type) {
+  public List<Map<String, String>> fetchSource(String subject, String predicate, String type) {
     String query = sparqlQueryStore.getQueryWithParameters("fetchSource",
                                                            Map.of("subject", subject, "predicate", predicate, "type", type));
     log.info(query);
     return this.sparqlClient.executeSelectQuery(query, resultSet -> {
-      if (!resultSet.hasNext()) {
-        return Map.of();
-      }
-      Map<String, String> values = new HashMap<>();
-      QuerySolution solution = resultSet.next(); // todo maybe we could have multiple values, dunno
-      ofNullable(solution.get("type")).map(RDFNode::asResource).map(Resource::getURI).ifPresent(uri -> values.put("type",uri));
-      ofNullable(solution.get("subject")).map(RDFNode::asResource).map(Resource::getURI).ifPresent(uri -> values.put("subject",uri));
-      return values;
+      List<Map<String, String>> list = new LinkedList<>();
+      resultSet.forEachRemaining(querySolution -> {
+        Map<String, String> values = new HashMap<>();
+        QuerySolution solution = resultSet.next(); // todo maybe we could have multiple values, dunno
+        ofNullable(solution.get("type")).map(RDFNode::asResource).map(Resource::getURI).ifPresent(uri -> values.put("type",uri));
+        ofNullable(solution.get("subject")).map(RDFNode::asResource).map(Resource::getURI).ifPresent(uri -> values.put("subject",uri));
+        list.add(values);
+      });
+      return list;
     });
 
   }

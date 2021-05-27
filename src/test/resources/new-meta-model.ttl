@@ -25,7 +25,7 @@ ext:ui_person
   frontend:mainPage    ext:personlijke_gegevens ; # required
   frontend:pages       ( ext:personlijke_gegevens ext:contact_gegevens ext:posities ) .
 
-# page definition
+############################################################################################################# first page
 ext:personlijke_gegevens
   a                   frontend:Page ;
   frontend:ordering   "0"^^xsd:integer ;
@@ -124,5 +124,27 @@ ext:organisatie_link
   a               frontend:Link ;
   frontend:source ( mandaat:isAangesteldAls org:holds org:postIn generiek:isTijdspecialisatieVan besluit:bestuurt ) .
 
+
+############################################################################################################ second page
+ext:contact_gegevens
+  a                   frontend:Page ;
+  frontend:ordering   "1"^^xsd:integer ;
+  frontend:label      "Contactgegevens" ;
+  frontend:title      ( "Contactgegevens" ) ;
+  frontend:subTitle   (ext:naam0) ;
+  frontend:containers ( ext:contactgegevens_container) .
+
+ext:contactgegevens_container
+  a                 frontend:Container ;
+  frontend:ordering "1"^^xsd:integer ;
+  frontend:title    ( "" ) ;
+  frontend:elements ( ext:contactgegevens_table ) .
+
+ext:contactgegevens_table
+  a                 frontend:Table ;
+  frontend:ordering "0"^^xsd:integer ;
+  frontend:type     frontend:Table ;
+  frontend:source   mandaat:isAangesteldAls ;
+  frontend:fields   (  ext:organisatie ext:email1 ext:adres1 ext:tel1  )  .
 # todo add frontend:CustomElement
 

@@ -173,13 +173,16 @@ public class UIBuilderService {
       List<RDFNode> sources = metaModel.getList(sourceProperty.get()).asJavaList();
       for (var node : sources){
         Resource source = node.asResource();
-        Map<String, String> result = this.uriInfoService.fetchSource(rootSubject, source.getURI(), rootType);
-        if(result.isEmpty() || StringUtils.isAnyEmpty(result.get("type"), result.get("subject"))){
-          // todo it means no value. return null
+        List<Map<String, String>> result = this.uriInfoService.fetchSource(rootSubject, source.getURI(), rootType);
+        if(result.isEmpty() ){
           return null;
         }
-        rootSubject = result.get("subject");
-        rootType = result.get("type");
+        Map<String, String> res = result.get(0);
+        if(res.isEmpty() || StringUtils.isAnyEmpty(res.get("type"), res.get("subject"))){
+          return null;
+        }
+        rootSubject = res.get("subject");
+        rootType = res.get("type");
       }
     }
     //end multi level field
