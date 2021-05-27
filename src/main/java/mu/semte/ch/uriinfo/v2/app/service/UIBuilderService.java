@@ -62,12 +62,12 @@ public class UIBuilderService {
                 return titlePart.asLiteral().getString();
             }
             Resource titleField = titlePart.asResource();
-            return this.buildField(titleField,metaModel,uri,typeUri);
+            return this.queryForField(titleField,metaModel,uri,typeUri);
         }).collect(Collectors.joining(separator));
     }
 
 
-    private String buildField(Resource fieldResource, Model metaModel, String uri, String typeUri) {
+    private String queryForField(Resource fieldResource, Model metaModel, String uri, String typeUri) {
         //todo just make it simple stupid for now
         Statement fieldsProperty = metaModel.getRequiredProperty(fieldResource, P_FIELDS);
         String separator = ofNullable(metaModel.getProperty(fieldResource, P_SEPARATOR)).map(Statement::getString).orElse(" ");

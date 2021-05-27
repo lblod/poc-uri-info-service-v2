@@ -19,45 +19,51 @@
 ext:ui_person
     a                    frontend:UI ;
     frontend:contentType person:Person ; # required
-    frontend:mainPage    ext:personlijke_gegevens; # required
-    frontend:pages       (ext:personlijke_gegevens ext:contact_gegevens ext:posities) .
+    frontend:mainPage    ext:personlijke_gegevens ; # required
+    frontend:pages       ( ext:personlijke_gegevens ext:contact_gegevens ext:posities ) .
 
 # page definition
 ext:personlijke_gegevens
-    a                 frontend:Page ;
-    frontend:ordering "0"^^xsd:integer ;
-    frontend:label "Persoonlijke gegevens";
-    frontend:title    ("Persoonlijke gegevens:" ext:naam0 );
-    frontend:subTitle (ext:naam0) ;
-    frontend:elements (ext:persoon_gegevens).
+    a                   frontend:Page ;
+    frontend:ordering   "0"^^xsd:integer ;
+    frontend:label      "Persoonlijke gegevens" ;
+    frontend:title      ( "Persoonlijke gegevens:" ext:naam0 ) ;
+    frontend:subTitle   ( ext:naam0 ) ;
+    frontend:containers ( ext:persoon_gegevens_container ) .
 
 ext:naam0
-    a                   frontend:Field ;
-    frontend:ordering   "0"^^xsd:integer ;
-    frontend:fieldType  "STRING" ;
-    frontend:fields     (foaf:givenName foaf:familyName) ;
-    frontend:label      "" .
+    a                  frontend:Field ;
+    frontend:ordering  "0"^^xsd:integer ;
+    frontend:fieldType "STRING" ;
+    frontend:fields    ( foaf:givenName foaf:familyName ) ;
+    frontend:label     "" .
 
 # first panel
-ext:persoon_gegevens
-    a                 frontend:Element ;
+ext:persoon_gegevens_container
+    a                 frontend:Container ;
     frontend:type     frontend:Panel ;
     frontend:ordering "0"^^xsd:integer ;
-    frontend:title    ("Persoonlijke gegevens") ;
-    frontend:fields   (ext:voornaam ext:achternaam) ;
+    frontend:title    ( "Persoonlijke gegevens" ) ;
+    frontend:elements ( ext:personlijke_gegevens_element ) ;
     frontend:editable "true"^^xsd:boolean .
+
+ext:personlijke_gegevens_element
+    a                 frontend:Element ;
+    frontend:ordering "0"^^xsd:integer ;
+    frontend:fields   ( ext:voornaam ext:achternaam ) .
+
 
 ext:voornaam
     a                  frontend:Field ;
     frontend:ordering  "0"^^xsd:integer ;
-    frontend:fieldType "string" ;
-    frontend:fields    foaf:givenName ;
+    frontend:fieldType "STRING" ;
+    frontend:fields    ( foaf:givenName ) ;
     frontend:label     "Voornaam" .
 
 ext:achternaam
     a                  frontend:Field ;
     frontend:ordering  "1"^^xsd:integer ;
-    frontend:fieldType "string" ;
-    frontend:fields    foaf:familyName ;
+    frontend:fieldType "STRING" ;
+    frontend:fields    ( foaf:familyName ) ;
     frontend:label     "Achternaam" .
 # todo add frontend:CustomElement

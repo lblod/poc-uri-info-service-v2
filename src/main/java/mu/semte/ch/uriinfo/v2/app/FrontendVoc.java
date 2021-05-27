@@ -22,12 +22,14 @@ public interface FrontendVoc {
     Property P_SUB_TITLE = ResourceFactory.createProperty("http://lblod.data.gift/vocabularies/frontend/subTitle");
     Property P_EDITABLE = ResourceFactory.createProperty("http://lblod.data.gift/vocabularies/frontend/editable");
     Property P_TYPE = ResourceFactory.createProperty("http://lblod.data.gift/vocabularies/frontend/type");
-    Property P_ELEMENTS = ResourceFactory.createProperty("http://lblod.data.gift/vocabularies/frontend/elements");
+    @Deprecated Property P_ELEMENTS = ResourceFactory.createProperty("http://lblod.data.gift/vocabularies/frontend/elements");
+    Property P_CONTAINERS = ResourceFactory.createProperty("http://lblod.data.gift/vocabularies/frontend/containers");
     Property P_SIDE_PANEL_TITLE = ResourceFactory.createProperty("http://lblod.data.gift/vocabularies/frontend/sidePanelTitle");
 
     Resource C_FIELD = ResourceFactory.createResource("http://lblod.data.gift/vocabularies/frontend/Field");
     Resource C_LINK = ResourceFactory.createResource("http://lblod.data.gift/vocabularies/frontend/Link");
     Resource C_ELEMENT = ResourceFactory.createResource("http://lblod.data.gift/vocabularies/frontend/Element");
+    Resource C_Container = ResourceFactory.createResource("http://lblod.data.gift/vocabularies/frontend/Container");
     Resource C_MULTI_LEVEL_FIELD = ResourceFactory.createResource("http://lblod.data.gift/vocabularies/frontend/MultiLevelField");
     Resource C_SIDE_PANEL_LINK_FIELD = ResourceFactory.createResource("http://lblod.data.gift/vocabularies/frontend/SidePanelLinkField");
     Resource C_SIDE_PANEL_TITLE = ResourceFactory.createResource("http://lblod.data.gift/vocabularies/frontend/SidePanelTitle");

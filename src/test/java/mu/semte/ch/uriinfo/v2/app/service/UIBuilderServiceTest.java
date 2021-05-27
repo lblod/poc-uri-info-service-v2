@@ -1,6 +1,7 @@
 package mu.semte.ch.uriinfo.v2.app.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.extern.slf4j.Slf4j;
 import mu.semte.ch.lib.utils.ModelUtils;
 import mu.semte.ch.uriinfo.v2.app.FrontendVoc;
 import mu.semte.ch.uriinfo.v2.app.dto.FrontendMenuLink;
@@ -23,6 +24,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
+@Slf4j
 //@Disabled //todo ignore integration test
 class UIBuilderServiceTest {
     @Autowired
@@ -63,8 +65,14 @@ class UIBuilderServiceTest {
     @Test
     void build() throws IOException {
         String personUri = "http://data.lblod.info/id/persoon/5b18df411cbb975f6b57853018306250";
-        FrontendUI build = this.uiBuilderService.build(personUri, null);
-        new ObjectMapper().writerWithDefaultPrettyPrinter().writeValue(System.out, build);
+        FrontendUI ui = this.uiBuilderService.build(personUri, null);
+        assertEquals(3, ui.getMenu().size());
+        assertNotNull(ui.getPage());
+        assertEquals("Persoonlijke gegevens: Luuk Van Eylen", ui.getPage().getTitle());
+        assertEquals("Luuk Van Eylen", ui.getPage().getSubtitle());
+        assertEquals(0, ui.getPage().getOrdering());
+
+        log.warn(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(ui));
     }
 
     @Test
