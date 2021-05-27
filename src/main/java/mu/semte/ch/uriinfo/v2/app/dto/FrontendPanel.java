@@ -10,4 +10,5 @@ import lombok.NoArgsConstructor;
 @Builder(toBuilder = true)
 @Data
 public class FrontendPanel implements FrontendElement {
+  private ElementType type;
 }
