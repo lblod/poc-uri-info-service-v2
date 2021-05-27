@@ -69,9 +69,8 @@ public class UriInfoService {
     log.info(query);
     return this.sparqlClient.executeSelectQuery(query, resultSet -> {
       List<Map<String, String>> list = new LinkedList<>();
-      resultSet.forEachRemaining(querySolution -> {
+      resultSet.forEachRemaining(solution -> {
         Map<String, String> values = new HashMap<>();
-        QuerySolution solution = resultSet.next(); // todo maybe we could have multiple values, dunno
         ofNullable(solution.get("type")).map(RDFNode::asResource).map(Resource::getURI).ifPresent(uri -> values.put("type",uri));
         ofNullable(solution.get("subject")).map(RDFNode::asResource).map(Resource::getURI).ifPresent(uri -> values.put("subject",uri));
         list.add(values);
