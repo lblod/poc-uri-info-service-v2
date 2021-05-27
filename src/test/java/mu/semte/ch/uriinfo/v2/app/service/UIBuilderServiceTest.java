@@ -3,13 +3,12 @@ package mu.semte.ch.uriinfo.v2.app.service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import mu.semte.ch.lib.utils.ModelUtils;
 import mu.semte.ch.uriinfo.v2.app.FrontendVoc;
-import mu.semte.ch.uriinfo.v2.app.dto.v2.FrontendMenuLink;
-import mu.semte.ch.uriinfo.v2.app.dto.v2.FrontendUI;
+import mu.semte.ch.uriinfo.v2.app.dto.FrontendMenuLink;
+import mu.semte.ch.uriinfo.v2.app.dto.FrontendUI;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.Statement;
 import org.apache.jena.riot.Lang;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,19 +18,18 @@ import org.springframework.core.io.Resource;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 //@Disabled //todo ignore integration test
-class UIBuilderServiceV2Test {
+class UIBuilderServiceTest {
     @Autowired
     private InMemoryTripleStoreService inMemoryTripleStoreService;
 
     @Autowired
-    private UIBuilderServiceV2 uiBuilderServiceV2;
+    private UIBuilderService uiBuilderService;
 
     @Value("classpath:new-meta-model.ttl")
     private Resource newMetaModel;
@@ -49,7 +47,7 @@ class UIBuilderServiceV2Test {
     @Test
     void buildMenu() {
         Model namedModel = inMemoryTripleStoreService.getNamedModel(NAMED_GRAPH);
-        List<FrontendMenuLink> frontendMenuLinks = uiBuilderServiceV2.buildMenu(namedModel, "http://mu.semte.ch/vocabularies/ext/contact_gegevens");
+        List<FrontendMenuLink> frontendMenuLinks = uiBuilderService.buildMenu(namedModel, "http://mu.semte.ch/vocabularies/ext/contact_gegevens");
         assertEquals(3, frontendMenuLinks.size());
         FrontendMenuLink personlijkGegevensPage = frontendMenuLinks.get(0);
         assertEquals("http://mu.semte.ch/vocabularies/ext/personlijke_gegevens", personlijkGegevensPage.getUri());
@@ -65,7 +63,7 @@ class UIBuilderServiceV2Test {
     @Test
     void build() throws IOException {
         String personUri = "http://data.lblod.info/id/persoon/5b18df411cbb975f6b57853018306250";
-        FrontendUI build = this.uiBuilderServiceV2.build(personUri, null);
+        FrontendUI build = this.uiBuilderService.build(personUri, null);
         new ObjectMapper().writerWithDefaultPrettyPrinter().writeValue(System.out, build);
     }
 

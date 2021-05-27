@@ -13,6 +13,7 @@ import java.util.List;
 @Data
 public class FrontendUI {
     private String uri;
-    private List<FrontendPage> pages;
+    private List<FrontendMenuLink> menu;
+    private FrontendPage page;
 
 }

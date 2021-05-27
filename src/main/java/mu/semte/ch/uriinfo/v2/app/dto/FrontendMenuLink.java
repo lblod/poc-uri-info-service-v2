@@ -1,4 +1,4 @@
-package mu.semte.ch.uriinfo.v2.app.dto.v2;
+package mu.semte.ch.uriinfo.v2.app.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

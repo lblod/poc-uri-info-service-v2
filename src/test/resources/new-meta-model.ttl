@@ -38,5 +38,26 @@ ext:naam0
     frontend:fields     (foaf:givenName foaf:familyName) ;
     frontend:label      "" .
 
+# first panel
+ext:persoon_gegevens
+    a                 frontend:Element ;
+    frontend:type     frontend:Panel ;
+    frontend:ordering "0"^^xsd:integer ;
+    frontend:title    ("Persoonlijke gegevens") ;
+    frontend:fields   (ext:voornaam ext:achternaam) ;
+    frontend:editable "true"^^xsd:boolean .
 
+ext:voornaam
+    a                  frontend:Field ;
+    frontend:ordering  "0"^^xsd:integer ;
+    frontend:fieldType "string" ;
+    frontend:fields    foaf:givenName ;
+    frontend:label     "Voornaam" .
+
+ext:achternaam
+    a                  frontend:Field ;
+    frontend:ordering  "1"^^xsd:integer ;
+    frontend:fieldType "string" ;
+    frontend:fields    foaf:familyName ;
+    frontend:label     "Achternaam" .
 # todo add frontend:CustomElement
