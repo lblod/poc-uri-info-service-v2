@@ -38,20 +38,23 @@ public class UIBuilderServiceV2 {
         Model metaModel = inMemoryTripleStoreService.getNamedModel(typeUri);
         ui.setMenu(this.buildMenu(metaModel, currentPageMetaUri));
         ui.setUri(uri);
-        log.error(this.buildTitle(metaModel, uri, typeUri, ui.getMenu().stream().filter(FrontendMenuLink::isActive).map(FrontendMenuLink::getUri).findFirst().orElseThrow()));
+        ui.setPage(this.buildPage(metaModel, uri, typeUri, ui.getMenu().stream().filter(FrontendMenuLink::isActive).map(FrontendMenuLink::getUri).findFirst().orElseThrow()));
         return ui;
     }
 
-    protected FrontendPage generatePage(Model metaModel, String uri, String currentPageMetaUri){
-        return null;
+    protected FrontendPage buildPage(Model metaModel, String uri, String typeUri, String currentPageMetaUri){
+        FrontendPage page = new FrontendPage();
+        page.setOrdering(metaModel.getProperty(ResourceFactory.createProperty(currentPageMetaUri), P_ORDERING).getInt());
+        page.setTitle(this.buildTitle(metaModel, uri, typeUri, currentPageMetaUri,P_TITLE));
+        page.setSubtitle(this.buildTitle(metaModel, uri, typeUri, currentPageMetaUri,P_SUB_TITLE));
+        return page;
     }
 
 
-    protected String buildTitle(Model metaModel, String uri, String typeUri, String currentPageMetaUri) {
+    protected String buildTitle(Model metaModel,String uri, String typeUri, String currentPageMetaUri, Property titleProperty) {
         Property pageProp = ResourceFactory.createProperty(currentPageMetaUri);
-        var title = metaModel.getRequiredProperty(pageProp, P_TITLE);
+        var title = metaModel.getRequiredProperty(pageProp, titleProperty);
         String separator = ofNullable(metaModel.getProperty(pageProp, P_SEPARATOR)).map(Statement::getString).orElse(" ");
-
         RDFList list = metaModel.getList(title.getObject().asResource());
         return list.asJavaList().stream().map(titlePart-> {
             if(titlePart.isLiteral()){

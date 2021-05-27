@@ -19,6 +19,7 @@ public interface FrontendVoc {
     Property P_ORDERING = ResourceFactory.createProperty("http://lblod.data.gift/vocabularies/frontend/ordering");
     Property P_FIELD_TYPE = ResourceFactory.createProperty("http://lblod.data.gift/vocabularies/frontend/fieldType");
     Property P_TITLE = ResourceFactory.createProperty("http://lblod.data.gift/vocabularies/frontend/title");
+    Property P_SUB_TITLE = ResourceFactory.createProperty("http://lblod.data.gift/vocabularies/frontend/subTitle");
     Property P_EDITABLE = ResourceFactory.createProperty("http://lblod.data.gift/vocabularies/frontend/editable");
     Property P_TYPE = ResourceFactory.createProperty("http://lblod.data.gift/vocabularies/frontend/type");
     Property P_ELEMENTS = ResourceFactory.createProperty("http://lblod.data.gift/vocabularies/frontend/elements");

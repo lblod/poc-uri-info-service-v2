@@ -28,8 +28,8 @@ ext:personlijke_gegevens
     frontend:ordering "0"^^xsd:integer ;
     frontend:label "Persoonlijke gegevens";
     frontend:title    ("Persoonlijke gegevens:" ext:naam0 );
-    frontend:subTitle ext:naam0 ;
-    frontend:elements ext:persoon_gegevens.
+    frontend:subTitle (ext:naam0) ;
+    frontend:elements (ext:persoon_gegevens).
 
 ext:naam0
     a                   frontend:Field ;

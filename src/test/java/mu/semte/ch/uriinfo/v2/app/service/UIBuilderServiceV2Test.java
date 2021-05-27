@@ -1,5 +1,6 @@
 package mu.semte.ch.uriinfo.v2.app.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import mu.semte.ch.lib.utils.ModelUtils;
 import mu.semte.ch.uriinfo.v2.app.FrontendVoc;
 import mu.semte.ch.uriinfo.v2.app.dto.v2.FrontendMenuLink;
@@ -62,10 +63,10 @@ class UIBuilderServiceV2Test {
     }
 
     @Test
-    void build(){
+    void build() throws IOException {
         String personUri = "http://data.lblod.info/id/persoon/5b18df411cbb975f6b57853018306250";
         FrontendUI build = this.uiBuilderServiceV2.build(personUri, null);
-        System.out.println(build);
+        new ObjectMapper().writerWithDefaultPrettyPrinter().writeValue(System.out, build);
     }
 
     @Test
