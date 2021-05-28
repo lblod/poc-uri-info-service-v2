@@ -258,9 +258,8 @@ public class UIBuilderService {
         rst.subject = res.get("subject");
         rst.type = res.get("type");
       }
-      return Optional.of(rst);
     }
-    return Optional.empty();
+    return Optional.of(rst);
   }
 
   private class RootSubjectType {
