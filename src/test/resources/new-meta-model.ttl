@@ -196,5 +196,61 @@ ext:adres2
   frontend:source    ( schema:contactPoint locn:address ) ;
   frontend:fields    (locn:fullAddress) ;
   frontend:label     "Adres" .
+############################################################################################################ third page
+ext:posities
+  a                 frontend:Page ;
+  frontend:ordering "2"^^xsd:integer ;
+  frontend:title    ("Posities") ;
+  frontend:label      "Posities" ;
+  frontend:subTitle   ("") ;
+  frontend:containers ( ext:posities_container) .
+
+ext:posities_container
+  a                 frontend:Container ;
+  frontend:ordering "0"^^xsd:integer ;
+  frontend:title    ( "" ) ;
+  frontend:elements ( ext:posities-table ) .
+
+ext:posities-table
+  a                 frontend:Table ;
+  frontend:ordering "0"^^xsd:integer ;
+  frontend:source   (mandaat:isAangesteldAls) ;
+  frontend:fields   ( ext:rol ext:organisatie2 ext:status ) ;
+  frontend:editable "true"^^xsd:boolean .
+
+ext:rol
+  a                  frontend:Field ;
+  frontend:ordering  "0"^^xsd:integer ;
+  frontend:fieldType "STRING" ;
+  frontend:source    ( org:holds org:role ) ;
+  frontend:fields    (skos:prefLabel) ;
+  frontend:hasLink   ext:positie_person_link2 ;
+  frontend:label     "Rol" .
+
+ext:positie_person_link2
+  a               frontend:Link ;
+  frontend:source ( org:holds org:postIn ) .
+
+ext:organisatie2
+  a                  frontend:Field ;
+  frontend:ordering  "1"^^xsd:integer ;
+  frontend:fieldType "STRING" ;
+  frontend:source    ( org:holds org:postIn generiek:isTijdspecialisatieVan besluit:bestuurt ) ;
+  frontend:fields    (skos:prefLabel) ;
+  frontend:hasLink   ext:org_positie_link ;
+  frontend:label     "Organisatie" .
+
+ext:org_positie_link
+  a               frontend:Link ;
+  frontend:source ( org:holds org:postIn generiek:isTijdspecialisatieVan besluit:bestuurt ) .
+
+ext:status
+  a                  frontend:Field ;
+  frontend:ordering  "2"^^xsd:integer ;
+  frontend:fieldType "STRING" ;
+  frontend:source    (mandaat:status) ;
+  frontend:fields    (skos:prefLabel) ;
+  frontend:label     "Status" .
+
 # todo add frontend:CustomElement
 

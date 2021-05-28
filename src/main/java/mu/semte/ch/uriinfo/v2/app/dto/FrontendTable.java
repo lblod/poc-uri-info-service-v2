@@ -15,10 +15,10 @@ public class FrontendTable implements FrontendElement  {
   private boolean editable;
   private int ordering;
   private List<FrontendTableRow> rows;
+  private List<String> header;
 
   @Override
   public ElementType getType() {
     return ElementType.TABLE;
   }
-  // private List<FrontendField> fields;
 }

@@ -99,7 +99,7 @@ public class UIBuilderService {
                            FrontendContainer container = new FrontendContainer();
                            container.setTitle(this.buildTitle(metaModel, uri, typeUri, containerPart.getURI(), P_TITLE));
                            container.setOrdering(metaModel.getProperty(containerPart, P_ORDERING).getInt());
-                           container.setElements(this.buildElements(metaModel, uri, typeUri, currentPageMetaUri, containerPart));
+                           container.setElements(this.buildElements(metaModel, uri, typeUri, containerPart));
                            return container;
                          }).collect(Collectors.toList());
   }
@@ -107,9 +107,7 @@ public class UIBuilderService {
   private List<FrontendElement> buildElements(Model metaModel,
                                               String uri,
                                               String typeUri,
-                                              String currentPageMetaUri,
                                               Resource containerPart) {
-    // todo Property pageProp = ResourceFactory.createProperty(currentPageMetaUri);
     var elementsProp = metaModel.getRequiredProperty(containerPart, P_ELEMENTS);
     var elementParts = metaModel.getList(elementsProp.getObject().asResource()).asJavaList();
     return elementParts.stream()
@@ -136,6 +134,7 @@ public class UIBuilderService {
     Optional<List<RootSubjectType>> rootSubjectTypes = fetchSource(metaModel, elementPart, uri, typeUri);
     var fieldsProp = metaModel.getRequiredProperty(elementPart, P_FIELDS);
     var fieldParts = metaModel.getList(fieldsProp.getObject().asResource()).asJavaList();
+    table.setHeader(fieldParts.stream().map(fp -> metaModel.getProperty(fp.asResource(), P_LABEL).getString()).collect(Collectors.toList()));
     table.setRows(rootSubjectTypes.stream().flatMap(List::stream).map(rst -> this.buildFields(metaModel, rst.getSubject(), rst.getType(), fieldParts))
                                   .map(FrontendTableRow::new)
                                   .collect(Collectors.toList()));

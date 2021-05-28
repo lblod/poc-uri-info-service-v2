@@ -88,6 +88,16 @@ class UIBuilderServiceTest {
 
     log.warn(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(ui));
   }
+  @Test
+  void buildTablePosities() throws IOException {
+    String personUri = "http://data.lblod.info/id/persoon/5b18df411cbb975f6b57853018306250";
+    FrontendUI ui = this.uiBuilderService.build(personUri, "http://mu.semte.ch/vocabularies/ext/posities");
+    assertEquals(3, ui.getMenu().size());
+    assertNotNull(ui.getPage());
+    assertEquals(2, ui.getPage().getOrdering());
+
+    log.warn(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(ui));
+  }
 
   @Test
   void buildTitle() {
