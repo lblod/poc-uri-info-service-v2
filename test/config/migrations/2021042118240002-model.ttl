@@ -284,7 +284,7 @@
 
 <http://data.lblod.info/id/persoon/5b18df411cbb975f6b57853018306250>
   a                       <http://www.w3.org/ns/person#Person> ;
-  mandaat:isAangesteldAls <http://data.lblod.info/id/mandataris/5183706662e154bce6fdf227fb674c82> ;
+  mandaat:isAangesteldAls <http://data.lblod.info/id/mandataris/5183706662e154bce6fdf227fb674c82>,<http://data.lblod.info/id/mandataris/c0a4eed1fcb59bbcd592d8d075fbcadb> ;
   mu:uuid                 "5b18df411cbb975f6b57853018306250"^^xsd:string ;
   foaf:familyName         "Van Eylen"@nl ;
   foaf:givenName          "Luuk"@nl .

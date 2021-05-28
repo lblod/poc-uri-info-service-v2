@@ -136,7 +136,7 @@ ext:contact_gegevens
 
 ext:contactgegevens_container
   a                 frontend:Container ;
-  frontend:ordering "1"^^xsd:integer ;
+  frontend:ordering "0"^^xsd:integer ;
   frontend:title    ( "" ) ;
   frontend:elements ( ext:contactgegevens_table ) .
 
@@ -146,5 +146,55 @@ ext:contactgegevens_table
   frontend:source   (mandaat:isAangesteldAls) ;
   frontend:editable "true"^^xsd:boolean ;
   frontend:fields   (  ext:positie ext:organisatie1 ext:email2 ext:tel2 ext:adres2  )  .
+
+ext:positie
+  a                  frontend:Field ;
+  frontend:ordering  "0"^^xsd:integer ;
+  frontend:fieldType "STRING" ;
+  frontend:source    ( org:holds org:role ) ;
+  frontend:hasLink   ext:positie_person_link ;
+  frontend:fields    (skos:prefLabel) ;
+  frontend:label     "Positie" .
+
+ext:positie_person_link
+  a               frontend:Link ;
+  frontend:source ( org:holds org:postIn ) .
+
+ext:organisatie1
+  a                  frontend:Field ;
+  frontend:ordering  "1"^^xsd:integer ;
+  frontend:fieldType "STRING" ;
+  frontend:source    ( org:holds org:postIn generiek:isTijdspecialisatieVan besluit:bestuurt ) ;
+  frontend:hasLink   ext:org_contact_link ;
+  frontend:fields    (skos:prefLabel) ;
+  frontend:label     "Organisatie" .
+
+ext:org_contact_link
+  a               frontend:Link ;
+  frontend:source ( org:holds org:postIn generiek:isTijdspecialisatieVan besluit:bestuurt ) .
+
+ext:email2
+  a                  frontend:Field ;
+  frontend:ordering  "2"^^xsd:integer ;
+  frontend:fieldType "STRING" ;
+  frontend:source    (schema:contactPoint) ;
+  frontend:fields    (schema:email) ;
+  frontend:label     "Email" .
+
+ext:tel2
+  a                  frontend:Field ;
+  frontend:ordering  "3"^^xsd:integer ;
+  frontend:fieldType "STRING" ;
+  frontend:source    (schema:contactPoint) ;
+  frontend:fields    (schema:telephone) ;
+  frontend:label     "Telefoonnummer" .
+
+ext:adres2
+  a                  frontend:Field ;
+  frontend:ordering  "4"^^xsd:integer ;
+  frontend:fieldType "STRING" ;
+  frontend:source    ( schema:contactPoint locn:address ) ;
+  frontend:fields    (locn:fullAddress) ;
+  frontend:label     "Adres" .
 # todo add frontend:CustomElement
 

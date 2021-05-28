@@ -14,6 +14,7 @@ import java.util.List;
 public class FrontendTable implements FrontendElement  {
   private boolean editable;
   private int ordering;
+  private List<FrontendTableRow> rows;
 
   @Override
   public ElementType getType() {
