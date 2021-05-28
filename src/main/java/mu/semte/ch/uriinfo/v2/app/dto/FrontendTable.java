@@ -11,13 +11,13 @@ import java.util.List;
 @AllArgsConstructor
 @Builder(toBuilder = true)
 @Data
-public class FrontendPanel implements FrontendElement {
+public class FrontendTable implements FrontendElement  {
   private boolean editable;
   private int ordering;
-  private List<FrontendField> fields;
 
   @Override
   public ElementType getType() {
-    return ElementType.PANEL;
+    return ElementType.TABLE;
   }
+  // private List<FrontendField> fields;
 }

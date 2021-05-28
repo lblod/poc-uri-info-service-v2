@@ -143,8 +143,8 @@ ext:contactgegevens_container
 ext:contactgegevens_table
   a                 frontend:Table ;
   frontend:ordering "0"^^xsd:integer ;
-  frontend:type     frontend:Table ;
-  frontend:source   mandaat:isAangesteldAls ;
-  frontend:fields   (  ext:organisatie ext:email1 ext:adres1 ext:tel1  )  .
+  frontend:source   (mandaat:isAangesteldAls) ;
+  frontend:editable "true"^^xsd:boolean ;
+  frontend:fields   (  ext:positie ext:organisatie1 ext:email2 ext:tel2 ext:adres2  )  .
 # todo add frontend:CustomElement
 

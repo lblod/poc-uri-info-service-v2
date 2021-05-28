@@ -10,6 +10,7 @@ import mu.semte.ch.uriinfo.v2.app.dto.FrontendField;
 import mu.semte.ch.uriinfo.v2.app.dto.FrontendMenuLink;
 import mu.semte.ch.uriinfo.v2.app.dto.FrontendPage;
 import mu.semte.ch.uriinfo.v2.app.dto.FrontendPanel;
+import mu.semte.ch.uriinfo.v2.app.dto.FrontendTable;
 import mu.semte.ch.uriinfo.v2.app.dto.FrontendUI;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.jena.rdf.model.Literal;
@@ -113,10 +114,25 @@ public class UIBuilderService {
                          ElementType elementType = ElementType.evaluateType(elementTypeStmt.getResource());
                          FrontendElement element = switch (elementType) {
                            case PANEL -> this.buildPanel(metaModel, uri, typeUri, currentPageMetaUri, elementPart);
-                           case TABLE -> null;
+                           case TABLE -> this.buildTable(metaModel, uri, typeUri, currentPageMetaUri, elementPart);
+                           case CUSTOM -> null;
                          };
                          return element;
                        }).collect(Collectors.toList());
+  }
+
+  private FrontendElement buildTable(Model metaModel,
+                                     String uri,
+                                     String typeUri,
+                                     String currentPageMetaUri,
+                                     Resource elementPart) {
+    FrontendTable table = new FrontendTable();
+    table.setOrdering(metaModel.getProperty(elementPart, P_ORDERING).getInt());
+    table.setEditable(ofNullable(metaModel.getProperty(elementPart, P_EDITABLE)).map(Statement::getBoolean).orElse(false));
+    var sourceProp = metaModel.getRequiredProperty(elementPart, P_SOURCE);
+    Optional<RootSubjectType> rootSubjectType = fetchRootSubjectAndType(metaModel, elementPart, uri, typeUri);
+
+    return null;
   }
 
   private FrontendElement buildPanel(Model metaModel,
@@ -125,7 +141,6 @@ public class UIBuilderService {
                                      String currentPageMetaUri,
                                      Resource elementPart) {
     FrontendPanel panel = new FrontendPanel();
-    panel.setType(ElementType.PANEL);
     panel.setOrdering(metaModel.getProperty(elementPart, P_ORDERING).getInt());
     panel.setEditable(ofNullable(metaModel.getProperty(elementPart, P_EDITABLE)).map(Statement::getBoolean).orElse(false));
     var fieldsProp = metaModel.getRequiredProperty(elementPart, P_FIELDS);
@@ -168,22 +183,14 @@ public class UIBuilderService {
     Statement fieldsProperty = metaModel.getRequiredProperty(fieldResource, P_FIELDS);
     String separator = ofNullable(metaModel.getProperty(fieldResource, P_SEPARATOR)).map(Statement::getString).orElse(" ");
     //multi level field
-    Optional<Resource> sourceProperty = ofNullable(metaModel.getProperty(fieldResource, P_SOURCE)).map(Statement::getResource);
-    if(sourceProperty.isPresent()){
-      List<RDFNode> sources = metaModel.getList(sourceProperty.get()).asJavaList();
-      for (var node : sources){
-        Resource source = node.asResource();
-        List<Map<String, String>> result = this.uriInfoService.fetchSource(rootSubject, source.getURI(), rootType);
-        if(result.isEmpty() ){
-          return null;
-        }
-        Map<String, String> res = result.get(0);
-        if(res.isEmpty() || StringUtils.isAnyEmpty(res.get("type"), res.get("subject"))){
-          return null;
-        }
-        rootSubject = res.get("subject");
-        rootType = res.get("type");
-      }
+    Optional<RootSubjectType> rootSubjectType = fetchRootSubjectAndType(metaModel, fieldResource, rootSubject, rootType);
+    if (rootSubjectType.isPresent()) {
+      RootSubjectType rst = rootSubjectType.get();
+      rootSubject = rst.subject;
+      rootType = rst.type;
+    }
+    else {
+      return null;
     }
     //end multi level field
 
@@ -225,6 +232,40 @@ public class UIBuilderService {
     var pages = metaModel.getRequiredProperty(null, FrontendVoc.P_PAGES);
     RDFList list = metaModel.getList(pages.getObject().asResource());
     return list.asJavaList();
+  }
+
+
+  private Optional<RootSubjectType> fetchRootSubjectAndType(Model metaModel,
+                                                            Resource resource,
+                                                            String rootSubject,
+                                                            String rootType) {
+    RootSubjectType rst = new RootSubjectType();
+    rst.subject = rootSubject;
+    rst.type = rootType;
+    Optional<Resource> sourceProperty = ofNullable(metaModel.getProperty(resource, P_SOURCE)).map(Statement::getResource);
+    if (sourceProperty.isPresent()) {
+      List<RDFNode> sources = metaModel.getList(sourceProperty.get()).asJavaList();
+      for (var node : sources) {
+        Resource source = node.asResource();
+        List<Map<String, String>> result = this.uriInfoService.fetchSource(rst.subject, source.getURI(), rst.type);
+        if (result.isEmpty()) {
+          return Optional.empty();
+        }
+        Map<String, String> res = result.get(0);
+        if (res.isEmpty() || StringUtils.isAnyEmpty(res.get("type"), res.get("subject"))) {
+          return Optional.empty();
+        }
+        rst.subject = res.get("subject");
+        rst.type = res.get("type");
+      }
+      return Optional.of(rst);
+    }
+    return Optional.empty();
+  }
+
+  private class RootSubjectType {
+    private String subject;
+    private String type;
   }
 
 }
