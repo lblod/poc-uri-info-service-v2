@@ -35,6 +35,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static java.util.Optional.ofNullable;
 import static mu.semte.ch.uriinfo.v2.app.FrontendVoc.P_CONTAINERS;
@@ -42,6 +43,7 @@ import static mu.semte.ch.uriinfo.v2.app.FrontendVoc.P_EDITABLE;
 import static mu.semte.ch.uriinfo.v2.app.FrontendVoc.P_ELEMENTS;
 import static mu.semte.ch.uriinfo.v2.app.FrontendVoc.P_FIELDS;
 import static mu.semte.ch.uriinfo.v2.app.FrontendVoc.P_FIELD_TYPE;
+import static mu.semte.ch.uriinfo.v2.app.FrontendVoc.P_HAS_LINK;
 import static mu.semte.ch.uriinfo.v2.app.FrontendVoc.P_LABEL;
 import static mu.semte.ch.uriinfo.v2.app.FrontendVoc.P_ORDERING;
 import static mu.semte.ch.uriinfo.v2.app.FrontendVoc.P_SEPARATOR;
@@ -161,6 +163,14 @@ public class UIBuilderService {
                      .map(fieldPart -> {
                        FrontendField field = new FrontendField();
                        field.setOrdering(metaModel.getProperty(fieldPart, P_ORDERING).getInt());
+                       // link
+                       ofNullable(metaModel.getProperty(fieldPart, P_HAS_LINK))
+                               .map(Statement::getResource)
+                               .flatMap(rs -> this.fetchSource(metaModel, rs, uri, typeUri))
+                               .map(List::stream)
+                               .flatMap(Stream::findFirst)
+                               .ifPresent(rst -> field.setLink(rst.getSubject()));
+                       // link
                        field.setType(FrontendField.FrontendFieldType.valueOf(metaModel.getProperty(fieldPart, P_FIELD_TYPE)
                                                                                       .getString()));
                        field.setLabel(metaModel.getProperty(fieldPart, P_LABEL).getString());
