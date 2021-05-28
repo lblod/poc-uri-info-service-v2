@@ -118,9 +118,8 @@ public class UIBuilderService {
                          Statement elementTypeStmt = metaModel.getRequiredProperty(elementPart, RDF.type);
                          ElementType elementType = ElementType.evaluateType(elementTypeStmt.getResource());
                          FrontendElement element = switch (elementType) {
-                           case PANEL -> this.buildPanel(metaModel, uri, typeUri, elementPart);
+                           case PANEL, CUSTOM -> this.buildPanel(metaModel, uri, typeUri, elementPart);
                            case TABLE -> this.buildTable(metaModel, uri, typeUri, elementPart);
-                           case CUSTOM -> null;
                          };
                          return element;
                        }).collect(Collectors.toList());
@@ -175,7 +174,6 @@ public class UIBuilderService {
                                                                                       .getString()));
                        field.setLabel(metaModel.getProperty(fieldPart, P_LABEL).getString());
                        field.setValue(this.queryForField(fieldPart, metaModel, uri, typeUri));
-                       // todo add link
                        return field;
                      }).collect(Collectors.toList());
   }
