@@ -52,6 +52,7 @@ ext:personlijke_gegevens_element
   a                 frontend:Panel ;
   frontend:ordering "0"^^xsd:integer ;
   frontend:editable "true"^^xsd:boolean ;
+  frontend:editForm ext:personlijke_gegevens_element_form;
   frontend:fields   ( ext:voornaam ext:achternaam ) .
 
 
@@ -68,6 +69,9 @@ ext:achternaam
   frontend:fieldType "STRING" ;
   frontend:fields    ( foaf:familyName ) ;
   frontend:label     "Achternaam" .
+
+ext:personlijke_gegevens_element_form
+  a frontend:Form.
 
 
 # second panel
