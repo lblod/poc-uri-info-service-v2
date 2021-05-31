@@ -10,13 +10,15 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
+import java.io.File;
+
 @Configuration
 @Import(CoreConfig.class)
 @Slf4j
 public class ApplicationConfig {
 
-  @Value("${sparql.metaDirectory}")
-  private String metaDirectory;
+  @Value("${sparql.metaDatabaseDirectory}")
+  private String metaDatabaseDirectory;
 
   @Bean
   public Slugify slugify() {
@@ -25,7 +27,11 @@ public class ApplicationConfig {
 
   @Bean(destroyMethod = "close")
   public Dataset metaModelDataset() {
-    return TDBFactory.createDataset(metaDirectory);
+   File dir = new File(metaDatabaseDirectory);
+   if(!dir.exists()){
+     dir.mkdirs();
+   }
+   return TDBFactory.createDataset(metaDatabaseDirectory);
   }
 
 }

@@ -4,7 +4,8 @@ server:
 sparql:
   endpoint: ${SPARQL_ENDPOINT:http://localhost:8890/sparql}
   defaultGraphUri: ${TARGET_GRAPH:http://mu.semte.ch/application}
-  metaDirectory: ${META_DIRECTORY:/Users/bittichn/IdeaProjects/poc-uri-info-service-v2/test/data/tdb}
+  metaDatabaseDirectory: ${META_DATABASE_DIRECTORY:/tmp/test/data/tdb}
+  metaLoaderDirectory: ${META_LOADER_DIRECTORY:/tmp/test/config}
 
 resource-labels:
   enabled: ${RESOURCE_LABELS_ENABLED:true}

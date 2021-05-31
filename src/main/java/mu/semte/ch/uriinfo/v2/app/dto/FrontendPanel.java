@@ -13,6 +13,7 @@ import java.util.List;
 @Data
 public class FrontendPanel implements FrontendElement {
   private boolean editable;
+  private String editFormUri;
   private int ordering;
   private List<FrontendField> fields;
 
