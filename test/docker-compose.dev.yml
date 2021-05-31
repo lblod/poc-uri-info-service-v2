@@ -1,0 +1,12 @@
+version: '3.4'
+services:
+  identifier:
+    restart: "no"
+  dispatcher:
+    restart: "no"
+  triplestore:
+    restart: "no"
+  migrations:
+    restart: "no"
+  uri-info-service-v2:
+    restart: "no"
