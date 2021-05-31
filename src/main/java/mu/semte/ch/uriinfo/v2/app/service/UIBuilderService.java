@@ -286,9 +286,9 @@ public class UIBuilderService {
           rst.subject = res.get("subject");
           rst.type = res.get("type");
         }
-        else {
+/*        else {
           throw new RuntimeException("todo refactor"); //todo
-        }
+        }*/
       }
     }
     return Optional.of(List.of(rst));
