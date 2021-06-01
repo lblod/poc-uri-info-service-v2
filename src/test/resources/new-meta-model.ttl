@@ -17,6 +17,7 @@
 @prefix generiek:    <https://data.vlaanderen.be/ns/generiek#> .
 @prefix organisatie: <https://data.vlaanderen.be/ns/organisatie#> .
 @prefix xsd:         <http://www.w3.org/2001/XMLSchema#> .
+@prefix lblod:         <http://data.lblod.info/id/> .
 
 # ui definition
 ext:ui_person
@@ -55,8 +56,21 @@ ext:personlijke_gegevens_element
   frontend:editForm ext:personlijke_gegevens_element_form ;
   frontend:fields   ( ext:voornaam ext:achternaam ) .
 
-# form
+ext:voornaam
+  a                  frontend:Field ;
+  frontend:ordering  "0"^^xsd:integer ;
+  frontend:fieldType "STRING" ;
+  frontend:fields    ( foaf:givenName ) ;
+  frontend:label     "Voornaam" .
 
+ext:achternaam
+  a                  frontend:Field ;
+  frontend:ordering  "1"^^xsd:integer ;
+  frontend:fieldType "STRING" ;
+  frontend:fields    ( foaf:familyName ) ;
+  frontend:label     "Achternaam" .
+
+# form
 ext:personlijke_gegevens_element_form
   a                   frontend:Form ;
   frontend:ordering "0"^^xsd:integer ;
@@ -77,21 +91,6 @@ ext:givenName_form
   frontend:label     "Voornaam" ;
   frontend:fields    ( foaf:givenName ) ;
   frontend:predicate foaf:givenName .
-
-ext:voornaam
-  a                  frontend:Field ;
-  frontend:ordering  "0"^^xsd:integer ;
-  frontend:fieldType "STRING" ;
-  frontend:fields    ( foaf:givenName ) ;
-  frontend:label     "Voornaam" .
-
-ext:achternaam
-  a                  frontend:Field ;
-  frontend:ordering  "1"^^xsd:integer ;
-  frontend:fieldType "STRING" ;
-  frontend:fields    ( foaf:familyName ) ;
-  frontend:label     "Achternaam" .
-
 
 # second panel
 ext:contact_gegevens_organisatie_container

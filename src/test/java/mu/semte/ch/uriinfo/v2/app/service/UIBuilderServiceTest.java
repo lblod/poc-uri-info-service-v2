@@ -38,6 +38,8 @@ class UIBuilderServiceTest {
 
   @Autowired
   private UIBuilderService uiBuilderService;
+  @Autowired
+  private UIFormService uiFormService;
 
   @Value("classpath:new-meta-model.ttl")
   private Resource newMetaModel;
@@ -118,7 +120,7 @@ class UIBuilderServiceTest {
                             .findFirst()
                             .orElseThrow(() -> new RuntimeException("no form found"));
 
-    FrontendForm form = this.uiBuilderService.buildForm(personUri, panel.getEditFormUri());
+    FrontendForm form = this.uiFormService.buildForm(personUri, panel.getEditFormUri());
     System.out.println(form);
   }
 }

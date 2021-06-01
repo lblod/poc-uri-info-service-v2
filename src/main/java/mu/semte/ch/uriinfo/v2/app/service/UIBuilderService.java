@@ -17,10 +17,7 @@ import mu.semte.ch.uriinfo.v2.app.dto.FrontendPanel;
 import mu.semte.ch.uriinfo.v2.app.dto.FrontendTable;
 import mu.semte.ch.uriinfo.v2.app.dto.FrontendTableRow;
 import mu.semte.ch.uriinfo.v2.app.dto.FrontendUI;
-import mu.semte.ch.uriinfo.v2.app.dto.form.FrontendForm;
-import mu.semte.ch.uriinfo.v2.app.dto.form.Input;
-import mu.semte.ch.uriinfo.v2.app.dto.form.InputText;
-import mu.semte.ch.uriinfo.v2.app.dto.form.InputType;
+import mu.semte.ch.uriinfo.v2.app.dto.RootSubjectType;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.jena.rdf.model.Literal;
 import org.apache.jena.rdf.model.Model;
@@ -48,11 +45,9 @@ import static mu.semte.ch.uriinfo.v2.app.FrontendVoc.P_EDIT_FORM;
 import static mu.semte.ch.uriinfo.v2.app.FrontendVoc.P_ELEMENTS;
 import static mu.semte.ch.uriinfo.v2.app.FrontendVoc.P_FIELDS;
 import static mu.semte.ch.uriinfo.v2.app.FrontendVoc.P_FIELD_TYPE;
-import static mu.semte.ch.uriinfo.v2.app.FrontendVoc.P_FORM_FIELDS;
 import static mu.semte.ch.uriinfo.v2.app.FrontendVoc.P_HAS_LINK;
 import static mu.semte.ch.uriinfo.v2.app.FrontendVoc.P_LABEL;
 import static mu.semte.ch.uriinfo.v2.app.FrontendVoc.P_ORDERING;
-import static mu.semte.ch.uriinfo.v2.app.FrontendVoc.P_PREDICATE;
 import static mu.semte.ch.uriinfo.v2.app.FrontendVoc.P_SEPARATOR;
 import static mu.semte.ch.uriinfo.v2.app.FrontendVoc.P_SOURCE;
 import static mu.semte.ch.uriinfo.v2.app.FrontendVoc.P_SUB_TITLE;
@@ -64,13 +59,15 @@ import static mu.semte.ch.uriinfo.v2.app.FrontendVoc.P_TITLE;
 public class UIBuilderService {
   private final InMemoryTripleStoreService inMemoryTripleStoreService;
   private final UriInfoService uriInfoService;
+  private final UtilService utilService;
   private final Slugify slugify;
 
   public UIBuilderService(InMemoryTripleStoreService inMemoryTripleStoreService,
                           UriInfoService uriInfoService,
-                          Slugify slugify) {
+                          UtilService utilService, Slugify slugify) {
     this.inMemoryTripleStoreService = inMemoryTripleStoreService;
     this.uriInfoService = uriInfoService;
+    this.utilService = utilService;
     this.slugify = slugify;
   }
 
@@ -89,48 +86,12 @@ public class UIBuilderService {
     return ui;
   }
 
-  public FrontendForm buildForm(String uri, String formUri) {
-    FrontendForm form = new FrontendForm();
-    String typeUri = uriInfoService.fetchType(uri);
-    Model metaModel = inMemoryTripleStoreService.getNamedModel(typeUri);
-    form.setTitle(this.buildTitle(metaModel, uri, typeUri, formUri, P_TITLE));
-    Property formPart = ResourceFactory.createProperty(formUri);
-    form.setOrdering(metaModel.getProperty(formPart, P_ORDERING).getInt());
-    form.setUri(uri);
-    var inputsProp = metaModel.getRequiredProperty(formPart, P_FORM_FIELDS);
-    var inputParts = metaModel.getList(inputsProp.getObject().asResource()).asJavaList();
-    form.setInputs(inputParts.stream()
-                             .map(RDFNode::asResource)
-                             .map(inputPart -> {
-                               Statement elementTypeStmt = metaModel.getRequiredProperty(inputPart, RDF.type);
-                               InputType inputType = InputType.evaluateType(elementTypeStmt.getResource());
-                               Input input = switch (inputType) {
-                                 case TEXT, DATE, NUMBER, TIME -> this.buildInput(metaModel, uri, typeUri, inputPart, inputType);
-                                 case SELECT, MULTI_SELECT -> null;
-                               };
-                               return input;
-                             }).collect(Collectors.toList()));
-    return form;
-  }
-
-  private Input buildInput(Model metaModel, String uri, String typeUri, Resource inputPart, InputType inputType) {
-    var ordering = metaModel.getProperty(inputPart, P_ORDERING).getInt();
-    var label = metaModel.getProperty(inputPart, P_LABEL).getString();
-    var predicate = metaModel.getProperty(inputPart, P_PREDICATE).getResource();
-    var fieldValue = this.queryForField(inputPart,metaModel, uri, typeUri);
-    return switch (inputType){
-      case TEXT -> InputText.builder().label(label).ordering(ordering)
-                            .metaUri(inputPart.getURI())
-                            .predicateUri(predicate.getURI()).value(fieldValue).build();
-      default -> null;
-    };
-  }
 
   protected FrontendPage buildPage(Model metaModel, String uri, String typeUri, String currentPageMetaUri) {
     FrontendPage page = new FrontendPage();
     page.setOrdering(metaModel.getProperty(ResourceFactory.createProperty(currentPageMetaUri), P_ORDERING).getInt());
-    page.setTitle(this.buildTitle(metaModel, uri, typeUri, currentPageMetaUri, P_TITLE));
-    page.setSubtitle(this.buildTitle(metaModel, uri, typeUri, currentPageMetaUri, P_SUB_TITLE));
+    page.setTitle(utilService.buildTitle(metaModel, uri, typeUri, currentPageMetaUri, P_TITLE));
+    page.setSubtitle(utilService.buildTitle(metaModel, uri, typeUri, currentPageMetaUri, P_SUB_TITLE));
     page.setContainers(this.buildContainers(metaModel, uri, typeUri, currentPageMetaUri));
     return page;
   }
@@ -143,7 +104,7 @@ public class UIBuilderService {
                          .map(RDFNode::asResource)
                          .map(containerPart -> {
                            FrontendContainer container = new FrontendContainer();
-                           container.setTitle(this.buildTitle(metaModel, uri, typeUri, containerPart.getURI(), P_TITLE));
+                           container.setTitle(this.utilService.buildTitle(metaModel, uri, typeUri, containerPart.getURI(), P_TITLE));
                            container.setOrdering(metaModel.getProperty(containerPart, P_ORDERING).getInt());
                            container.setElements(this.buildElements(metaModel, uri, typeUri, containerPart));
                            return container;
@@ -176,7 +137,7 @@ public class UIBuilderService {
     FrontendTable table = new FrontendTable();
     table.setOrdering(metaModel.getProperty(elementPart, P_ORDERING).getInt());
     table.setEditable(ofNullable(metaModel.getProperty(elementPart, P_EDITABLE)).map(Statement::getBoolean).orElse(false));
-    Optional<List<RootSubjectType>> rootSubjectTypes = fetchSource(metaModel, elementPart, uri, typeUri);
+    Optional<List<RootSubjectType>> rootSubjectTypes = utilService.fetchSource(metaModel, elementPart, uri, typeUri);
     var fieldsProp = metaModel.getRequiredProperty(elementPart, P_FIELDS);
     var fieldParts = metaModel.getList(fieldsProp.getObject().asResource()).asJavaList();
     table.setHeader(fieldParts.stream()
@@ -216,7 +177,7 @@ public class UIBuilderService {
                        // link
                        ofNullable(metaModel.getProperty(fieldPart, P_HAS_LINK))
                                .map(Statement::getResource)
-                               .flatMap(rs -> this.fetchSource(metaModel, rs, uri, typeUri))
+                               .flatMap(rs -> this.utilService.fetchSource(metaModel, rs, uri, typeUri))
                                .map(List::stream)
                                .flatMap(Stream::findFirst)
                                .ifPresent(rst -> field.setLink(rst.getSubject()));
@@ -224,57 +185,12 @@ public class UIBuilderService {
                        field.setType(FrontendField.FrontendFieldType.valueOf(metaModel.getProperty(fieldPart, P_FIELD_TYPE)
                                                                                       .getString()));
                        field.setLabel(metaModel.getProperty(fieldPart, P_LABEL).getString());
-                       field.setValue(this.queryForField(fieldPart, metaModel, uri, typeUri));
+                       field.setValue(this.utilService.queryForField(fieldPart, metaModel, uri, typeUri));
                        return field;
                      }).collect(Collectors.toList());
   }
 
 
-  protected String buildTitle(Model metaModel, String uri, String typeUri, String resourceUri, Property titleProperty) {
-    Property resourceProp = ResourceFactory.createProperty(resourceUri);
-    var title = metaModel.getRequiredProperty(resourceProp, titleProperty);
-    String separator = ofNullable(metaModel.getProperty(resourceProp, P_SEPARATOR)).map(Statement::getString).orElse(" ");
-    RDFList titleParts = metaModel.getList(title.getObject().asResource());
-    return titleParts.asJavaList().stream().map(titlePart -> {
-      if (titlePart.isLiteral()) {
-        return titlePart.asLiteral().getString();
-      }
-      Resource titleField = titlePart.asResource();
-      return this.queryForField(titleField, metaModel, uri, typeUri);
-    }).collect(Collectors.joining(separator));
-  }
-
-
-  private String queryForField(Resource fieldResource, Model metaModel, String uri, String typeUri) {
-    var rootSubject = uri;
-    var rootType = typeUri;
-
-    Statement fieldsProperty = metaModel.getRequiredProperty(fieldResource, P_FIELDS);
-    String separator = ofNullable(metaModel.getProperty(fieldResource, P_SEPARATOR)).map(Statement::getString).orElse(" ");
-    //multi level field
-    Optional<RootSubjectType> rootSubjectType = fetchSource(metaModel, fieldResource, rootSubject, rootType).flatMap(rsts -> rsts
-            .stream()
-            .findFirst());
-    if (rootSubjectType.isPresent()) {
-      RootSubjectType rst = rootSubjectType.get();
-      rootSubject = rst.getSubject();
-      rootType = rst.getType();
-    }
-    else {
-      return null;
-    }
-    //end multi level field
-
-    RDFList innerFields = metaModel.getList(fieldsProperty.getResource());
-    Map<String, String> variableQuery = innerFields.asJavaList().stream().map(RDFNode::asResource)
-                                                   .map(Resource::getURI)
-                                                   .map(iri -> Map.entry(SplitIRI.localname(iri), iri))
-                                                   .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (s, s2) -> s, LinkedHashMap::new));
-
-    var result = this.uriInfoService.dynamicQuery(rootSubject, rootType, variableQuery);
-
-    return result.stream().findFirst().map(m -> String.join(separator, m.values())).orElse(null);
-  }
 
 
   protected List<FrontendMenuLink> buildMenu(Model metaModel, String pageUri) {
@@ -304,57 +220,5 @@ public class UIBuilderService {
     RDFList list = metaModel.getList(pages.getObject().asResource());
     return list.asJavaList();
   }
-
-
-  private Optional<List<RootSubjectType>> fetchSource(Model metaModel,
-                                                      Resource resource,
-                                                      String rootSubject,
-                                                      String rootType) {
-    RootSubjectType rst = new RootSubjectType();
-    rst.subject = rootSubject;
-    rst.type = rootType;
-    Optional<Resource> sourceProperty = ofNullable(metaModel.getProperty(resource, P_SOURCE)).map(Statement::getResource);
-    if (sourceProperty.isPresent()) {
-      var sources = metaModel.getList(sourceProperty.get()).iterator();
-      while (sources.hasNext()) {
-        var source = sources.next().asResource();
-        List<Map<String, String>> result = this.uriInfoService.fetchSource(rst.subject, source.getURI(), rst.type);
-        if (result.isEmpty()) {
-          return Optional.empty();
-        }
-        if (result.size() > 1 && !sources.hasNext()) {
-          List<RootSubjectType> rsts = result.stream()
-                                             .map(res -> RootSubjectType.builder()
-                                                                        .subject(res.get("subject"))
-                                                                        .type(res.get("type"))
-                                                                        .build())
-                                             .collect(Collectors.toList());
-          return Optional.of(rsts);
-        }
-        else if (result.size() == 1) {
-          Map<String, String> res = result.get(0);
-          if (res.isEmpty() || StringUtils.isAnyEmpty(res.get("type"), res.get("subject"))) {
-            return Optional.empty();
-          }
-          rst.subject = res.get("subject");
-          rst.type = res.get("type");
-        }
-/*        else {
-          throw new RuntimeException("todo refactor"); //todo
-        }*/
-      }
-    }
-    return Optional.of(List.of(rst));
-  }
-
-
 }
 
-@Builder
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-class RootSubjectType {
-  String subject;
-  String type;
-}
