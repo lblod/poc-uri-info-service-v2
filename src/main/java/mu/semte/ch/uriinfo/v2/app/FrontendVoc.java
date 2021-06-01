@@ -22,6 +22,7 @@ public interface FrontendVoc {
   Property P_EDITABLE = ResourceFactory.createProperty("http://lblod.data.gift/vocabularies/frontend/editable");
   Property P_TYPE = ResourceFactory.createProperty("http://lblod.data.gift/vocabularies/frontend/type");
   Property P_EDIT_FORM = ResourceFactory.createProperty("http://lblod.data.gift/vocabularies/frontend/editForm");
+  Property P_FORM_FIELDS = ResourceFactory.createProperty("http://lblod.data.gift/vocabularies/frontend/formFields");
   Property P_ELEMENTS = ResourceFactory.createProperty("http://lblod.data.gift/vocabularies/frontend/elements");
   Property P_CONTAINERS = ResourceFactory.createProperty("http://lblod.data.gift/vocabularies/frontend/containers");
   @Deprecated Property P_DETAIL_PANEL = ResourceFactory.createProperty("http://lblod.data.gift/vocabularies/frontend/detailPanel");
@@ -29,6 +30,7 @@ public interface FrontendVoc {
 
   Resource C_FIELD = ResourceFactory.createResource("http://lblod.data.gift/vocabularies/frontend/Field");
   Resource C_FORM = ResourceFactory.createResource("http://lblod.data.gift/vocabularies/frontend/Form");
+  Resource C_TEXT = ResourceFactory.createResource("http://lblod.data.gift/vocabularies/frontend/Text");
   Resource C_LINK = ResourceFactory.createResource("http://lblod.data.gift/vocabularies/frontend/Link");
   Resource C_ELEMENT = ResourceFactory.createResource("http://lblod.data.gift/vocabularies/frontend/Element");
   Resource C_CONTAINER = ResourceFactory.createResource("http://lblod.data.gift/vocabularies/frontend/Container");

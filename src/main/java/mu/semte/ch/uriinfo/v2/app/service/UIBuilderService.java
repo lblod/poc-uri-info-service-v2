@@ -40,6 +40,7 @@ import java.util.stream.Stream;
 import static java.util.Optional.ofNullable;
 import static mu.semte.ch.uriinfo.v2.app.FrontendVoc.P_CONTAINERS;
 import static mu.semte.ch.uriinfo.v2.app.FrontendVoc.P_EDITABLE;
+import static mu.semte.ch.uriinfo.v2.app.FrontendVoc.P_EDIT_FORM;
 import static mu.semte.ch.uriinfo.v2.app.FrontendVoc.P_ELEMENTS;
 import static mu.semte.ch.uriinfo.v2.app.FrontendVoc.P_FIELDS;
 import static mu.semte.ch.uriinfo.v2.app.FrontendVoc.P_FIELD_TYPE;
@@ -149,6 +150,7 @@ public class UIBuilderService {
                                      Resource elementPart) {
     FrontendPanel panel = new FrontendPanel();
     panel.setOrdering(metaModel.getProperty(elementPart, P_ORDERING).getInt());
+    ofNullable(metaModel.getProperty(elementPart,P_EDIT_FORM)).map(Statement::getResource).map(Resource::getURI).ifPresent(panel::setEditFormUri);
     panel.setEditable(ofNullable(metaModel.getProperty(elementPart, P_EDITABLE)).map(Statement::getBoolean).orElse(false));
     var fieldsProp = metaModel.getRequiredProperty(elementPart, P_FIELDS);
     var fieldParts = metaModel.getList(fieldsProp.getObject().asResource()).asJavaList();

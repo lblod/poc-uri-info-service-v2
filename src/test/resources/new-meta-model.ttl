@@ -64,14 +64,18 @@ ext:personlijke_gegevens_element_form
 
 ext:familyName_form
   a                  frontend:Input ;
+  frontend:ordering  "0"^^xsd:integer ;
   frontend:inputType frontend:Text ;
   frontend:label     "Achternaam" ;
+  frontend:fields    ( foaf:familyName ) ;
   frontend:predicate foaf:familyName .
 
 ext:givenName_form
   a                  frontend:Input ;
+  frontend:ordering  "1"^^xsd:integer ;
   frontend:inputType frontend:Text ;
   frontend:label     "Voornaam" ;
+  frontend:fields    ( foaf:givenName ) ;
   frontend:predicate foaf:givenName .
 
 ext:voornaam
@@ -87,7 +91,6 @@ ext:achternaam
   frontend:fieldType "STRING" ;
   frontend:fields    ( foaf:familyName ) ;
   frontend:label     "Achternaam" .
-
 
 
 # second panel
