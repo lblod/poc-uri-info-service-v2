@@ -13,6 +13,7 @@ import java.util.List;
 @Data
 public class FrontendForm {
   private String uri;
+  private int ordering;
   private String title;
   private List<Input> inputs;
 }

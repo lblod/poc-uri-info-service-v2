@@ -5,7 +5,10 @@ import lombok.extern.slf4j.Slf4j;
 import mu.semte.ch.lib.utils.ModelUtils;
 import mu.semte.ch.uriinfo.v2.app.FrontendVoc;
 import mu.semte.ch.uriinfo.v2.app.dto.FrontendMenuLink;
+import mu.semte.ch.uriinfo.v2.app.dto.FrontendPanel;
 import mu.semte.ch.uriinfo.v2.app.dto.FrontendUI;
+import mu.semte.ch.uriinfo.v2.app.dto.form.FrontendForm;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.Statement;
 import org.apache.jena.riot.Lang;
@@ -102,5 +105,20 @@ class UIBuilderServiceTest {
   @Test
   void buildTitle() {
 
+  }
+
+  @Test
+  void buildForm() {
+    String personUri = "http://data.lblod.info/id/persoon/5b18df411cbb975f6b57853018306250";
+    FrontendUI ui = this.uiBuilderService.build(personUri, null);
+    FrontendPanel panel = ui.getPage().getContainers().stream().flatMap(c -> c.getElements().stream())
+                            .filter(e -> e instanceof FrontendPanel)
+                            .map(e -> (FrontendPanel) e)
+                            .filter(p-> StringUtils.isNotEmpty(p.getEditFormUri()))
+                            .findFirst()
+                            .orElseThrow(() -> new RuntimeException("no form found"));
+
+    FrontendForm form = this.uiBuilderService.buildForm(personUri, panel.getEditFormUri());
+    System.out.println(form);
   }
 }

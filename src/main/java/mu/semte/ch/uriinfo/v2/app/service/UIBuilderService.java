@@ -17,6 +17,10 @@ import mu.semte.ch.uriinfo.v2.app.dto.FrontendPanel;
 import mu.semte.ch.uriinfo.v2.app.dto.FrontendTable;
 import mu.semte.ch.uriinfo.v2.app.dto.FrontendTableRow;
 import mu.semte.ch.uriinfo.v2.app.dto.FrontendUI;
+import mu.semte.ch.uriinfo.v2.app.dto.form.FrontendForm;
+import mu.semte.ch.uriinfo.v2.app.dto.form.Input;
+import mu.semte.ch.uriinfo.v2.app.dto.form.InputText;
+import mu.semte.ch.uriinfo.v2.app.dto.form.InputType;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.jena.rdf.model.Literal;
 import org.apache.jena.rdf.model.Model;
@@ -44,9 +48,11 @@ import static mu.semte.ch.uriinfo.v2.app.FrontendVoc.P_EDIT_FORM;
 import static mu.semte.ch.uriinfo.v2.app.FrontendVoc.P_ELEMENTS;
 import static mu.semte.ch.uriinfo.v2.app.FrontendVoc.P_FIELDS;
 import static mu.semte.ch.uriinfo.v2.app.FrontendVoc.P_FIELD_TYPE;
+import static mu.semte.ch.uriinfo.v2.app.FrontendVoc.P_FORM_FIELDS;
 import static mu.semte.ch.uriinfo.v2.app.FrontendVoc.P_HAS_LINK;
 import static mu.semte.ch.uriinfo.v2.app.FrontendVoc.P_LABEL;
 import static mu.semte.ch.uriinfo.v2.app.FrontendVoc.P_ORDERING;
+import static mu.semte.ch.uriinfo.v2.app.FrontendVoc.P_PREDICATE;
 import static mu.semte.ch.uriinfo.v2.app.FrontendVoc.P_SEPARATOR;
 import static mu.semte.ch.uriinfo.v2.app.FrontendVoc.P_SOURCE;
 import static mu.semte.ch.uriinfo.v2.app.FrontendVoc.P_SUB_TITLE;
@@ -81,6 +87,41 @@ public class UIBuilderService {
                                                          .findFirst()
                                                          .orElseThrow()));
     return ui;
+  }
+
+  public FrontendForm buildForm(String uri, String formUri) {
+    FrontendForm form = new FrontendForm();
+    String typeUri = uriInfoService.fetchType(uri);
+    Model metaModel = inMemoryTripleStoreService.getNamedModel(typeUri);
+    form.setTitle(this.buildTitle(metaModel, uri, typeUri, formUri, P_TITLE));
+    Property formPart = ResourceFactory.createProperty(formUri);
+    form.setOrdering(metaModel.getProperty(formPart, P_ORDERING).getInt());
+    form.setUri(uri);
+    var inputsProp = metaModel.getRequiredProperty(formPart, P_FORM_FIELDS);
+    var inputParts = metaModel.getList(inputsProp.getObject().asResource()).asJavaList();
+    form.setInputs(inputParts.stream()
+                             .map(RDFNode::asResource)
+                             .map(inputPart -> {
+                               Statement elementTypeStmt = metaModel.getRequiredProperty(inputPart, RDF.type);
+                               InputType inputType = InputType.evaluateType(elementTypeStmt.getResource());
+                               Input input = switch (inputType) {
+                                 case TEXT, DATE, NUMBER, TIME -> this.buildInput(metaModel, uri, typeUri, inputPart, inputType);
+                                 case SELECT, MULTI_SELECT -> null;
+                               };
+                               return input;
+                             }).collect(Collectors.toList()));
+    return form;
+  }
+
+  private Input buildInput(Model metaModel, String uri, String typeUri, Resource inputPart, InputType inputType) {
+    var ordering = metaModel.getProperty(inputPart, P_ORDERING).getInt();
+    var label = metaModel.getProperty(inputPart, P_LABEL).getString();
+    var predicate = metaModel.getProperty(inputPart, P_PREDICATE).getResource();
+    var fieldValue = this.queryForField(inputPart,metaModel, uri, typeUri);
+    return switch (inputType){
+      case TEXT -> InputText.builder().label(label).ordering(ordering).predicateUri(predicate.getURI()).value(fieldValue).build();
+      default -> null;
+    };
   }
 
   protected FrontendPage buildPage(Model metaModel, String uri, String typeUri, String currentPageMetaUri) {
@@ -136,8 +177,12 @@ public class UIBuilderService {
     Optional<List<RootSubjectType>> rootSubjectTypes = fetchSource(metaModel, elementPart, uri, typeUri);
     var fieldsProp = metaModel.getRequiredProperty(elementPart, P_FIELDS);
     var fieldParts = metaModel.getList(fieldsProp.getObject().asResource()).asJavaList();
-    table.setHeader(fieldParts.stream().map(fp -> metaModel.getProperty(fp.asResource(), P_LABEL).getString()).collect(Collectors.toList()));
-    table.setRows(rootSubjectTypes.stream().flatMap(List::stream).map(rst -> this.buildFields(metaModel, rst.getSubject(), rst.getType(), fieldParts))
+    table.setHeader(fieldParts.stream()
+                              .map(fp -> metaModel.getProperty(fp.asResource(), P_LABEL).getString())
+                              .collect(Collectors.toList()));
+    table.setRows(rootSubjectTypes.stream()
+                                  .flatMap(List::stream)
+                                  .map(rst -> this.buildFields(metaModel, rst.getSubject(), rst.getType(), fieldParts))
                                   .map(FrontendTableRow::new)
                                   .collect(Collectors.toList()));
 
@@ -150,7 +195,9 @@ public class UIBuilderService {
                                      Resource elementPart) {
     FrontendPanel panel = new FrontendPanel();
     panel.setOrdering(metaModel.getProperty(elementPart, P_ORDERING).getInt());
-    ofNullable(metaModel.getProperty(elementPart,P_EDIT_FORM)).map(Statement::getResource).map(Resource::getURI).ifPresent(panel::setEditFormUri);
+    ofNullable(metaModel.getProperty(elementPart, P_EDIT_FORM)).map(Statement::getResource)
+                                                               .map(Resource::getURI)
+                                                               .ifPresent(panel::setEditFormUri);
     panel.setEditable(ofNullable(metaModel.getProperty(elementPart, P_EDITABLE)).map(Statement::getBoolean).orElse(false));
     var fieldsProp = metaModel.getRequiredProperty(elementPart, P_FIELDS);
     var fieldParts = metaModel.getList(fieldsProp.getObject().asResource()).asJavaList();
@@ -158,7 +205,7 @@ public class UIBuilderService {
     return panel;
   }
 
-  private List<FrontendField> buildFields(Model metaModel, String uri, String typeUri, List<RDFNode> fieldParts){
+  private List<FrontendField> buildFields(Model metaModel, String uri, String typeUri, List<RDFNode> fieldParts) {
     return fieldParts.stream()
                      .map(RDFNode::asResource)
                      .map(fieldPart -> {
@@ -203,7 +250,9 @@ public class UIBuilderService {
     Statement fieldsProperty = metaModel.getRequiredProperty(fieldResource, P_FIELDS);
     String separator = ofNullable(metaModel.getProperty(fieldResource, P_SEPARATOR)).map(Statement::getString).orElse(" ");
     //multi level field
-    Optional<RootSubjectType> rootSubjectType = fetchSource(metaModel, fieldResource, rootSubject, rootType).flatMap(rsts-> rsts.stream().findFirst());
+    Optional<RootSubjectType> rootSubjectType = fetchSource(metaModel, fieldResource, rootSubject, rootType).flatMap(rsts -> rsts
+            .stream()
+            .findFirst());
     if (rootSubjectType.isPresent()) {
       RootSubjectType rst = rootSubjectType.get();
       rootSubject = rst.getSubject();
@@ -273,11 +322,11 @@ public class UIBuilderService {
         }
         if (result.size() > 1 && !sources.hasNext()) {
           List<RootSubjectType> rsts = result.stream()
-                                                .map(res -> RootSubjectType.builder()
-                                                                           .subject(res.get("subject"))
-                                                                           .type(res.get("type"))
-                                                                           .build())
-                                                .collect(Collectors.toList());
+                                             .map(res -> RootSubjectType.builder()
+                                                                        .subject(res.get("subject"))
+                                                                        .type(res.get("type"))
+                                                                        .build())
+                                             .collect(Collectors.toList());
           return Optional.of(rsts);
         }
         else if (result.size() == 1) {
@@ -303,7 +352,7 @@ public class UIBuilderService {
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
- class RootSubjectType {
- String subject;
- String type;
+class RootSubjectType {
+  String subject;
+  String type;
 }
