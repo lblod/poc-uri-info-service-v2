@@ -86,6 +86,15 @@ defmodule Dispatcher do
         } do
     forward conn, path, "http://uri-info-service-v2/page"
   end
+  match "/form/*path",
+        %{
+          layer: :api_services,
+          accept: %{
+            json: true
+          }
+        } do
+    forward conn, path, "http://uri-info-service-v2/form"
+  end
   match "/update/*path",
         %{
           layer: :api_services,
