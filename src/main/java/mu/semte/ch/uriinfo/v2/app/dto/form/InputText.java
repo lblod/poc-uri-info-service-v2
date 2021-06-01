@@ -14,6 +14,7 @@ public class InputText implements Input{
   private String label;
   private String predicateUri;
   private String value;
+  private String metaUri;
 
   @Override
   public InputType getType() {

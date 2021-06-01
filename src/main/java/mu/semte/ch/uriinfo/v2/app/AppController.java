@@ -18,22 +18,6 @@ public class AppController {
     this.uiBuilderService = uiBuilderService;
   }
 
-  /*   @GetMapping(value = "/model",
-             produces = CONTENT_TYPE_JSON_LD)
-     public ResponseEntity<String> model(@RequestParam("uri") String uri) {
-         return ResponseEntity.badRequest().build();
-     }
-
-     @GetMapping(value = "/meta",
-             produces = CONTENT_TYPE_JSON_LD)
-     public ResponseEntity<String> metaModel(@RequestParam("uri") String uri) {
-         return ResponseEntity.badRequest().build();
-     }
-
-     @GetMapping("/page")
-     public ResponseEntity<FrontendUI> page(@RequestParam("uri") String uri) {
-         return ResponseEntity.badRequest().build();
-     }*/
   @GetMapping("/page")
   public ResponseEntity<FrontendUI> page(@RequestParam(value = "uri") String uri,
                                          @RequestParam(value = "page",

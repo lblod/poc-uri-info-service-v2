@@ -119,7 +119,9 @@ public class UIBuilderService {
     var predicate = metaModel.getProperty(inputPart, P_PREDICATE).getResource();
     var fieldValue = this.queryForField(inputPart,metaModel, uri, typeUri);
     return switch (inputType){
-      case TEXT -> InputText.builder().label(label).ordering(ordering).predicateUri(predicate.getURI()).value(fieldValue).build();
+      case TEXT -> InputText.builder().label(label).ordering(ordering)
+                            .metaUri(inputPart.getURI())
+                            .predicateUri(predicate.getURI()).value(fieldValue).build();
       default -> null;
     };
   }
