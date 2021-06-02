@@ -7,6 +7,7 @@ import com.taxonic.carml.engine.RmlMapper;
 import com.taxonic.carml.logical_source_resolver.JsonPathResolver;
 import com.taxonic.carml.util.RmlMappingLoader;
 import com.taxonic.carml.vocab.Rdf;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import mu.semte.ch.lib.utils.ModelUtils;
 import mu.semte.ch.lib.utils.SparqlClient;
@@ -48,7 +49,8 @@ public class FormService {
     this.queryStore = queryStore;
   }
 
-  public String persist(FrontendFormRequest request) throws JsonProcessingException {
+  @SneakyThrows
+  public String persist(FrontendFormRequest request) {
     ObjectNode skeleton = request.getSkeleton();
     String source = new ObjectMapper().writeValueAsString(skeleton);
     log.info(source);
