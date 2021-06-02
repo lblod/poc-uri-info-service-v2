@@ -1,7 +1,9 @@
 package mu.semte.ch.uriinfo.v2.app.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import lombok.extern.slf4j.Slf4j;
 import mu.semte.ch.lib.utils.ModelUtils;
 import mu.semte.ch.uriinfo.v2.app.FrontendVoc;
@@ -122,6 +124,8 @@ class UIBuilderServiceTest {
                             .orElseThrow(() -> new RuntimeException("no form found"));
 
     FrontendForm form = this.uiFormService.buildForm(personUri, panel.getEditFormUri());
+    var contactPoint = (ObjectNode)form.getSkeleton().get("contactPoint");
+    contactPoint.put("email", "xxx@tt.com");
     String resp = mapper.writeValueAsString(FrontendFormRequest.builder().formUri(form.getFormUri()).uri(form.getUri()).typeUri(form.getTypeUri()).skeleton(form.getSkeleton()).build());
     log.warn(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(form));
     log.info("yata");

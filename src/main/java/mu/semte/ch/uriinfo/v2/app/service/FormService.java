@@ -73,11 +73,13 @@ public class FormService {
     log.info(writer.toString());
 
     Model model = ModelUtils.toModel(writer.toString(), "TTL");
-    var triples = model.listStatements().toList().stream()
+     model.listStatements().toList().stream()
          .map(stmt -> Triple.builder().subject(stmt.getSubject().getURI()).predicate(stmt.getPredicate().getURI()).build())
-         .collect(Collectors.toList());
-    String queryWithParameters = queryStore.getQueryWithParameters("deleteTriples", Map.of("graph", defaultGraphUri,"triples", triples));
-    sparqlClient.executeUpdateQuery(queryWithParameters);
+
+         .forEach(triple ->{
+           String queryWithParameters = queryStore.getQueryWithParameters("deleteTriples", Map.of("graph", defaultGraphUri,"triple", triple));
+           sparqlClient.executeUpdateQuery(queryWithParameters);
+         });
 
     sparqlClient.insertModel(defaultGraphUri, model);
   }
