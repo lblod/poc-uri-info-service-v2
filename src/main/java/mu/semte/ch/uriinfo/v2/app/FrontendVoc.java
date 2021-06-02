@@ -7,6 +7,7 @@ import org.apache.jena.rdf.model.ResourceFactory;
 public interface FrontendVoc {
   Property P_PAGES = ResourceFactory.createProperty("http://lblod.data.gift/vocabularies/frontend/pages");
   Property P_PREDICATE = ResourceFactory.createProperty("http://lblod.data.gift/vocabularies/frontend/predicate");
+  Property P_RML = ResourceFactory.createProperty("http://lblod.data.gift/vocabularies/frontend/rml");
   Property P_MAIN_PAGE = ResourceFactory.createProperty("http://lblod.data.gift/vocabularies/frontend/mainPage");
   Property P_HAS_LINK = ResourceFactory.createProperty("http://lblod.data.gift/vocabularies/frontend/hasLink");
   Property P_SOURCE = ResourceFactory.createProperty("http://lblod.data.gift/vocabularies/frontend/source");

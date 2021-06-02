@@ -130,4 +130,15 @@ public class UtilService {
   }
 
 
+
+  //todo add to mu-java
+  public static void extractFromModel(Resource subject, Model model, Model newModel){
+    Model m = model.listStatements(subject, null, (RDFNode) null).toModel();
+    newModel.add(m);
+    m.listStatements().toList().stream()
+     .filter(statement -> statement.getObject().isResource())
+     .map(statement -> statement.getObject().asResource())
+     .forEach(s-> extractFromModel(s, model, newModel));
+  }
+
 }

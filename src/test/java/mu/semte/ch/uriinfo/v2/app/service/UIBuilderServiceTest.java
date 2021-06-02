@@ -9,6 +9,7 @@ import mu.semte.ch.uriinfo.v2.app.dto.FrontendMenuLink;
 import mu.semte.ch.uriinfo.v2.app.dto.FrontendPanel;
 import mu.semte.ch.uriinfo.v2.app.dto.FrontendUI;
 import mu.semte.ch.uriinfo.v2.app.dto.form.FrontendForm;
+import mu.semte.ch.uriinfo.v2.app.dto.form.FrontendFormRequest;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.Statement;
@@ -36,6 +37,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class UIBuilderServiceTest {
   @Autowired
   private InMemoryTripleStoreService inMemoryTripleStoreService;
+  @Autowired
+  private FormService formService;
 
   @Autowired
   private UIBuilderService uiBuilderService;
@@ -108,6 +111,7 @@ class UIBuilderServiceTest {
 
   @Test
   void buildForm() throws JsonProcessingException {
+    var mapper = new ObjectMapper();
     String personUri = "http://data.lblod.info/id/persoon/5b18df411cbb975f6b57853018306250";
     FrontendUI ui = this.uiBuilderService.build(personUri, null);
     FrontendPanel panel = ui.getPage().getContainers().stream().flatMap(c -> c.getElements().stream())
@@ -118,7 +122,10 @@ class UIBuilderServiceTest {
                             .orElseThrow(() -> new RuntimeException("no form found"));
 
     FrontendForm form = this.uiFormService.buildForm(personUri, panel.getEditFormUri());
-    log.warn(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(form));
+    String resp = mapper.writeValueAsString(FrontendFormRequest.builder().formUri(form.getFormUri()).uri(form.getUri()).typeUri(form.getTypeUri()).skeleton(form.getSkeleton()).build());
+    log.warn(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(form));
+    log.info("yata");
+    formService.persist(mapper.readValue(resp, FrontendFormRequest.class));
 
   }
 }

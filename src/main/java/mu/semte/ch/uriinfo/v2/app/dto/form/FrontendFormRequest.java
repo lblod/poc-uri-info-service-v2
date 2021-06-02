@@ -12,12 +12,9 @@ import java.util.List;
 @AllArgsConstructor
 @Builder(toBuilder = true)
 @Data
-public class FrontendForm {
+public class FrontendFormRequest {
   private String uri;
   private String formUri;
   private String typeUri;
-  private int ordering;
-  private String title;
-  private List<Input> inputs;
   private ObjectNode skeleton;
 }

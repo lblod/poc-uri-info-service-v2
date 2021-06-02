@@ -18,6 +18,11 @@
 @prefix organisatie: <https://data.vlaanderen.be/ns/organisatie#> .
 @prefix xsd:         <http://www.w3.org/2001/XMLSchema#> .
 @prefix lblod:         <http://data.lblod.info/id/> .
+@prefix rr:          <http://www.w3.org/ns/r2rml#>.
+@prefix rml:         <http://semweb.mmlab.be/ns/rml#>.
+@prefix ql:          <http://semweb.mmlab.be/ns/ql#> .
+@prefix carml:       <http://carml.taxonic.com/carml/> .
+@prefix :            <http://www.example.com/mapping/> .
 
 # ui definition
 ext:ui_person
@@ -75,6 +80,7 @@ ext:personlijke_gegevens_element_form
   a                   frontend:Form ;
   frontend:ordering "0"^^xsd:integer ;
   frontend:title      ( "Persoonlijke gegevens" ) ;
+  frontend:rml :person,:mandataris,:contactPoint;
   frontend:formFields ( ext:familyName_form ext:givenName_form ext:email1_form) .
 
 ext:familyName_form
@@ -102,7 +108,50 @@ ext:email1_form
   frontend:fields    ( schema:email  ) ;
   frontend:predicate schema:email  .
 
-#owl
+#rml
+:person
+  a                     rr:TriplesMap ;
+  rml:logicalSource     [ rml:source               [ a                carml:Stream ;
+                                                     carml:streamName "input" ; ] ;
+                          rml:referenceFormulation ql:JSONPath ;
+                          rml:iterator             "$" ] ;
+  rr:subjectMap         [ rr:template "http://data.lblod.info/id/persoon/{person.id}" ;
+                          rr:class    person:Person ] ;
+  rr:predicateObjectMap [ rr:predicate mandaat:isAangesteldAls ;
+                          rr:objectMap [ rr:parentTriplesMap :mandataris ] ] ;
+  rr:predicateObjectMap [ rr:predicate foaf:familyName ;
+                          rr:objectMap [ rml:reference "person.familyName" ] ] ;
+  rr:predicateObjectMap [ rr:predicate mu:uuid ;
+                          rr:objectMap [ rml:reference "person.id" ] ] ;
+  rr:predicateObjectMap [ rr:predicate foaf:givenName ;
+                          rr:objectMap [ rml:reference "person.givenName" ] ] .
+:mandataris
+  a                     rr:TriplesMap ;
+  rml:logicalSource     [ rml:source               [ a                carml:Stream ;
+                                                     carml:streamName "input" ; ] ;
+                          rml:referenceFormulation ql:JSONPath ;
+                          rml:iterator             "$" ] ;
+  rr:subjectMap         [ rr:template "http://data.lblod.info/id/mandataris/{isAangesteldAls.id}" ;
+                          rr:class    mandaat:EredienstMandataris ] ;
+  rr:predicateObjectMap [ rr:predicate mandaat:isBestuurlijkeAliasVan ;
+                          rr:objectMap [ rr:template "http://data.lblod.info/id/persoon/{person.id}" ] ] ;
+  rr:predicateObjectMap [ rr:predicate mu:uuid ;
+                          rr:objectMap [ rml:reference "isAangesteldAls.id" ] ] ;
+  rr:predicateObjectMap [ rr:predicate schema:contactPoint ;
+                          rr:objectMap [ rr:parentTriplesMap :contactPoint ] ] .
+
+:contactPoint
+  a                     rr:TriplesMap ;
+  rml:logicalSource     [ rml:source               [ a                carml:Stream ;
+                                                     carml:streamName "input" ; ] ;
+                          rml:referenceFormulation ql:JSONPath ;
+                          rml:iterator             "$" ] ;
+  rr:subjectMap         [ rr:template "http://data.lblod.info/id/contactpunt/{contactPoint.id}" ;
+                          rr:class    schema:ContactPoint ] ;
+  rr:predicateObjectMap [ rr:predicate mu:uuid ;
+                          rr:objectMap [ rml:reference "contactPoint.id" ] ] ;
+  rr:predicateObjectMap [ rr:predicate schema:email ;
+                          rr:objectMap [ rml:reference "contactPoint.email" ] ] .
 
 
 

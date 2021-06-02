@@ -54,7 +54,9 @@ public class UIFormService {
     form.setTitle(this.utilService.buildTitle(metaModel, uri, typeUri, formUri, P_TITLE));
     Property formPart = ResourceFactory.createProperty(formUri);
     form.setOrdering(metaModel.getProperty(formPart, P_ORDERING).getInt());
+    form.setFormUri(formUri);
     form.setUri(uri);
+    form.setTypeUri(typeUri);
 
     var mapper = new ObjectMapper();
     ObjectNode skeleton = mapper.createObjectNode();
@@ -99,7 +101,7 @@ public class UIFormService {
     Optional<Resource> sourceProperty = ofNullable(metaModel.getProperty(inputPart, P_SOURCE)).map(Statement::getResource);
 
     if(sourceProperty.isPresent()){
-      var sources =metaModel.getList(sourceProperty.get());
+      var sources = metaModel.getList(sourceProperty.get());
       List<RDFNode> list = sources.asJavaList();
       var subject = uri;
       var type = typeUri;
