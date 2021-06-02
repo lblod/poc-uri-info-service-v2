@@ -9,24 +9,24 @@ import com.taxonic.carml.util.RmlMappingLoader;
 import com.taxonic.carml.vocab.Rdf;
 import lombok.extern.slf4j.Slf4j;
 import mu.semte.ch.lib.utils.ModelUtils;
-import mu.semte.ch.uriinfo.v2.app.FrontendVoc;
-import mu.semte.ch.uriinfo.v2.app.dto.form.FrontendForm;
+import mu.semte.ch.lib.utils.SparqlClient;
+import mu.semte.ch.lib.utils.SparqlQueryStore;
 import mu.semte.ch.uriinfo.v2.app.dto.form.FrontendFormRequest;
+import mu.semte.ch.uriinfo.v2.app.dto.form.Triple;
 import org.apache.commons.io.IOUtils;
-import org.apache.jena.rdf.model.ModelExtract;
+import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.ModelFactory;
-import org.apache.jena.rdf.model.RDFNode;
 import org.apache.jena.rdf.model.ResourceFactory;
-import org.apache.jena.rdf.model.Selector;
-import org.apache.jena.rdf.model.impl.SelectorImpl;
 import org.apache.jena.riot.Lang;
-import org.apache.jena.vocabulary.RDF;
 import org.eclipse.rdf4j.rio.RDFFormat;
 import org.eclipse.rdf4j.rio.Rio;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.StringWriter;
 import java.nio.charset.StandardCharsets;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import static mu.semte.ch.uriinfo.v2.app.FrontendVoc.P_RML;
 
@@ -34,9 +34,17 @@ import static mu.semte.ch.uriinfo.v2.app.FrontendVoc.P_RML;
 @Slf4j
 public class FormService {
   private final InMemoryTripleStoreService inMemoryTripleStoreService;
+  private final SparqlClient sparqlClient;
+  private final SparqlQueryStore queryStore;
 
-  public FormService(InMemoryTripleStoreService inMemoryTripleStoreService) {
+  @Value("${sparql.defaultGraphUri}")
+  private String defaultGraphUri;
+  public FormService(InMemoryTripleStoreService inMemoryTripleStoreService,
+                     SparqlClient sparqlClient,
+                     SparqlQueryStore queryStore) {
     this.inMemoryTripleStoreService = inMemoryTripleStoreService;
+    this.sparqlClient = sparqlClient;
+    this.queryStore = queryStore;
   }
 
   public void persist(FrontendFormRequest request) throws JsonProcessingException {
@@ -63,6 +71,15 @@ public class FormService {
     StringWriter writer = new StringWriter();
     Rio.write(result, writer, RDFFormat.TURTLE);
     log.info(writer.toString());
+
+    Model model = ModelUtils.toModel(writer.toString(), "TTL");
+    var triples = model.listStatements().toList().stream()
+         .map(stmt -> Triple.builder().subject(stmt.getSubject().getURI()).predicate(stmt.getPredicate().getURI()).build())
+         .collect(Collectors.toList());
+    String queryWithParameters = queryStore.getQueryWithParameters("deleteTriples", Map.of("graph", defaultGraphUri,"triples", triples));
+    sparqlClient.executeUpdateQuery(queryWithParameters);
+
+    sparqlClient.insertModel(defaultGraphUri, model);
   }
 
 

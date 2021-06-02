@@ -1,0 +1,16 @@
+DELETE {
+  GRAPH <${graph}> {
+  <#list triples as triple>
+   <${triple.subject}> <${triple.predicate}> ?o.
+  </#list>
+  }
+}
+WHERE  {
+    GRAPH <${graph}> {
+
+  <#list triples as triple>
+      <${triple.subject}> <${triple.predicate}> ?o.
+  </#list>
+    }
+
+}
