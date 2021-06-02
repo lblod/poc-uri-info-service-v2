@@ -27,7 +27,6 @@ import org.springframework.stereotype.Service;
 
 import java.io.StringWriter;
 import java.nio.charset.StandardCharsets;
-import java.util.stream.Collectors;
 
 import static mu.semte.ch.uriinfo.v2.app.FrontendVoc.P_RML;
 
