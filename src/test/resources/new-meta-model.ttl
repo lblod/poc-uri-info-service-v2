@@ -54,7 +54,7 @@ ext:personlijke_gegevens_element
   frontend:ordering "0"^^xsd:integer ;
   frontend:editable "true"^^xsd:boolean ;
   frontend:editForm ext:personlijke_gegevens_element_form ;
-  frontend:fields   ( ext:voornaam ext:achternaam ) .
+  frontend:fields   ( ext:voornaam ext:achternaam ext:email1  ) .
 
 ext:voornaam
   a                  frontend:Field ;
@@ -75,7 +75,7 @@ ext:personlijke_gegevens_element_form
   a                   frontend:Form ;
   frontend:ordering "0"^^xsd:integer ;
   frontend:title      ( "Persoonlijke gegevens" ) ;
-  frontend:formFields ( ext:familyName_form ext:givenName_form ) .
+  frontend:formFields ( ext:familyName_form ext:givenName_form ext:email1_form) .
 
 ext:familyName_form
   a                  frontend:InputText ;
@@ -91,6 +91,38 @@ ext:givenName_form
   frontend:label     "Voornaam" ;
   frontend:fields    ( foaf:givenName ) ;
   frontend:predicate foaf:givenName .
+
+
+ext:email1_form
+  a                  frontend:InputText ;
+  frontend:ordering  "2"^^xsd:integer ;
+  frontend:inputType frontend:Text ;
+  frontend:label     "Email" ;
+  frontend:source    ( mandaat:isAangesteldAls schema:contactPoint ) ;
+  frontend:fields    ( schema:email  ) ;
+  frontend:predicate schema:email  .
+
+#owl
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 # second panel
 ext:contact_gegevens_organisatie_container

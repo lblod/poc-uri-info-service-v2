@@ -1,5 +1,6 @@
 package mu.semte.ch.uriinfo.v2.app.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import mu.semte.ch.lib.utils.ModelUtils;
@@ -104,13 +105,9 @@ class UIBuilderServiceTest {
     log.warn(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(ui));
   }
 
-  @Test
-  void buildTitle() {
-
-  }
 
   @Test
-  void buildForm() {
+  void buildForm() throws JsonProcessingException {
     String personUri = "http://data.lblod.info/id/persoon/5b18df411cbb975f6b57853018306250";
     FrontendUI ui = this.uiBuilderService.build(personUri, null);
     FrontendPanel panel = ui.getPage().getContainers().stream().flatMap(c -> c.getElements().stream())
@@ -121,6 +118,7 @@ class UIBuilderServiceTest {
                             .orElseThrow(() -> new RuntimeException("no form found"));
 
     FrontendForm form = this.uiFormService.buildForm(personUri, panel.getEditFormUri());
-    System.out.println(form);
+    log.warn(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(form));
+
   }
 }

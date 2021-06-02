@@ -48,8 +48,6 @@ import static mu.semte.ch.uriinfo.v2.app.FrontendVoc.P_FIELD_TYPE;
 import static mu.semte.ch.uriinfo.v2.app.FrontendVoc.P_HAS_LINK;
 import static mu.semte.ch.uriinfo.v2.app.FrontendVoc.P_LABEL;
 import static mu.semte.ch.uriinfo.v2.app.FrontendVoc.P_ORDERING;
-import static mu.semte.ch.uriinfo.v2.app.FrontendVoc.P_SEPARATOR;
-import static mu.semte.ch.uriinfo.v2.app.FrontendVoc.P_SOURCE;
 import static mu.semte.ch.uriinfo.v2.app.FrontendVoc.P_SUB_TITLE;
 import static mu.semte.ch.uriinfo.v2.app.FrontendVoc.P_TITLE;
 

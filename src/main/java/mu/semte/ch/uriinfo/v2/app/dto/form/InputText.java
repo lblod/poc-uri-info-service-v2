@@ -12,9 +12,9 @@ import lombok.NoArgsConstructor;
 public class InputText implements Input{
   private int ordering;
   private String label;
-  private String predicateUri;
   private String value;
-  private String metaUri;
+  private String predicateLocalName;
+  private String skeletonRef;
 
   @Override
   public InputType getType() {
