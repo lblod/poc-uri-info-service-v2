@@ -1,6 +1,7 @@
 package mu.semte.ch.uriinfo.v2.app.dto;
 
 public interface FrontendElement extends Comparable<FrontendElement> {
+  String getElementUri();
   ElementType getType();
 
   int getOrdering();

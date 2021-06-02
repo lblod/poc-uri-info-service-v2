@@ -16,6 +16,7 @@ import mu.semte.ch.uriinfo.v2.app.dto.form.Triple;
 import org.apache.commons.io.IOUtils;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.ModelFactory;
+import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.rdf.model.ResourceFactory;
 import org.apache.jena.riot.Lang;
 import org.eclipse.rdf4j.rio.RDFFormat;
@@ -26,8 +27,8 @@ import org.springframework.stereotype.Service;
 import java.io.StringWriter;
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
-import java.util.stream.Collectors;
 
+import static mu.semte.ch.uriinfo.v2.app.FrontendVoc.P_EDIT_FORM;
 import static mu.semte.ch.uriinfo.v2.app.FrontendVoc.P_RML;
 
 @Service
@@ -47,7 +48,7 @@ public class FormService {
     this.queryStore = queryStore;
   }
 
-  public void persist(FrontendFormRequest request) throws JsonProcessingException {
+  public String persist(FrontendFormRequest request) throws JsonProcessingException {
     ObjectNode skeleton = request.getSkeleton();
     String source = new ObjectMapper().writeValueAsString(skeleton);
     log.info(source);
@@ -75,13 +76,16 @@ public class FormService {
     Model model = ModelUtils.toModel(writer.toString(), "TTL");
      model.listStatements().toList().stream()
          .map(stmt -> Triple.builder().subject(stmt.getSubject().getURI()).predicate(stmt.getPredicate().getURI()).build())
-
          .forEach(triple ->{
            String queryWithParameters = queryStore.getQueryWithParameters("deleteTriples", Map.of("graph", defaultGraphUri,"triple", triple));
            sparqlClient.executeUpdateQuery(queryWithParameters);
          });
 
     sparqlClient.insertModel(defaultGraphUri, model);
+    Resource resource = metaModel.listSubjectsWithProperty(P_EDIT_FORM, ResourceFactory.createResource(request.getFormUri()))
+                                 .toList()
+                                 .stream().findFirst().orElseThrow(()-> new RuntimeException("unexpected error"));
+    return resource.getURI();
   }
 
 

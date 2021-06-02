@@ -1,10 +1,6 @@
 package mu.semte.ch.uriinfo.v2.app.service;
 
 import com.github.slugify.Slugify;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import mu.semte.ch.uriinfo.v2.app.FrontendVoc;
 import mu.semte.ch.uriinfo.v2.app.dto.ElementType;
@@ -27,13 +23,10 @@ import org.apache.jena.rdf.model.RDFNode;
 import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.rdf.model.ResourceFactory;
 import org.apache.jena.rdf.model.Statement;
-import org.apache.jena.util.SplitIRI;
 import org.apache.jena.vocabulary.RDF;
 import org.springframework.stereotype.Service;
 
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -84,6 +77,12 @@ public class UIBuilderService {
     return ui;
   }
 
+  public FrontendElement buildSelectedElement(String uri, String elementUri) {
+    String typeUri = uriInfoService.fetchType(uri);
+    Model metaModel = inMemoryTripleStoreService.getNamedModel(typeUri);
+    return buildElement(metaModel, uri, typeUri, elementUri);
+  }
+
 
   protected FrontendPage buildPage(Model metaModel, String uri, String typeUri, String currentPageMetaUri) {
     FrontendPage page = new FrontendPage();
@@ -109,6 +108,20 @@ public class UIBuilderService {
                          }).collect(Collectors.toList());
   }
 
+  private FrontendElement buildElement(Model metaModel,
+                                       String uri,
+                                       String typeUri,
+                                       String elementPartUri) {
+    Resource elementPart = ResourceFactory.createResource(elementPartUri);
+    Statement elementTypeStmt = metaModel.getRequiredProperty(elementPart, RDF.type);
+    ElementType elementType = ElementType.evaluateType(elementTypeStmt.getResource());
+    FrontendElement element = switch (elementType) {
+      case PANEL, CUSTOM -> this.buildPanel(metaModel, uri, typeUri, elementPart);
+      case TABLE -> this.buildTable(metaModel, uri, typeUri, elementPart);
+    };
+    return element;
+  }
+
   private List<FrontendElement> buildElements(Model metaModel,
                                               String uri,
                                               String typeUri,
@@ -117,15 +130,9 @@ public class UIBuilderService {
     var elementParts = metaModel.getList(elementsProp.getObject().asResource()).asJavaList();
     return elementParts.stream()
                        .map(RDFNode::asResource)
-                       .map(elementPart -> {
-                         Statement elementTypeStmt = metaModel.getRequiredProperty(elementPart, RDF.type);
-                         ElementType elementType = ElementType.evaluateType(elementTypeStmt.getResource());
-                         FrontendElement element = switch (elementType) {
-                           case PANEL, CUSTOM -> this.buildPanel(metaModel, uri, typeUri, elementPart);
-                           case TABLE -> this.buildTable(metaModel, uri, typeUri, elementPart);
-                         };
-                         return element;
-                       }).collect(Collectors.toList());
+                       .map(Resource::getURI)
+                       .map(elementPartUri -> this.buildElement(metaModel, uri, typeUri, elementPartUri))
+                       .collect(Collectors.toList());
   }
 
   private FrontendElement buildTable(Model metaModel,
@@ -133,6 +140,7 @@ public class UIBuilderService {
                                      String typeUri,
                                      Resource elementPart) {
     FrontendTable table = new FrontendTable();
+    table.setElementUri(elementPart.getURI());
     table.setOrdering(metaModel.getProperty(elementPart, P_ORDERING).getInt());
     table.setEditable(ofNullable(metaModel.getProperty(elementPart, P_EDITABLE)).map(Statement::getBoolean).orElse(false));
     Optional<List<RootSubjectType>> rootSubjectTypes = utilService.fetchSource(metaModel, elementPart, uri, typeUri);
@@ -155,6 +163,7 @@ public class UIBuilderService {
                                      String typeUri,
                                      Resource elementPart) {
     FrontendPanel panel = new FrontendPanel();
+    panel.setElementUri(elementPart.getURI());
     panel.setOrdering(metaModel.getProperty(elementPart, P_ORDERING).getInt());
     ofNullable(metaModel.getProperty(elementPart, P_EDIT_FORM)).map(Statement::getResource)
                                                                .map(Resource::getURI)
@@ -187,8 +196,6 @@ public class UIBuilderService {
                        return field;
                      }).collect(Collectors.toList());
   }
-
-
 
 
   protected List<FrontendMenuLink> buildMenu(Model metaModel, String pageUri) {

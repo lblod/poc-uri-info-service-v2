@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import lombok.extern.slf4j.Slf4j;
 import mu.semte.ch.lib.utils.ModelUtils;
 import mu.semte.ch.uriinfo.v2.app.FrontendVoc;
+import mu.semte.ch.uriinfo.v2.app.dto.FrontendElement;
 import mu.semte.ch.uriinfo.v2.app.dto.FrontendMenuLink;
 import mu.semte.ch.uriinfo.v2.app.dto.FrontendPanel;
 import mu.semte.ch.uriinfo.v2.app.dto.FrontendUI;
@@ -125,11 +126,14 @@ class UIBuilderServiceTest {
 
     FrontendForm form = this.uiFormService.buildForm(personUri, panel.getEditFormUri());
     var contactPoint = (ObjectNode)form.getSkeleton().get("contactPoint");
-    contactPoint.put("email", "xxx@tt.com");
+    contactPoint.put("email", "pp@tt.com");
     String resp = mapper.writeValueAsString(FrontendFormRequest.builder().formUri(form.getFormUri()).uri(form.getUri()).typeUri(form.getTypeUri()).skeleton(form.getSkeleton()).build());
     log.warn(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(form));
-    log.info("yata");
-    formService.persist(mapper.readValue(resp, FrontendFormRequest.class));
+    var panelUpdated = formService.persist(mapper.readValue(resp, FrontendFormRequest.class));
+
+    FrontendElement element = uiBuilderService.buildSelectedElement(form.getUri(), panelUpdated);
+
+    log.warn(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(element));
 
   }
 }

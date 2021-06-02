@@ -12,6 +12,7 @@ import java.util.List;
 @Builder(toBuilder = true)
 @Data
 public class FrontendTable implements FrontendElement  {
+  private String elementUri;
   private boolean editable;
   private int ordering;
   private List<FrontendTableRow> rows;

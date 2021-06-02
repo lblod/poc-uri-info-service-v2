@@ -12,6 +12,7 @@ import java.util.List;
 @Builder(toBuilder = true)
 @Data
 public class FrontendPanel implements FrontendElement {
+  private String elementUri;
   private boolean editable;
   private String editFormUri;
   private int ordering;
