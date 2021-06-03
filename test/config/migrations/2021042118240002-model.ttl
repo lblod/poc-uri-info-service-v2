@@ -437,12 +437,18 @@
   org:postIn <http://data.lblod.info/id/bestuursorgaan/f9a9d15c9f36ea7d4b9fa33a080ce6ed> ;
   org:role   <http://data.vlaanderen.be/id/concept/BestuursfunctieCode/67e6e585166cd97575b3e17ffc430a43> .
 
+<http://data.vlaanderen.be/id/concept/BestuursfunctieCode/67e6e585166cd97575b3e17ffc430a43> a skos:Concept ;
+        skos:prefLabel "Director".
+
 <http://data.lblod.info/id/mandaat/aefae003b2dc262ef5158427bcf40049>
   a          mandaat:Mandaat ;
   mu:uuid    "aefae003b2dc262ef5158427bcf40049"^^xsd:string ;
   org:heldBy <http://data.lblod.info/id/mandataris/5183706662e154bce6fdf227fb674c82> ;
   org:postIn <http://data.lblod.info/id/bestuursorgaan/efbc04780b1c937959a47e2621e9b47b> ;
   org:role   <http://data.vlaanderen.be/id/concept/BestuursfunctieCode/180d13930d6f1a3938e0aa7fa9990002> .
+
+<http://data.vlaanderen.be/id/concept/BestuursfunctieCode/180d13930d6f1a3938e0aa7fa9990002> a skos:Concept ;
+        skos:prefLabel "Secretaris".
 
 <http://data.lblod.info/id/mandaat/b0af18ee7e43e619ec04119e713aaaac>
   a          mandaat:Mandaat ;
@@ -462,11 +468,14 @@
   a                              mandaat:EredienstMandataris ;
   mandaat:isBestuurlijkeAliasVan <http://data.lblod.info/id/persoon/6b8d4055bf7f5b561d33e7d1cd452cad> ;
   mandaat:start                  "2018-07-15T00:00:00"^^xsd:dateTime ;
-  mandaat:status
-                                 <https://data.vlaanderen.be/id/concept/MandatarisStatusCode/21063a5b-912c-4241-841c-cc7fb3c73e75> ;
+  mandaat:status  <https://data.vlaanderen.be/id/concept/MandatarisStatusCode/21063a5b-912c-4241-841c-cc7fb3c73e75> ;
   mu:uuid                        "12bdecf9c0f59e025b98f9083d1a7e3f"^^xsd:string ;
   schema:contactPoint            <http://data.lblod.info/id/contactpunt/55137c6f77c3d60f57324e1317924c74> ;
   org:holds                      <http://data.lblod.info/id/mandaat/abb50e7884bcfee487c09a643a1cf35a> .
+
+
+<https://data.vlaanderen.be/id/concept/MandatarisStatusCode/21063a5b-912c-4241-841c-cc7fb3c73e75> a skos:Concept ;
+        skos:prefLabel "MandatarisStatusCode#1".
 
 <http://data.lblod.info/id/mandataris/1ce1d0fcc660eb0c7219b4eda69b93dd>
   a                              mandaat:EredienstMandataris ;
@@ -569,6 +578,7 @@
 <http://data.lblod.info/id/bestuursorgaan/efbc04780b1c937959a47e2621e9b47b>
   a                               besluit:Bestuursorgaan ;
   mandaat:bindingEinde            "2023-04-30T00:00:00"^^xsd:dateTime ;
+    skos:prefLabel                "Some bestuur";
   mandaat:bindingStart            "2020-07-11T00:00:00"^^xsd:dateTime ;
   mu:uuid                         "efbc04780b1c937959a47e2621e9b47b"^^xsd:string ;
   org:hasPost                     <http://data.lblod.info/id/mandaat/31f5b6419a31b61124d9ef6a54d5352c>,
