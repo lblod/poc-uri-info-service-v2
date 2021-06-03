@@ -1,6 +1,5 @@
 package mu.semte.ch.uriinfo.v2.app.service;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.taxonic.carml.engine.RmlMapper;
@@ -12,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import mu.semte.ch.lib.utils.ModelUtils;
 import mu.semte.ch.lib.utils.SparqlClient;
 import mu.semte.ch.lib.utils.SparqlQueryStore;
+import mu.semte.ch.uriinfo.v2.app.dto.form.FrontendForm;
 import mu.semte.ch.uriinfo.v2.app.dto.form.FrontendFormRequest;
 import mu.semte.ch.uriinfo.v2.app.dto.form.Triple;
 import org.apache.commons.io.IOUtils;
@@ -36,15 +36,17 @@ import static mu.semte.ch.uriinfo.v2.app.FrontendVoc.P_RML;
 @Slf4j
 public class FormService {
   private final InMemoryTripleStoreService inMemoryTripleStoreService;
+  private final UIFormService uiFormService;
   private final SparqlClient sparqlClient;
   private final SparqlQueryStore queryStore;
 
   @Value("${sparql.defaultGraphUri}")
   private String defaultGraphUri;
   public FormService(InMemoryTripleStoreService inMemoryTripleStoreService,
-                     SparqlClient sparqlClient,
+                     UIFormService uiFormService, SparqlClient sparqlClient,
                      SparqlQueryStore queryStore) {
     this.inMemoryTripleStoreService = inMemoryTripleStoreService;
+    this.uiFormService = uiFormService;
     this.sparqlClient = sparqlClient;
     this.queryStore = queryStore;
   }
@@ -53,15 +55,35 @@ public class FormService {
   public String persist(FrontendFormRequest request) {
     ObjectNode skeleton = request.getSkeleton();
     String source = new ObjectMapper().writeValueAsString(skeleton);
-    log.info(source);
     var metaModel = inMemoryTripleStoreService.getNamedModel(request.getTypeUri());
+
+    FrontendForm oldForm = uiFormService.buildForm(request.getUri(), request.getFormUri());
+
+    var oldTriples = mapRml(metaModel, oldForm.getFormUri(), new ObjectMapper().writeValueAsString(oldForm.getSkeleton()));
+
+    Model oldModel = ModelUtils.toModel(oldTriples, "TTL");
+    oldModel.listStatements().toList().stream()
+         .map(stmt -> Triple.builder().subject(stmt.getSubject().getURI()).predicate(stmt.getPredicate().getURI()).build())
+         .forEach(triple ->{
+           String queryWithParameters = queryStore.getQueryWithParameters("deleteTriples", Map.of("graph", defaultGraphUri,"triple", triple));
+           sparqlClient.executeUpdateQuery(queryWithParameters);
+     });
+    var newTriples = mapRml(metaModel, oldForm.getFormUri(), source);
+
+    sparqlClient.insertModel(defaultGraphUri, ModelUtils.toModel(newTriples, "TTL"));
+    Resource resource = metaModel.listSubjectsWithProperty(P_EDIT_FORM, ResourceFactory.createResource(request.getFormUri()))
+                                 .toList()
+                                 .stream().findFirst().orElseThrow(()-> new RuntimeException("unexpected error"));
+    return resource.getURI();
+  }
+
+
+  private String mapRml(Model metaModel, String formUri, String source){
     var rmlModel = ModelFactory.createDefaultModel();
-    metaModel.listObjectsOfProperty(ResourceFactory.createProperty(request.getFormUri()), P_RML)
+    metaModel.listObjectsOfProperty(ResourceFactory.createProperty(formUri), P_RML)
              .forEach(r-> UtilService.extractFromModel( r.asResource(), metaModel, rmlModel));
 
     String rmlMapping = ModelUtils.toString(rmlModel, Lang.TURTLE);
-
-    // rml
     var loader = RmlMappingLoader
             .build();
     var mapper = RmlMapper.newBuilder()
@@ -73,23 +95,7 @@ public class FormService {
     var result = mapper.map(mapping);
     StringWriter writer = new StringWriter();
     Rio.write(result, writer, RDFFormat.TURTLE);
-    log.info(writer.toString());
-
-    Model model = ModelUtils.toModel(writer.toString(), "TTL");
-     model.listStatements().toList().stream()
-         .map(stmt -> Triple.builder().subject(stmt.getSubject().getURI()).predicate(stmt.getPredicate().getURI()).build())
-         .forEach(triple ->{
-           String queryWithParameters = queryStore.getQueryWithParameters("deleteTriples", Map.of("graph", defaultGraphUri,"triple", triple));
-           sparqlClient.executeUpdateQuery(queryWithParameters);
-         });
-
-    sparqlClient.insertModel(defaultGraphUri, model);
-    Resource resource = metaModel.listSubjectsWithProperty(P_EDIT_FORM, ResourceFactory.createResource(request.getFormUri()))
-                                 .toList()
-                                 .stream().findFirst().orElseThrow(()-> new RuntimeException("unexpected error"));
-    return resource.getURI();
+    return writer.toString();
   }
-
-
 
 }

@@ -43,7 +43,6 @@ public class UriInfoService {
   public List<Map<String, String>> dynamicQuery(String rootSubject, String rootTypeUri, Map<String, String> variablesQuery) {
     String query = sparqlQueryStore.getQueryWithParameters("dynamicQuery", Map.of("rootSubject", rootSubject, "variables", variablesQuery, "typeUri", rootTypeUri));
 
-    log.info(query);
     return this.sparqlClient.executeSelectQuery(query, resultSet -> {
       List<Map<String, String>> res = new ArrayList<>();
       resultSet.forEachRemaining(querySolution -> {
@@ -66,7 +65,6 @@ public class UriInfoService {
   public List<Map<String, String>> fetchSource(String subject, String predicate, String type) {
     String query = sparqlQueryStore.getQueryWithParameters("fetchSource",
                                                            Map.of("subject", subject, "predicate", predicate, "type", type));
-    log.info(query);
     return this.sparqlClient.executeSelectQuery(query, resultSet -> {
       List<Map<String, String>> list = new LinkedList<>();
       resultSet.forEachRemaining(solution -> {

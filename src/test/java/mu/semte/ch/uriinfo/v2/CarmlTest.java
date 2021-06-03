@@ -36,7 +36,6 @@ public class CarmlTest {
     Model result = mapper.map(mapping);
     StringWriter writer = new StringWriter();
     Rio.write(result, writer, RDFFormat.TURTLE);
-    log.info(writer.toString());
 
   }
 }
