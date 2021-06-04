@@ -180,13 +180,13 @@
   schema:email     "bart.desmet@exapmle.com"^^xsd:string ;
   schema:telephone "0112030405"^^xsd:string ;
   locn:address     <http://data.lblod.info/id/adres/a9902a1bcefa4ca9c6196a3fe7923b29> .
-
-<http://data.lblod.info/id/contactpunt/e1635170b540ef2191e338f00e11fcbe>
-  a                schema:ContactPoint ;
-  mu:uuid          "e1635170b540ef2191e338f00e11fcbe"^^xsd:string ;
-  schema:email     "luuk.van-eylen@example.be"^^xsd:string ;
-  schema:telephone "011888888"^^xsd:string ;
-  locn:address     <http://data.lblod.info/id/adres/5183706662e154bce6fdf227fb674c82> .
+#
+#<http://data.lblod.info/id/contactpunt/e1635170b540ef2191e338f00e11fcbe>
+#  a                schema:ContactPoint ;
+#  mu:uuid          "e1635170b540ef2191e338f00e11fcbe"^^xsd:string ;
+#  schema:email     "luuk.van-eylen@example.be"^^xsd:string ;
+#  schema:telephone "011888888"^^xsd:string ;
+#  locn:address     <http://data.lblod.info/id/adres/5183706662e154bce6fdf227fb674c82> .
 
 <http://data.lblod.info/id/eredienstbestuursorgaan/2ac79cbe7cd6cbf15050747c07f495b9>
   a                ere:Eredienstbestuursorgaan ;

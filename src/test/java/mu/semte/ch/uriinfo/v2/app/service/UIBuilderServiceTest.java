@@ -127,7 +127,14 @@ class UIBuilderServiceTest {
     FrontendForm form = this.uiFormService.buildForm(personUri, panel.getEditFormUri());
     var contactPoint = (ObjectNode)form.getSkeleton().get("contactPoint");
     contactPoint.put("email", "audd@tt.com");
-    String resp = mapper.writeValueAsString(FrontendFormRequest.builder().formUri(form.getFormUri()).uri(form.getUri()).typeUri(form.getTypeUri()).skeleton(form.getSkeleton()).build());
+    FrontendFormRequest request = FrontendFormRequest.builder()
+                                                   .formUri(form.getFormUri())
+                                                   .uri(form.getUri())
+                                                   .typeUri(form.getTypeUri())
+                                                   .skeleton(form.getSkeleton())
+                                                   .build();
+    String resp = mapper.writeValueAsString(request);
+    log.info(resp);
     var panelUpdated = formService.persist(mapper.readValue(resp, FrontendFormRequest.class));
 
     FrontendElement element = uiBuilderService.buildSelectedElement(form.getUri(), panelUpdated);

@@ -2,6 +2,7 @@ package mu.semte.ch.uriinfo.v2.app.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 import mu.semte.ch.lib.utils.ModelUtils;
@@ -115,14 +116,21 @@ public class UIFormService {
         }
         var objectNode = (ObjectNode)skeleton.get(lastFieldProp);
 
-          List<Map<String, String>> response = uriInfoService.fetchSource(subject, source.getURI(), type);
-          Map<String, String> res = response.get(0);
-          subject = res.get("subject");
-          type = res.get("type");
+          if (StringUtils.isNotEmpty(subject)){
+            List<Map<String, String>> response = uriInfoService.fetchSource(subject, source.getURI(), type);
+            Optional<Map<String, String>> res = response.stream().findFirst();
+            if (res.isPresent()){
+              var r = res.get();
+              subject = r.get("subject");
+              type = r.get("type");
+            }else {
+              subject =null;
+            }
+          }
           objectNode.put("id", StringUtils.isNotEmpty(subject) ? SplitIRI.localname(subject): ModelUtils.uuid());
 
       }
-      RDFNode rdfNode = sources.getTail().get(0);
+      RDFNode rdfNode = Iterables.getLast(sources.asJavaList());
       var lastFieldProp = SplitIRI.localname(rdfNode.asResource().getURI());
 
       var objectNode = (ObjectNode)skeleton.get(lastFieldProp);

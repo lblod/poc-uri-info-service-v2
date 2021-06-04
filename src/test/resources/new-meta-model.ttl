@@ -80,8 +80,8 @@ ext:personlijke_gegevens_element_form
   a                   frontend:Form ;
   frontend:ordering "0"^^xsd:integer ;
   frontend:title      ( "Persoonlijke gegevens" ) ;
-  frontend:rml :person,:mandataris,:contactPoint;
-  frontend:formFields ( ext:familyName_form ext:givenName_form ext:email1_form) .
+  frontend:rml :person,:mandataris,:contactPoint,:adres;
+  frontend:formFields ( ext:familyName_form ext:givenName_form ext:email1_form ext:telephone1_form ext:address1_form) .
 
 ext:familyName_form
   a                  frontend:InputText ;
@@ -107,6 +107,24 @@ ext:email1_form
   frontend:source    ( mandaat:isAangesteldAls schema:contactPoint ) ;
   frontend:fields    ( schema:email  ) ;
   frontend:predicate schema:email  .
+
+ext:telephone1_form
+  a                  frontend:InputText ;
+  frontend:ordering  "2"^^xsd:integer ;
+  frontend:inputType frontend:Text ;
+  frontend:label     "Telephone" ;
+  frontend:source    ( mandaat:isAangesteldAls schema:contactPoint ) ;
+  frontend:fields    ( schema:telephone  ) ;
+  frontend:predicate schema:telephone  .
+
+ext:address1_form
+  a                  frontend:InputText ;
+  frontend:ordering  "2"^^xsd:integer ;
+  frontend:inputType frontend:Text ;
+  frontend:label     "Address" ;
+  frontend:source    ( mandaat:isAangesteldAls schema:contactPoint locn:address ) ;
+  frontend:fields    ( locn:fullAddress  ) ;
+  frontend:predicate locn:fullAddress  .
 
 #rml
 :person
@@ -148,30 +166,27 @@ ext:email1_form
                           rml:iterator             "$" ] ;
   rr:subjectMap         [ rr:template "http://data.lblod.info/id/contactpunt/{contactPoint.id}" ;
                           rr:class    schema:ContactPoint ] ;
+    rr:predicateObjectMap [ rr:predicate locn:address ;
+                            rr:objectMap [ rr:template "http://data.lblod.info/id/adres/{address.id}" ] ] ;
   rr:predicateObjectMap [ rr:predicate mu:uuid ;
                           rr:objectMap [ rml:reference "contactPoint.id" ] ] ;
+  rr:predicateObjectMap [ rr:predicate schema:telephone ;
+                          rr:objectMap [ rml:reference "contactPoint.telephone" ] ] ;
   rr:predicateObjectMap [ rr:predicate schema:email ;
                           rr:objectMap [ rml:reference "contactPoint.email" ] ] .
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+:adres
+  a                     rr:TriplesMap ;
+  rml:logicalSource     [ rml:source               [ a                carml:Stream ;
+                                                     carml:streamName "input" ; ] ;
+                            rml:referenceFormulation ql:JSONPath ;
+                            rml:iterator             "$" ] ;
+    rr:subjectMap         [ rr:template "http://data.lblod.info/id/adres/{address.id}" ;
+                            rr:class    locn:Address ] ;
+    rr:predicateObjectMap [ rr:predicate mu:uuid ;
+                            rr:objectMap [ rml:reference "address.id" ] ] ;
+    rr:predicateObjectMap [ rr:predicate locn:fullAddress ;
+                            rr:objectMap [ rml:reference "address.fullAddress"@nl ] ] .
 
 # second panel
 ext:contact_gegevens_organisatie_container
@@ -313,6 +328,12 @@ ext:posities_container
   frontend:ordering "0"^^xsd:integer ;
   frontend:title    ( "" ) ;
   frontend:elements ( ext:posities-table ) .
+
+
+
+
+
+
 
 ext:posities-table
   a                 frontend:Table ;
