@@ -504,7 +504,7 @@
   mandaat:status
                                  <https://data.vlaanderen.be/id/concept/MandatarisStatusCode/21063a5b-912c-4241-841c-cc7fb3c73e75> ;
   mu:uuid                        "5183706662e154bce6fdf227fb674c82"^^xsd:string ;
-  schema:contactPoint            <http://data.lblod.info/id/contactpunt/e1635170b540ef2191e338f00e11fcbe> ;
+ # schema:contactPoint            <http://data.lblod.info/id/contactpunt/e1635170b540ef2191e338f00e11fcbe> ;
   org:holds                      <http://data.lblod.info/id/mandaat/aefae003b2dc262ef5158427bcf40049> .
 
 <http://data.lblod.info/id/mandataris/562f5893769c97988e1d0269bb860ec8>

@@ -121,6 +121,7 @@ class UIBuilderServiceTest {
                             .filter(e -> e instanceof FrontendPanel)
                             .map(e -> (FrontendPanel) e)
                             .filter(p-> StringUtils.isNotEmpty(p.getEditFormUri()))
+                            .filter(p->"http://mu.semte.ch/vocabularies/ext/contact_gegevens_element_form".equals(p.getEditFormUri()))
                             .findFirst()
                             .orElseThrow(() -> new RuntimeException("no form found"));
 

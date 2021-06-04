@@ -22,8 +22,8 @@ public class InMemoryTripleStoreService {
 
   public void write(String nameUri, Model model) {
     try {
-      metaDatatabase.removeNamedModel(nameUri);
       metaDatatabase.begin(ReadWrite.WRITE);
+      metaDatatabase.removeNamedModel(nameUri);
       metaDatatabase.addNamedModel(nameUri, model);
       metaDatatabase.commit();
     }
